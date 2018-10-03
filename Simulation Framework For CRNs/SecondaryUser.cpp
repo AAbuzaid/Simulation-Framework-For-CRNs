@@ -19,14 +19,17 @@ SecondaryUser::~SecondaryUser()
 {
 }
 
-void SecondaryUser::scanningBands() //Band_Details &Bands
+void SecondaryUser::scanningBands(Band_Details &Bands)
 {
-	for (int i = 0; i < 10; i++) {
-		bool falseAlarm = (rand() % 100) < 10;
-		std::cout << falseAlarm;
-	}
-	/*if (Bands.isEmpty)
+	bool falseAlarm = (rand() % 100) < (PFA *100);
+	bool missDetection = (rand() % 100) < (PMD * 100);
+	
+	if (Bands.isEmpty()) //H0
 	{
-		
-	}*/
+		BandBeingScaned.push_back = Bands.bandNumber();
+		bool falseAlarmSimulation = true && falseAlarm;
+		if (!falseAlarmSimulation) {
+			Bands.Occupants();
+		}
+	}
 }
