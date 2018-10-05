@@ -1,18 +1,18 @@
 #include "Band_Details.h"
 
-bool ONorOFF(double);
+bool RandomOperation(double);
 
 Band_Details::Band_Details()
 {
 	ProbON = .1;
-	PUState = ONorOFF(ProbON);
+	PUState = RandomOperation(ProbON);
 
 }
 
 Band_Details::Band_Details(double ProbOn)
 {
 	ProbON = ProbOn;
-	PUState = ONorOFF(ProbON);
+	PUState = RandomOperation(ProbON);
 
 }
 
@@ -25,13 +25,13 @@ bool Band_Details::isEmpty()
 	return PUState;
 }
 
-bool ONorOFF(double ProbON)
+bool RandomOperation(double ProbOn)
 {
 	double RandomNum = double(rand()) / double(RAND_MAX);			//	Uniform random value between [0.0, 1.0]
-
-	if (RandomNum <= ProbON)
+	return (RandomNum <= ProbOn);		
+/*	if (RandomNum <= ProbOn)		^better	
 		return true;
 	else
 		return false;
-
+*/
 }

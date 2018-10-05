@@ -13,7 +13,7 @@ public:
 	void SUsTransmitting();		//All is well let's Tx
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
-	std::vector<int> SUsOccupantes;		//bands occupented by SU
+	std::vector<int> SUsOccupants;		//bands occupented by SU
 private:
 	int NumberOfBand;									
 	double PFA, PMD;													//probability of false alarm and missdetection
@@ -22,6 +22,6 @@ private:
 	int numMD;
 	std::vector<int> emptyBands;	// empty bands after sensing
 	unsigned int numOfBandsReqForSUs; //Number of bands for SUs 5-15
-	std::vector<int> SUsOccupantes;
+	std::vector<int> SUsOccupants;
 };
 
