@@ -19,30 +19,36 @@ SecondaryUser::~SecondaryUser()
 {
 }
 
-void SecondaryUser::scanningBands(Band_Details &Bands)
+void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
 {
-	bool falseAlarm = (rand() % 100) < (PFA *100);
+	bool falseAlarm = (rand() % 100) < (PFA * 100);
 	bool missDetection = (rand() % 100) < (PMD * 100);
-	BandBeingScaned.push_back = Bands.bandNumber();
-	if (Bands.isEmpty()) //H0
+	//BandBeingScaned.push_back = Bands.bandNumber();
+	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
-		bool falseAlarmSimulation = true && falseAlarm;
-
-		if (!falseAlarmSimulation) {
-			Bands.Occupying();
-		}
-		else
+		if (Bands[i].isEmpty()) //H0
 		{
-			NumFA++;
+			bool falseAlarmSimulation = true && falseAlarm; //probability of false alarm using and gate 
+			emptyBands.push_back(Bands[i].bandNumber());
+			if (falseAlarmSimulation) 				//there is false alarm
+				NumFA++;			//Increase false alarm
+		}
+		else	//H1
+		{
+			bool missDetectionSimulation = true && missDetection;
+			if (missDetectionSimulation)
+			{
+				emptyBands.push_back(Bands[i].bandNumber());
+				numMD++;
+			}
 		}
 	}
-	else	//H1
+}
+void SecondaryUser::SUsTransmitting()
+{
+	numOfBandsReqForSUs = 5 + (rand() % 10);	//number of su bands needed 5-15
+	for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)	//Su occupants the band
 	{
-		bool missDetectionSimulation = true && missDetection;
-		if (missDetectionSimulation)
-		{
-			numMD++;
-			Bands.Occupying();
-		}
+		SUsOccupantes[i] = emptyBands[(rand() % emptyBands.size())];	//occupanting is randomly 
 	}
 }
