@@ -9,9 +9,11 @@ SecondaryUser::SecondaryUser()
 	PMD = .1;
 }
 
-SecondaryUser::SecondaryUser(int PFA, int PMD, int NumberOfBandint)
+SecondaryUser::SecondaryUser(int PF_A, int PM_D, int NumberOfBandint)
 {
-
+	PFA = PF_A;
+	PMD = PM_D;
+	NumberOfBand = NumberOfBandint;
 }
 
 void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
@@ -24,7 +26,7 @@ void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
 		if (Bands[i].isEmpty()) //H0
 		{
 			bool falseAlarmSimulation = true && falseAlarm; //probability of false alarm using and gate 
-			emptyBands.push_back(Bands[i].bandNumber());
+			emptyBands.push_back(i);
 			if (falseAlarmSimulation) 				//there is false alarm
 				NumFA++;			//Increase false alarm
 		}
@@ -33,7 +35,7 @@ void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
 			bool missDetectionSimulation = true && missDetection;
 			if (missDetectionSimulation)
 			{
-				emptyBands.push_back(Bands[i].bandNumber());
+				emptyBands.push_back(i);
 				numMD++;
 			}
 		}
