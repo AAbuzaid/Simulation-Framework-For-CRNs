@@ -5,12 +5,19 @@
 int main()
 {
 	//Constant value which may change in the future
-	int NumberOfBand = 100;
+	int NumberOfBands = 100;
 	int NumberOfSUs = 6;
 	unsigned int timeSlot = 20000;
 	//For abdullah to write
+	std::vector<Band_Details> BandVector;
+	for (int i = 0; i <= NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
+	{
+		Band_Details *NewBand = new Band_Details;
+		BandVector[i] = *NewBand;
+	}
 
 	//To here
+
 	std::vector <SecondaryUser*> SU;		//SU vector which provied 6 SU6
 	SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
 	for (unsigned int T = 0; T < timeSlot; T++)

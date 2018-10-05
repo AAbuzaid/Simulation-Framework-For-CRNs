@@ -43,9 +43,9 @@ void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
 }
 void SecondaryUser::SUsTransmitting()
 {
-	numOfBandsReqForSUs = 5 + (rand() % 10);	//number of su bands needed 5-15
-	for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)	//Su occupants the band
+	numOfBandsReqForSUs = 5 + (rand() % 10);							//number of su bands needed 5-15
+	for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)				//Su occupants the band
 	{
-		SUsOccupantes[i] = emptyBands[(rand() % emptyBands.size())];	//occupanting is randomly 
+		SUsOccupants[i] = emptyBands[(rand() % emptyBands.size())];	//occupanting is randomly 
 	}
 }
