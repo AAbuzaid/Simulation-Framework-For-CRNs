@@ -24,12 +24,18 @@
     <ClCompile Include="Band_Details.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FusionCenter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SecondaryUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Band_Details.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FusionCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

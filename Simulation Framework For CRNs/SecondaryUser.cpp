@@ -14,11 +14,6 @@ SecondaryUser::SecondaryUser(int PFA, int PMD, int NumberOfBandint)
 
 }
 
-
-SecondaryUser::~SecondaryUser()
-{
-}
-
 void SecondaryUser::scanningBands(std::vector<Band_Details> &Bands)
 {
 	bool falseAlarm = (rand() % 100) < (PFA * 100);
