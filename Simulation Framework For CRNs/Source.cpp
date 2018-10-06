@@ -13,7 +13,7 @@ int main()
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details> BandVector;
-	for (int i = 0; i <= NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
+	for (int i = 0; i < NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
 	{
 		Band_Details *NewBand = new Band_Details;
 		BandVector[i] = *NewBand;
@@ -23,8 +23,8 @@ int main()
 
 	//To here
 	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
-	std::vector <SecondaryUser> SU;		//SU vector which provied 6 SU6
-	for (int i = 0; i < NumberOfSUs; i++)
+	std::vector <SecondaryUser> SU;		//SU vector with 10 SUs
+	for (int i = 0; i < NumberOfSUs; i++)				//Initializes a vector with NumberOfSUs elements
 	{
 		//SUPushing->scanningBands(BandVector); //Here I should enter the band vector that i should scan it (PU vector)
 		//SU.push_back(SUPushing);
@@ -34,7 +34,8 @@ int main()
 		SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
 		SU[i] = *SUPushing;
 	}
-	for (unsigned int T = 0; T < timeSlot; T++)
+
+	for (unsigned int T = 0; T < timeSlots; T++)
 	{
 		for (unsigned int i = 0; i < NumberOfSUs; i++)
 		{
