@@ -81,7 +81,7 @@ void FusionCenter::collision(const std::vector<int> &PU)
 				std::set_intersection(bandOccupanted[currentSU].begin(), bandOccupanted[currentSU].end(),
 					bandOccupanted[SUN].begin(), bandOccupanted[SUN].end(), std::back_inserter(temp));
 			collisionVsSuN[currentSU] = temp.size();
-			
+			//To be cont...
 
 		}
 		
