@@ -70,3 +70,20 @@ void FusionCenter::bandsOccupantedBySU(const std::vector<int> &suBand)
 	}*/
 	bandOccupanted[SuId] = suBand;
 }
+void FusionCenter::collision(const std::vector<int> &PU)
+{
+	std::vector<int> temp;
+	for (int currentSU = 0; currentSU < NumberOfSUs; currentSU++)
+	{
+		for (int SUN = 0; SUN < NumberOfSUs; SUN++)
+		{
+			if (SUN != currentSU)
+				std::set_intersection(bandOccupanted[currentSU].begin(), bandOccupanted[currentSU].end(),
+					bandOccupanted[SUN].begin(), bandOccupanted[SUN].end(), std::back_inserter(temp));
+			collisionVsSuN[currentSU] = temp.size();
+			
+
+		}
+		
+	}
+}

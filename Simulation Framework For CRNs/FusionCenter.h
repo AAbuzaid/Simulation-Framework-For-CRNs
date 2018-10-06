@@ -1,5 +1,8 @@
 #pragma once
 #include<vector>
+#include"Band_Details.h"
+#include<algorithm>
+#include<iterator>
 class FusionCenter
 {
 public:
@@ -8,6 +11,7 @@ public:
 	void getSUsIds(int ID);
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
 	void bandsOccupantedBySU(const std::vector<int> &suBand);
+	void collision(const std::vector<int> &PU);	//return int vector of collision vs su
 
 private:
 	int SuId;
@@ -18,5 +22,7 @@ private:
 	int maxSUsband;
 	std::vector<std::vector<int>> emptyBands;
 	std::vector<std::vector<int>> bandOccupanted;
+	std::vector<int> collisionVsSuN;
+	
 };
 

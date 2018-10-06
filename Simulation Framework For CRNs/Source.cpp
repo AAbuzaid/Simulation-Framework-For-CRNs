@@ -7,15 +7,18 @@ int main()
 {
 	//Constant value which may change in the future
 	int NumberOfBands = 100;
-	int NumberOfSUs = 6;
+	int NumberOfSUs = 10;
 	unsigned int timeSlot = 20000;
 	int MaxSuBand = 15;
+	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details> BandVector;
 	for (int i = 0; i <= NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
 	{
 		Band_Details *NewBand = new Band_Details;
 		BandVector[i] = *NewBand;
+		if (!BandVector[i].isEmpty)
+			bandOccByPus.push_back(i);
 	}
 
 	//To here
@@ -38,8 +41,10 @@ int main()
 			SU[i].scanningBands(BandVector);
 			FC.getSUsIds(i);
 			FC.getEmptyBands(SU[i].emptyBands);
+			SU[i].SUsTransmitting();
 			FC.bandsOccupantedBySU(SU[i].SUsOccupants);
 		}
+		FC.collision(bandOccByPus);					//bands thats contain PUs
 
 	}
 	//Here for preformace calculation
