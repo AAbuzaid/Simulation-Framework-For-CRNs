@@ -7,7 +7,7 @@ public:
 	~FusionCenter();
 	void getSUsIds(int ID);
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
-	void bandsOccupantedBySU(const std::vector<int> &suBand);
+	void bandsOccupiedBySU(const std::vector<int> &suBand);
 
 private:
 	int SuId;

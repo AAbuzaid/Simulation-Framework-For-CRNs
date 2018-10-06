@@ -57,7 +57,7 @@ void FusionCenter::getEmptyBands(const std::vector<int> &Bands)
 	emptyBands[SuId] = Bands;
 
 }
-void FusionCenter::bandsOccupantedBySU(const std::vector<int> &suBand)
+void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 {
 	/*for (int col = 0; col < maxSUsband; col++)
 	{
