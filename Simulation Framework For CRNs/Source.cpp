@@ -1,6 +1,7 @@
 #include "Band_Details.h"
 #include "SecondaryUser.h"
 #include "FusionCenter.h"
+#include "Preformance.h"
 
 int main()
 {
@@ -8,6 +9,7 @@ int main()
 	int NumberOfBands = 100;
 	int NumberOfSUs = 6;
 	unsigned int timeSlot = 20000;
+	int MaxSuBand = 15;
 	//For abdullah to write
 	std::vector<Band_Details> BandVector;
 	for (int i = 0; i <= NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
@@ -17,18 +19,31 @@ int main()
 	}
 
 	//To here
-
-	std::vector <SecondaryUser*> SU;		//SU vector which provied 6 SU6
-	SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
+	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
+	std::vector <SecondaryUser> SU;		//SU vector which provied 6 SU6
+	for (int i = 0; i < NumberOfSUs; i++)
+	{
+		//SUPushing->scanningBands(BandVector); //Here I should enter the band vector that i should scan it (PU vector)
+		//SU.push_back(SUPushing);
+		//FC.getSUsIds(i);
+		//FC.getEmptyBands(SU[i]->emptyBands);
+		//FC.bandsOccupantedBySU(SU[i]->SUsOccupants);
+		SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
+		SU[i] = *SUPushing;
+	}
 	for (unsigned int T = 0; T < timeSlot; T++)
 	{
-		for (int i = 1; i <= NumberOfSUs; i++)
+		for (unsigned int i = 0; i < NumberOfSUs; i++)
 		{
-			SUPushing->scanningBands(Band_Details BandVector); //Here I should enter the band vector that i should scan it (PU vector)
-			SU.push_back(SUPushing);
+			SU[i].scanningBands(BandVector);
+			FC.getSUsIds(i);
+			FC.getEmptyBands(SU[i].emptyBands);
+			FC.bandsOccupantedBySU(SU[i].SUsOccupants);
 		}
 
 	}
+	//Here for preformace calculation
+	Preformance result(SU);
 	system("pause");
 	return 0;
 }

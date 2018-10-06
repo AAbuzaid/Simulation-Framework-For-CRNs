@@ -19,10 +19,8 @@ private:
 	int NumberOfBand;									
 	double PFA, PMD;													//probability of false alarm and missdetection
 	//std::vector<int> BandBeingScaned;									//Band Being scanned for SUs and PUs
-	int NumFA;
-	int numMD;
-	std::vector<int> emptyBands;	// empty bands after sensing
+	std::vector<int> NumFA;
+	std::vector<int> numMD;
 	unsigned int numOfBandsReqForSUs; //Number of bands for SUs 5-15
-	std::vector<int> SUsOccupants;
 };
 

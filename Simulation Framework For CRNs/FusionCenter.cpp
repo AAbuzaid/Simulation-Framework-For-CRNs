@@ -69,6 +69,4 @@ void FusionCenter::bandsOccupantedBySU(const std::vector<int> &suBand)
 		}
 	}*/
 	bandOccupanted[SuId] = suBand;
-	
-	
 }
