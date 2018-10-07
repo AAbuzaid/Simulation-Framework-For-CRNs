@@ -20,7 +20,7 @@ Band_Details::~Band_Details()
 {
 }
 
-bool Band_Details::isEmpty()
+bool Band_Details::isEmpty() const
 {
 	return PUState;
 }

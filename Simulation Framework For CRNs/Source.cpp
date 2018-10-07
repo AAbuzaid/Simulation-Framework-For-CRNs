@@ -17,7 +17,7 @@ int main()
 	{
 		Band_Details *NewBand = new Band_Details;
 		BandVector[i] = *NewBand;
-		if (!BandVector[i].isEmpty)
+		if (!BandVector[i].isEmpty())
 			bandOccByPus.push_back(i);
 	}
 
@@ -35,7 +35,7 @@ int main()
 		SU[i] = *SUPushing;
 	}
 
-	for (unsigned int T = 0; T < timeSlots; T++)
+	for (unsigned int T = 0; T < timeSlot; T++)
 	{
 		for (unsigned int i = 0; i < NumberOfSUs; i++)
 		{
@@ -45,7 +45,7 @@ int main()
 			SU[i].SUsTransmitting();
 			FC.bandsOccupantedBySU(SU[i].SUsOccupants);
 		}
-		FC.collision(bandOccByPus);					//bands thats contain PUs
+		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
 
 	}
 	//Here for preformace calculation

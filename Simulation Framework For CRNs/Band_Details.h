@@ -6,8 +6,8 @@ class Band_Details
 public:
 	Band_Details();
 	Band_Details(double ProbON);
-	bool isEmpty();
-
+	bool isEmpty() const;
+	std::vector<int> SuOccupants;
 
 	~Band_Details();
 private:
