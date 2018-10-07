@@ -13,7 +13,7 @@ public:
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
 	void bandsOccupantedBySU(const std::vector<int> &suBand);
 	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants);	//return int vector of collision vs su
-
+	void majority();
 private:
 	int SuId;
 	//int **emptyBands;
@@ -25,5 +25,6 @@ private:
 	std::vector<std::vector<int>> bandOccupanted;
 	std::vector<int> collisionVsSuN; //this vector for su vs collision
 	bool appearsInVector(const int value , const std::vector<int> &searchIn);
+	std::vector<int> majorityBands;
 };
 

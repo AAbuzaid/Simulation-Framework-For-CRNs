@@ -1,5 +1,5 @@
 #include "FusionCenter.h"
-
+#include 
 
 FusionCenter::FusionCenter(int SusN , int Nbands , int SUbandMax)
 	:emptyBands(SusN, std::vector<int>(0)) , 
@@ -100,7 +100,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 		}
 	}
 }
-bool FusionCenter::appearsInVector(const int value, const std::vector<int> &searchIn)
+bool FusionCenter::appearsInVector(const int value, const std::vector<int> &searchIn) //to find if the value in the vector
 {
 	
 		for (int i = 0; i < searchIn.size(); i++)
@@ -110,4 +110,24 @@ bool FusionCenter::appearsInVector(const int value, const std::vector<int> &sear
 		}
 		return false; // no matches found
 	
+}
+void FusionCenter::majority()	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
+{
+	std::vector<int> vectoria;	//temp vector
+	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands 
+	{
+		for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
+		{
+			if (std::find(emptyBands[SUN].begin(), emptyBands[SUN].end(), bandN) != emptyBands[SUN].end())
+			{	//inter in here if the band is says empty by SUN
+				vectoria[bandN]++; //how much SU says the band is empty 
+
+			}
+			else
+				vectoria[bandN]--; //how much one says it is not empty 
+		}
+		if (vectoria[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
+			majorityBands.push_back(bandN); //this band is empty by majority rule
+	}
+
 }
