@@ -27,8 +27,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 	{
 		if (Bands[i].isEmpty()) //H0
 		{
-			bool falseAlarmSimulation = true && falseAlarm; //probability of false alarm using and gate 
-			if (falseAlarmSimulation) 				//there is false alarm
+			//bool falseAlarmSimulation = true && falseAlarm; //probability of false alarm using and gate 
+			if (falseAlarm) 				//there is false alarm
 				NumFA[i]++;		//Increase false alarm
 			else
 				emptyBands.push_back(i);
@@ -36,11 +36,11 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 		else	//H1
 		{
 
-			bool missDetectionSimulation = true && missDetection;
-			if (missDetectionSimulation)
+			//bool missDetectionSimulation = true && missDetection;
+			if (missDetection)
 			{
 				emptyBands.push_back(i);
-				numMD[i] = numMD[i]++;
+				numMD[i]++;
 			}
 		}
 	}

@@ -37,6 +37,12 @@ int main()
 
 	for (unsigned int T = 0; T < timeSlot; T++)
 	{
+		for (int i = 0; i < NumberOfBands; i++)
+		{
+			bool newState = (double(rand()) / double(RAND_MAX)) <= BandVector[i].getProbON();		//Randomizes SUState each timeSlot
+			if (!BandVector[i].isEmpty())
+				bandOccByPus.push_back(i);
+		}
 		for (unsigned int i = 0; i < NumberOfSUs; i++)
 		{
 			SU[i].scanningBands(BandVector);
@@ -48,7 +54,7 @@ int main()
 		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
 
 	}
-	//Here for preformace calculation
+	//Here for preformance calculation
 	Preformance result(SU);
 	system("pause");
 	return 0;
