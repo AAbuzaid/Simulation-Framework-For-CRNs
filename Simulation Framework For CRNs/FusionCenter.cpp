@@ -1,5 +1,4 @@
 #include "FusionCenter.h"
-#include 
 
 FusionCenter::FusionCenter(int SusN , int Nbands , int SUbandMax)
 	:emptyBands(SusN, std::vector<int>(0)) , 
