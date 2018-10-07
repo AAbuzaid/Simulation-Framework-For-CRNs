@@ -1,8 +1,9 @@
 #include "FusionCenter.h"
 
-FusionCenter::FusionCenter(int SusN , int Nbands , int SUbandMax)
-	:emptyBands(SusN, std::vector<int>(0)) , 
-	bandOccupanted(SusN, std::vector<int>(0))
+FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax)
+	:emptyBands(SusN, std::vector<int>(0)),
+	bandOccupied(SusN, std::vector<int>(0)),
+	collisionVsSuN(SusN, 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
@@ -56,7 +57,7 @@ void FusionCenter::getEmptyBands(const std::vector<int> &Bands)
 	emptyBands[SuId] = Bands;
 
 }
-void FusionCenter::bandsOccupantedBySU(const std::vector<int> &suBand)
+void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 {
 	/*for (int col = 0; col < maxSUsband; col++)
 	{
@@ -67,7 +68,7 @@ void FusionCenter::bandsOccupantedBySU(const std::vector<int> &suBand)
 			break;
 		}
 	}*/
-	bandOccupanted[SuId] = suBand;
+	bandOccupied[SuId] = suBand;
 }
 void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails)
 {
@@ -112,7 +113,7 @@ bool FusionCenter::appearsInVector(const int value, const std::vector<int> &sear
 }
 void FusionCenter::majority()	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
 {
-	std::vector<int> vectoria;	//temp vector
+	std::vector<int> vectoria(NumberOfBands , 0);	//temp vector
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands 
 	{
 		for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
@@ -129,4 +130,25 @@ void FusionCenter::majority()	//this class find what band is empty by majority r
 			majorityBands.push_back(bandN); //this band is empty by majority rule
 	}
 
+}
+
+void FusionCenter::clearVectors()
+{
+	for (int i = 0; i < emptyBands.size(); i++)
+		emptyBands[i].clear();
+	for (int i = 0; i < bandOccupied.size(); i++)
+		bandOccupied[i].clear();
+	majorityBands.clear();
+}
+void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand)
+{
+	int sumOfElement = 0;
+	sumOfElement = std::accumulate(FAvsBand.begin(), FAvsBand.end(), 0);
+	FaVsSUId.push_back(sumOfElement);
+}
+void FusionCenter::misDetection(const std::vector<int> &MDvsBand) 
+{
+	int sumOfElement = 0;
+	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
+	MdVsSUId.push_back(sumOfElement);
 }

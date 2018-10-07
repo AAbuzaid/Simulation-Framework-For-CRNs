@@ -26,21 +26,19 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
 		if (Bands[i].isEmpty()) //H0
-		{
-			bool falseAlarmSimulation = true && falseAlarm; //probability of false alarm using and gate 
-			if (falseAlarmSimulation) 				//there is false alarm
-				NumFA[i]++;		//Increase false alarm
+		{ 
+			if (falseAlarm) 				//there is false alarm
+				NumFA[i]++;		//number of false alarm vs band
 			else
-				emptyBands.push_back(i);
+				emptyBands.push_back(i); 
 		}
 		else	//H1
 		{
 
-			bool missDetectionSimulation = true && missDetection;
-			if (missDetectionSimulation)
+			if (missDetection)
 			{
 				emptyBands.push_back(i);
-				numMD[i] = numMD[i]++;
+				numMD[i]++; //number of misdetection vs band
 			}
 		}
 	}
@@ -52,4 +50,9 @@ void SecondaryUser::SUsTransmitting()
 	{
 		SUsOccupants[i] = emptyBands[(rand() % emptyBands.size())];	//occupanting is randomly 
 	}
+}
+void SecondaryUser::emptyAllResult() {
+	emptyBands.clear();
+	SUsOccupants.clear();
+	
 }

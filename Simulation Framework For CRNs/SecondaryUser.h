@@ -12,16 +12,18 @@ public:
 	void scanningBands(const std::vector<Band_Details> &Bands);	//this function scan for empty bands and store them 
 															//in vector BandBeingScanned
 	void SUsTransmitting();		//All is well let's Tx		
+	void emptyAllResult();
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUsOccupants;		//bands occupented by SU
+	std::vector<int> NumFA;
+	std::vector<int> numMD;
 	
 private:
 	int NumberOfBand;									
 	double PFA, PMD;													//probability of false alarm and missdetection
 	//std::vector<int> BandBeingScaned;									//Band Being scanned for SUs and PUs
-	std::vector<int> NumFA;
-	std::vector<int> numMD;
+	
 	unsigned int numOfBandsReqForSUs; //Number of bands for SUs 5-15
 };
 

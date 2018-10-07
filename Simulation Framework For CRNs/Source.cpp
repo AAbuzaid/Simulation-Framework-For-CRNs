@@ -1,7 +1,7 @@
 #include "Band_Details.h"
 #include "SecondaryUser.h"
 #include "FusionCenter.h"
-#include "Preformance.h"
+#include "Performance.h"
 
 int main()
 {
@@ -43,13 +43,24 @@ int main()
 			FC.getSUsIds(i);
 			FC.getEmptyBands(SU[i].emptyBands);
 			SU[i].SUsTransmitting();
-			FC.bandsOccupantedBySU(SU[i].SUsOccupants);
+			FC.bandsOccupiedBySU(SU[i].SUsOccupants);
+			//clear all vector
+			SU[i].emptyAllResult();
+			SU[i].NumFA;
 		}
 		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
-
+		FC.majority();
+		FC.clearVectors();
+	}
+	for (unsigned int i = 0; i < NumberOfSUs; i++)
+	{
+		FC.falseAlarm(SU[i].NumFA);
+		FC.falseAlarm(SU[i].numMD);
+			
 	}
 	//Here for preformace calculation
-	Preformance result(SU);
+	Performance result;
+	result.calculatePFA(FC.FaVsSUId);
 	system("pause");
 	return 0;
 }

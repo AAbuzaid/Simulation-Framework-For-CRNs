@@ -27,7 +27,7 @@
     <ClCompile Include="FusionCenter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Preformance.cpp">
+    <ClCompile Include="Performance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="FusionCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Preformance.h">
+    <ClInclude Include="Performance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -117,14 +117,14 @@
   <ItemGroup>
     <ClCompile Include="Band_Details.cpp" />
     <ClCompile Include="FusionCenter.cpp" />
-    <ClCompile Include="Preformance.cpp" />
+    <ClCompile Include="Performance.cpp" />
     <ClCompile Include="SecondaryUser.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Band_Details.h" />
     <ClInclude Include="FusionCenter.h" />
-    <ClInclude Include="Preformance.h" />
+    <ClInclude Include="Performance.h" />
     <ClInclude Include="SecondaryUser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
