@@ -41,7 +41,7 @@ int main()
 		{
 			bool newState = (double(rand()) / double(RAND_MAX)) <= BandVector[i].getProbON();		//Randomizes SUState each timeSlot
 			if (!BandVector[i].isEmpty())
-				bandOccByPus.push_back(i);
+				bandOccByPus.push_back(i);			//remove State from constructor
 		}
 		for (unsigned int i = 0; i < NumberOfSUs; i++)
 		{
@@ -52,21 +52,21 @@ int main()
 			FC.bandsOccupiedBySU(SU[i].SUsOccupants);
 			//clear all vector
 			SU[i].emptyAllResult();
-			SU[i].NumFA;
 		}
 		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
+
 		FC.majority();
 		FC.clearVectors();
+		bandOccByPus.clear();
 	}
 	for (unsigned int i = 0; i < NumberOfSUs; i++)
 	{
 		FC.falseAlarm(SU[i].NumFA);
-		FC.falseAlarm(SU[i].numMD);
-			
+		FC.misDetection(SU[i].numMD);
 	}
 	//Here for preformace calculation
-	Performance result;
-	result.calculatePFA(FC.FaVsSUId);
+	Performance result(timeSlot);
+	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
 	system("pause");
 	return 0;
 }

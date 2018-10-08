@@ -21,6 +21,7 @@ public:
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
+	std::vector<int> utilizationVsBand;
 private:
 	int SuId;
 	//int **emptyBands;

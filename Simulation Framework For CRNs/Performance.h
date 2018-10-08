@@ -1,13 +1,18 @@
 #pragma once
 #include<vector>
 #include"SecondaryUser.h"
+#include <fstream>
+#include <algorithm>
+#include<iterator>
 class Performance
 {
 public:
-	Performance();
+	Performance(int timeSlot);
 	~Performance() {};
-	void calculatePFA(const std::vector<int> &PFAvsSU);
+	void outputFAFile(const std::vector<int> &PFAvsSU);
 
 	std::vector<int> PFA;
+private:
+	int timeS;
 };
 
