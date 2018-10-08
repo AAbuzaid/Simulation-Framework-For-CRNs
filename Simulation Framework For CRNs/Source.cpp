@@ -62,7 +62,7 @@ int main()
 		FC.falseAlarm(SU[i].NumFA);
 		FC.misDetection(SU[i].numMD);
 	}
-	//Here for preformace calculation
+	//Here for preformance calculation
 	Performance result(timeSlot);
 	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
 	system("pause");
