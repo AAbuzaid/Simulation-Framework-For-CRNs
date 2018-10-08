@@ -31,7 +31,7 @@ bool Band_Details::isEmpty() const
 
 void Band_Details::randomPUState()
 {
-	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;
+	PUState = (double(rand()) / double(RAND_MAX)) > ProbON;
 }
 
 bool Band_Details::getProbON() const
