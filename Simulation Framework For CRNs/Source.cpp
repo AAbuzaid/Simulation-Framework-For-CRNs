@@ -17,8 +17,6 @@ int main()
 	{
 		Band_Details *NewBand = new Band_Details;
 		BandVector[i] = *NewBand;
-		if (!BandVector[i].isEmpty())
-			bandOccByPus.push_back(i);
 	}
 
 	//To here
@@ -39,16 +37,16 @@ int main()
 	{
 		for (int i = 0; i < NumberOfBands; i++)
 		{
-			bool newState = (double(rand()) / double(RAND_MAX)) <= BandVector[i].getProbON();		//Randomizes SUState each timeSlot
+			BandVector[i].randomPUState();		//Randomizes PUState each timeSlot
 			if (!BandVector[i].isEmpty())
 				bandOccByPus.push_back(i);
 		}
-		for (unsigned int i = 0; i < NumberOfSUs; i++)
+		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			SU[i].scanningBands(BandVector);
 			FC.getSUsIds(i);
 			FC.getEmptyBands(SU[i].emptyBands);
-			SU[i].SUsTransmitting();
+			SU[i].SUsTransmitting(BandVector);
 			FC.bandsOccupiedBySU(SU[i].SUsOccupants);
 			//clear all vector
 			SU[i].emptyAllResult();
@@ -58,7 +56,7 @@ int main()
 		FC.majority();
 		FC.clearVectors();
 	}
-	for (unsigned int i = 0; i < NumberOfSUs; i++)
+	for (int i = 0; i < NumberOfSUs; i++)
 	{
 		FC.falseAlarm(SU[i].NumFA);
 		FC.falseAlarm(SU[i].numMD);

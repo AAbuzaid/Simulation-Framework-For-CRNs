@@ -43,12 +43,14 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 		}
 	}
 }
-void SecondaryUser::SUsTransmitting()
+void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands)
 {
-	numOfBandsReqForSUs = 5 + (rand() % 10);							//number of su bands needed 5-15
-	for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)				//Su occupants the band
+	numOfBandsReqForSUs = 5 + (rand() % 10);							// Number of su bands needed 5-15
+	for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 	{
-		SUsOccupants[i] = emptyBands[(rand() % emptyBands.size())];	//occupanting is randomly 
+		int randomBand = (rand() % emptyBands.size());
+		SUsOccupants[i] = emptyBands[randomBand];						// Assigning is random
+		Bands[randomBand].setOccupants(i);								// Save which SUs are using a specific band
 	}
 }
 void SecondaryUser::emptyAllResult() {

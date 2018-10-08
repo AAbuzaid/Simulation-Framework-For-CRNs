@@ -14,6 +14,11 @@ Band_Details::Band_Details(double ProbOn)
 	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;
 }
 
+void Band_Details::setOccupants(unsigned int i)
+{
+	Occupants.push_back(i);
+}
+
 Band_Details::~Band_Details()
 {
 }
@@ -21,6 +26,11 @@ Band_Details::~Band_Details()
 bool Band_Details::isEmpty() const
 {
 	return PUState;
+}
+
+void Band_Details::randomPUState()
+{
+	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;
 }
 
 bool Band_Details::getProbON() const
