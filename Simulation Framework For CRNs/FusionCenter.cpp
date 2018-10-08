@@ -88,6 +88,10 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 	}*/
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan for bands in which there is more than one SU collision
 	{
+		//if (std::find(bandDetails[bandN].SuOccupants.begin(), //scan the band if there is any SU 
+			//bandDetails[bandN].SuOccupants.end(), bandN) != bandDetails[bandN].SuOccupants.end())
+		if(!bandDetails[bandN].SuOccupants.empty())
+			utilizationVsBand[bandN]++; //calculate utilization VS band
 		if (bandDetails[bandN].SuOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
 			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SuOccupants.empty())//or there is one su and pu
 		{
