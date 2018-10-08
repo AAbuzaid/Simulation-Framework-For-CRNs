@@ -12,16 +12,17 @@ int main()
 	int MaxSuBand = 15;
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
-	std::vector<Band_Details> BandVector;
+	std::vector<Band_Details*> BandVector;
 	for (int i = 0; i < NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
 	{
 		Band_Details *NewBand = new Band_Details;
-		BandVector[i] = *NewBand;
+		
+		BandVector.push_back(NewBand);
 	}
 
 	//To here
 	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
-	std::vector <SecondaryUser> SU;		//SU vector with 10 SUs
+	std::vector <SecondaryUser*> SU;		//SU vector with 10 SUs
 	for (int i = 0; i < NumberOfSUs; i++)				//Initializes a vector with NumberOfSUs elements
 	{
 		//SUPushing->scanningBands(BandVector); //Here I should enter the band vector that i should scan it (PU vector)
@@ -30,26 +31,26 @@ int main()
 		//FC.getEmptyBands(SU[i]->emptyBands);
 		//FC.bandsOccupantedBySU(SU[i]->SUsOccupants);
 		SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
-		SU[i] = *SUPushing;
+		SU.push_back(SUPushing);
 	}
-
 	for (unsigned int T = 0; T < timeSlot; T++)
 	{
 		for (int i = 0; i < NumberOfBands; i++)
 		{
-			BandVector[i].randomPUState();		//Randomizes PUState each timeSlot
-			if (!BandVector[i].isEmpty())
+			BandVector[i]->randomPUState();		//Randomizes PUState each timeSlot
+			if (!BandVector[i]->isEmpty())
 				bandOccByPus.push_back(i);			//remove State from constructor
 		}
+		std::cout << std::endl;
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
-			SU[i].scanningBands(BandVector);
+			SU[i]->scanningBands(BandVector);
 			FC.getSUsIds(i);
-			FC.getEmptyBands(SU[i].emptyBands);
-			SU[i].SUsTransmitting(BandVector);
-			FC.bandsOccupiedBySU(SU[i].SUsOccupants);
+			FC.getEmptyBands(SU[i]->emptyBands);
+			SU[i]->SUsTransmitting(BandVector);
+			FC.bandsOccupiedBySU(SU[i]->SUsOccupants);
 			//clear all vector
-			SU[i].emptyAllResult();
+			SU[i]->emptyAllResult();
 		}
 		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
 
@@ -59,8 +60,8 @@ int main()
 	}
 	for (int i = 0; i < NumberOfSUs; i++)
 	{
-		FC.falseAlarm(SU[i].NumFA);
-		FC.misDetection(SU[i].numMD);
+		FC.falseAlarm(SU[i]->NumFA);
+		FC.misDetection(SU[i]->numMD);
 	}
 	//Here for preformance calculation
 	Performance result(timeSlot);
