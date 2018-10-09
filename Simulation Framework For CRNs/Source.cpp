@@ -2,24 +2,27 @@
 #include "SecondaryUser.h"
 #include "FusionCenter.h"
 #include "Performance.h"
+#include <time.h>
 
 int main()
 {
+	clock_t start, end, duration;
 	//Constant value which may change in the future
+	start = clock();
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
 	double timeSlot = 20000;
 	int MaxSuBand = 15;
 	double PFA = .1;
 	double PMD = .1;
+	double PPU = .1; //prob of PU
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details*> BandVector;
 	for (int i = 0; i < NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
 	{
-		Band_Details *NewBand = new Band_Details;
+		Band_Details *NewBand = new Band_Details(PPU);
 		BandVector.push_back(NewBand);
-		std::cout << BandVector[i]->getProbON();
 	}
 
 	//To here
@@ -75,6 +78,10 @@ int main()
 	result.outputCollision(FC.collisionVsSuN);
 	result.outputUtilization(FC.utilizationVsBand);
 	result.outputThroughput(FC.throughput);
+
+	end = clock();
+	duration = (double)(end - start) / CLOCKS_PER_SEC;
+	printf("Decoding time = %d\n", duration);
 	system("pause");
 	return 0;
 }

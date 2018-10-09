@@ -18,6 +18,7 @@ void Performance::outputFAFile(const std::vector<int> &PFAvsSU)
 	outputFileFAvsSUid.open("PFA_VS_SUID_FOR_ALLBANDs.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
 }
 void Performance::outputMDFile(const std::vector<int> &MDvsSU)
 {
@@ -29,7 +30,7 @@ void Performance::outputMDFile(const std::vector<int> &MDvsSU)
 	outputFileFAvsSUid.open("PMD_VS_SUID_FOR_ALLBANDs.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
-
+	outputFileFAvsSUid.close();
 }
 void Performance::outputCollision(const std::vector<int> &Collision)
 {
@@ -41,6 +42,7 @@ void Performance::outputCollision(const std::vector<int> &Collision)
 	outputFileFAvsSUid.open("Collision_VS_SUID_FOR_ALLBANDs.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
 }
 void Performance::outputUtilization(const std::vector<int> &utilization)
 {
@@ -52,6 +54,7 @@ void Performance::outputUtilization(const std::vector<int> &utilization)
 	outputFileFAvsSUid.open("Utilization_VS_BAND_FOR_ALLSUs.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
 }
 void Performance::outputThroughput(const std::vector<int> &throughput)
 {
@@ -63,4 +66,5 @@ void Performance::outputThroughput(const std::vector<int> &throughput)
 	outputFileFAvsSUid.open("THROUGHPUT_VS_BAND_FOR_ALLSUs.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
 }
