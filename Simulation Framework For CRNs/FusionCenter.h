@@ -22,6 +22,7 @@ public:
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
 	std::vector<int> utilizationVsBand;
+	std::vector<int> collisionVsSuN; //this vector for su vs collision
 private:
 	int SuId;
 	//int **emptyBands;
@@ -31,7 +32,7 @@ private:
 	int maxSUsband;
 	std::vector<std::vector<int>> emptyBands;
 	std::vector<std::vector<int>> bandOccupied;
-	std::vector<int> collisionVsSuN; //this vector for su vs collision
+	
 	bool appearsInVector(const int value , const std::vector<int> &searchIn);
 	std::vector<int> majorityBands;
 	

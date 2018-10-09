@@ -8,8 +8,10 @@ int main()
 	//Constant value which may change in the future
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
-	unsigned int timeSlot = 20000;
+	double timeSlot = 20000;
 	int MaxSuBand = 15;
+	double PFA = .1;
+	double PMD = .1;
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details*> BandVector;
@@ -22,6 +24,7 @@ int main()
 
 	//To here
 	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
+	//std::vector<SecondaryUser> tryan(100, SecondaryUser(4, 4, 5, 5));
 	std::vector <SecondaryUser*> SU;		//SU vector with 10 SUs
 	for (int i = 0; i < NumberOfSUs; i++)				//Initializes a vector with NumberOfSUs elements
 	{
@@ -30,18 +33,19 @@ int main()
 		//FC.getSUsIds(i);
 		//FC.getEmptyBands(SU[i]->emptyBands);
 		//FC.bandsOccupantedBySU(SU[i]->SUsOccupants);
-		SecondaryUser *SUPushing = new SecondaryUser;	//To Push valus to the SU vector
+		SecondaryUser *SUPushing = new SecondaryUser(PFA,PMD,NumberOfBands,NumberOfSUs); 	//To Push valus to the SU vector
 		SU.push_back(SUPushing);
 	}
 	for (unsigned int T = 0; T < timeSlot; T++)
 	{
 		for (int i = 0; i < NumberOfBands; i++)
 		{
+			if(i != 0)
+			BandVector[i - 1]->clearBands();
 			BandVector[i]->randomPUState();		//Randomizes PUState each timeSlot
 			if (!BandVector[i]->isEmpty())
 				bandOccByPus.push_back(i);			//remove State from constructor
 		}
-		std::cout << std::endl;
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			SU[i]->scanningBands(BandVector);
@@ -67,6 +71,8 @@ int main()
 	//Here for preformance calculation
 	Performance result(timeSlot);
 	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
+	result.outputMDFile(FC.MdVsSUId);
+	result.outputCollision(FC.collisionVsSuN);
 	system("pause");
 	return 0;
 }

@@ -7,10 +7,11 @@
 class Performance
 {
 public:
-	Performance(int timeSlot);
+	Performance(double timeSlot);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
-
+	void outputMDFile(const std::vector<int> &MDvsSU);
+	void outputCollision(const std::vector<int> &Collision);
 	std::vector<int> PFA;
 private:
 	int timeS;

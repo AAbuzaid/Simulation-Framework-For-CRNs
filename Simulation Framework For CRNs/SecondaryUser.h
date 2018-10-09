@@ -8,7 +8,7 @@ class SecondaryUser
 {
 public:
 	SecondaryUser();
-	SecondaryUser(int PFA, int PMD, int NumberOfBand);	//Allow you to change the variable 
+	SecondaryUser(double PFA, double PMD, int NumberOfBand , int SUN);	//Allow you to change the variable 
 	~SecondaryUser() {};
 	//void getBandNumber(int BN);							//get the number of bandwidth
 	void scanningBands(const std::vector<Band_Details*> &Bands);	//this function scan for empty bands and store them 
