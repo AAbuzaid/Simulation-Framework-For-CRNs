@@ -4,7 +4,8 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax)
 	:emptyBands(SusN, std::vector<int>(0)),
 	bandOccupied(SusN, std::vector<int>(0)),
 	collisionVsSuN(SusN, 0),
-	utilizationVsBand(Nbands , 0)
+	utilizationVsBand(Nbands , 0),
+	throughput(Nbands , 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
@@ -103,6 +104,8 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 
 
 		}
+		if (bandDetails[bandN]->SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
+			throughput[bandN]++;
 	}
 }
 bool FusionCenter::appearsInVector(const int value, const std::vector<int> &searchIn) //to find if the value in the vector

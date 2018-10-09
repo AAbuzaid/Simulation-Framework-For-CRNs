@@ -72,6 +72,8 @@ int main()
 	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
 	result.outputMDFile(FC.MdVsSUId);
 	result.outputCollision(FC.collisionVsSuN);
+	result.outputUtilization(FC.utilizationVsBand);
+	result.outputThroughput(FC.throughput);
 	system("pause");
 	return 0;
 }

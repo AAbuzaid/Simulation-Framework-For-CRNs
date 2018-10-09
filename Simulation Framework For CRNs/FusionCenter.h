@@ -23,6 +23,7 @@ public:
 	std::vector<int> MdVsSUId;
 	std::vector<int> utilizationVsBand;
 	std::vector<int> collisionVsSuN; //this vector for su vs collision
+	std::vector<int> throughput;
 private:
 	int SuId;
 	//int **emptyBands;
