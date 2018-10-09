@@ -8,7 +8,7 @@ SecondaryUser::SecondaryUser()
 	NumberOfBand = 100;
 	PFA = .1;
 	PMD = .1;
-	numOfBandsReqForSUs = 5;
+	numOfBandsReqForSUs = 10;
 }
 
 SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN)

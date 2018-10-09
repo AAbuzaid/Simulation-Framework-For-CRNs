@@ -11,11 +11,12 @@ int main()
 	start = clock();
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
+	int NumberOfBandsReqForEachSUs = 10;
 	double timeSlot = 20000;
 	int MaxSuBand = 15;
 	double PFA = .1;
 	double PMD = .1;
-	double PPU = .1; //prob of PU
+	double PPU = .25; //prob of PU
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details*> BandVector;
@@ -29,14 +30,14 @@ int main()
 	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
 	//std::vector<SecondaryUser> tryan(100, SecondaryUser(4, 4, 5, 5));
 	std::vector <SecondaryUser*> SU;		//SU vector with 10 SUs
-	for (int i = 0; i < NumberOfSUs; i++)				//Initializes a vector with NumberOfSUs elements
+	for (int i = 0; i < NumberOfSUs; i++)	//Initializes a vector with NumberOfSUs elements
 	{
 		//SUPushing->scanningBands(BandVector); //Here I should enter the band vector that i should scan it (PU vector)
 		//SU.push_back(SUPushing);
 		//FC.getSUsIds(i);
 		//FC.getEmptyBands(SU[i]->emptyBands);
 		//FC.bandsOccupantedBySU(SU[i]->SUsOccupants);
-		SecondaryUser *SUPushing = new SecondaryUser(PFA,PMD,NumberOfBands,NumberOfSUs); 	//To Push valus to the SU vector
+		SecondaryUser *SUPushing = new SecondaryUser(PFA,PMD,NumberOfBands,NumberOfBandsReqForEachSUs);	//To Push valus to the SU vector
 		SU.push_back(SUPushing);
 	}
 	for (unsigned int T = 0; T < timeSlot; T++)
@@ -47,7 +48,7 @@ int main()
 			BandVector[i - 1]->clearBands();
 			BandVector[i]->randomPUState();		//Randomizes PUState each timeSlot
 			if (!BandVector[i]->isEmpty())
-				bandOccByPus.push_back(i);			//remove State from constructor
+				bandOccByPus.push_back(i);		//remove State from constructor
 		}
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
