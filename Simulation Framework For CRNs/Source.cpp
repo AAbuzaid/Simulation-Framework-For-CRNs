@@ -40,6 +40,8 @@ int main()
 	{
 		for (int i = 0; i < NumberOfBands; i++)
 		{
+			if(i != 0)
+			BandVector[i - 1]->clearBands();
 			BandVector[i]->randomPUState();		//Randomizes PUState each timeSlot
 			if (!BandVector[i]->isEmpty())
 				bandOccByPus.push_back(i);			//remove State from constructor
@@ -68,6 +70,8 @@ int main()
 	//Here for preformance calculation
 	Performance result(timeSlot);
 	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
+	result.outputMDFile(FC.MdVsSUId);
+	result.outputCollision(FC.collisionVsSuN);
 	system("pause");
 	return 0;
 }

@@ -3,7 +3,8 @@
 FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax)
 	:emptyBands(SusN, std::vector<int>(0)),
 	bandOccupied(SusN, std::vector<int>(0)),
-	collisionVsSuN(SusN, 0)
+	collisionVsSuN(SusN, 0),
+	utilizationVsBand(Nbands , 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;

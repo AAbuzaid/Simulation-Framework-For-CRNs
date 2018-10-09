@@ -12,10 +12,11 @@ public:
 	std::vector<int> SuOccupants;
 	void setOccupants(unsigned int i);
 	~Band_Details();
+	void clearBands();
 
 private:
 	bool PUState;
 	double ProbON;
-	std::vector<unsigned int> Occupants;
+	//std::vector<unsigned int> Occupants;
 };
 

@@ -16,7 +16,7 @@ Band_Details::Band_Details(double ProbOn)
 
 void Band_Details::setOccupants(unsigned int i)
 {
-	Occupants.push_back(i);
+	SuOccupants.push_back(i);
 }
 
 Band_Details::~Band_Details()
@@ -36,5 +36,9 @@ void Band_Details::randomPUState()
 bool Band_Details::getProbON() const
 {
 	return ProbON;
+}
+void Band_Details::clearBands()
+{
+	SuOccupants.clear();
 }
 
