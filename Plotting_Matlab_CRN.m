@@ -59,9 +59,9 @@ grid on;
 
 % Ploting SU sucessful transmission  Results 
 %%%%%%%% names of the files that will be imported 
-SucessfulTransmission25 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU.25.csv'); 
-SucessfulTransmission15 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-SucessfulTransmission00 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+SucessfulTransmission25 = csvread ('Successful_VS_Time_FOR_SU4_PPU.25.csv'); 
+SucessfulTransmission15 = csvread ('Successful_VS_Time_FOR_SU4_PPU.15.csv'); 
+SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU4_PPU.0.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -93,9 +93,9 @@ grid on;
 
 % Ploting SU Collisions Results 
 %%%%%%%% names of the files that will be imported 
-Collision25 = csvread ('Collision_VS_TimeSlot_FOR_ALLSUs_PPU.25.csv'); 
-Collision15 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-Collision00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+Collision25 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU.25.csv'); 
+Collision15 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU.15.csv'); 
+Collision00 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU.0.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -160,9 +160,9 @@ grid on;
 
 % Ploting Sucessful SU4  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
-SU4BANDS25 = csvread ('SU4BANDS.25.csv'); 
-SU4BANDS15 = csvread ('SU4BANDS.15.csv'); 
-SU4BANDS00 = csvread ('SU4BANDS0.csv'); 
+SU4BANDS25 = csvread ('Successful_VS_Time_FOR_SU4_PPU.25.csv'); 
+SU4BANDS15 = csvread ('Successful_VS_Time_FOR_SU4_PPU.15.csv'); 
+SU4BANDS00 = csvread ('Successful_VS_Time_FOR_SU4_PPU.0.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -193,9 +193,9 @@ grid on;
 
 % Ploting False alaram for all SUs  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
-SUFA25 = csvread ('SUFA.25.csv'); 
-SUFA15 = csvread ('SUFA.15.csv'); 
-SUFA00 = csvread ('SUFA0.csv'); 
+SUFA25 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU.25.csv'); 
+SUFA15 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU.15.csv'); 
+SUFA00 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU.0.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -227,9 +227,9 @@ grid on;
 
 % Ploting Miss-Detecction for all SUs  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
-SUMD25 = csvread ('SUMD.25.csv'); 
-SUMD15 = csvread ('SUMD.15.csv'); 
-SUMD00 = csvread ('SUMD0.csv'); 
+SUMD25 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU.25.csv'); 
+SUMD15 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU.15.csv'); 
+SUMD00 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU.0.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
