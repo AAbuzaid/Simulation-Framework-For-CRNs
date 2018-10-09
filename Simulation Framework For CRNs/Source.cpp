@@ -16,8 +16,8 @@ int main()
 	for (int i = 0; i < NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
 	{
 		Band_Details *NewBand = new Band_Details;
-		
 		BandVector.push_back(NewBand);
+		std::cout << BandVector[i]->getProbON();
 	}
 
 	//To here
@@ -50,6 +50,7 @@ int main()
 			SU[i]->SUsTransmitting(BandVector);
 			FC.bandsOccupiedBySU(SU[i]->SUsOccupants);
 			//clear all vector
+
 			SU[i]->emptyAllResult();
 		}
 		FC.collision(bandOccByPus ,BandVector);					//bands thats contain PUs
