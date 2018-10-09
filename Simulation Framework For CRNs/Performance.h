@@ -7,7 +7,7 @@
 class Performance
 {
 public:
-	Performance(int timeSlot);
+	Performance(double timeSlot);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
 

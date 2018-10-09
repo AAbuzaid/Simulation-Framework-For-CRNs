@@ -25,7 +25,6 @@ Band_Details::~Band_Details()
 
 bool Band_Details::isEmpty() const
 {
-	std::cout << PUState;
 	return PUState;
 }
 
