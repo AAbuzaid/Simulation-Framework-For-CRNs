@@ -49,24 +49,23 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details*> &Bands)
 }
 void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
 {
-	try
-	{																	// Number of su bands needed 5-15
-		for (unsigned int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
+	// Number of su bands needed 5-15
+	if (emptyBands.size() != 0){
+		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
-			if (emptyBands.size() == 0)
-				throw std::overflow_error("The SU Can't find any empty bands");
 			int randomBand = (rand() % emptyBands.size());
-			SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
-			Bands[randomBand]->setOccupants(SUID);
-			
+			if (std::find(SUsOccupants.begin(), 
+				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
+			{
+				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
+				std::cout << SUsOccupants[i] << " ";
+				Bands[randomBand]->setOccupants(i);
+			}
 		}
 
 		// Save which SUs are using a specific band
 	}
-	catch (std::overflow_error e)
-	{
-		std::cout << e.what();
-	}
+	std::cout << std::endl;
 }
 void SecondaryUser::emptyAllResult() {
 	emptyBands.clear();

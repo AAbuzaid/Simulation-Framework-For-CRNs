@@ -4,7 +4,7 @@
 #include<algorithm>
 #include<iterator>
 #include<numeric>
-#include"Band_Details.h"
+#include "SecondaryUser.h"
 class FusionCenter
 {
 public:
@@ -19,6 +19,7 @@ public:
 	void clearVectors();
 	void falseAlarm(const std::vector<int> &FAvsBand);
 	void misDetection(const std::vector<int> &MDvsBand);
+	void successfulVSTime(SecondaryUser &SUDetermanisticPU,int succVsTimeSUId, unsigned int &succVsTimeN);
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;

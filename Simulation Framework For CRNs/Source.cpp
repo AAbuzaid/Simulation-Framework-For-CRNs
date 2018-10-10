@@ -18,6 +18,8 @@ int main()
 	double PMD = .1;
 	double PPU = 0; //prob of PU
 	int succVsTimeSUId = 4;
+	int timeVSuccessfulReq = timeSlot / 2;
+	int successfulVsTimePUActiveForBandN = 50;
 	std::vector<int> bandOccByPus;	//bands occupants by PUs
 	//For abdullah to write
 	std::vector<Band_Details*> BandVector;
@@ -46,6 +48,12 @@ int main()
 	{
 		for (int i = 0; i < NumberOfBands; i++)
 		{
+			/*if (T > timeVSuccessfulReq)
+			{
+				if (i < successfulVsTimePUActiveForBandN)
+					bandOccByPus.push_back(i);
+			}
+				FC.successfulVSTime(*SU[succVsTimeSUId], succVsTimeSUId, SuccessfulVsTime[succVsTimeSUId]);*/
 			if(i != 0)
 			BandVector[i - 1]->clearBands();
 			BandVector[i]->randomPUState();		//Randomizes PUState each timeSlot
@@ -64,7 +72,6 @@ int main()
 			SU[i]->emptyAllResult();
 		}
 		FC.collision(bandOccByPus ,BandVector , succVsTimeSUId , SuccessfulVsTime[T]);					//bands thats contain PUs
-
 		FC.majority();
 		FC.clearVectors();
 		bandOccByPus.clear();
@@ -76,12 +83,12 @@ int main()
 	}
 	//Here for preformance calculation
 	Performance result(timeSlot , PPU , succVsTimeSUId);
-	result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
+	/*result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
 	result.outputMDFile(FC.MdVsSUId);
 	result.outputCollision(FC.collisionVsSuN);
 	result.outputUtilization(FC.utilizationVsBand);
 	result.outputThroughput(FC.throughput);
-	result.outputSuccessfulVsTime(SuccessfulVsTime);
+	result.outputSuccessfulVsTime(SuccessfulVsTime);*/
 	end = clock();
 	duration = (double)(end - start) / CLOCKS_PER_SEC;
 	printf("Decoding time = %d\n", duration);
