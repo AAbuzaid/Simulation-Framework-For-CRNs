@@ -3,7 +3,7 @@
 
 Band_Details::Band_Details()
 {
-	ProbON = .1;
+	ProbON = .5;
 	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;		//Randomly chooses true or false based on ProbON percentage
 
 }
