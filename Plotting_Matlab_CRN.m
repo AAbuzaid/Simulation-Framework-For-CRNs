@@ -1,8 +1,8 @@
 % Ploting Throughput Results 
 %%%%%%%% names of the files that will be imported 
-Throughput25 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU.25.csv'); 
-Throughput15 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-Throughput00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+Throughput25 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.25).csv'); 
+Throughput15 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.15).csv'); 
+Throughput00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -27,9 +27,9 @@ grid on;
 
 % Ploting Utilization Results 
 %%%%%%%% names of the files that will be imported 
-Utilization25 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU.25.csv'); 
-Utilization15 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-Utilization00 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+Utilization25 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU(.25).csv'); 
+Utilization15 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU(.15).csv'); 
+Utilization00 = csvread ('Utilization_VS_BAND_FOR_ALLSUs_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -59,9 +59,9 @@ grid on;
 
 % Ploting SU sucessful transmission  Results 
 %%%%%%%% names of the files that will be imported 
-SucessfulTransmission25 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU.25.csv'); 
-SucessfulTransmission15 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-SucessfulTransmission00 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+SucessfulTransmission25 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.25).csv'); 
+SucessfulTransmission15 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.15).csv'); 
+SucessfulTransmission00 = csvread ('SucessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -93,9 +93,9 @@ grid on;
 
 % Ploting SU Collisions Results 
 %%%%%%%% names of the files that will be imported 
-Collision25 = csvread ('Collision_VS_TimeSlot_FOR_ALLSUs_PPU.25.csv'); 
-Collision15 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU.15.csv'); 
-Collision00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU0.csv'); 
+Collision25 = csvread ('Collision_VS_TimeSlot_FOR_ALLSUs_PPU(.25).csv'); 
+Collision15 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.15).csv'); 
+Collision00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -127,8 +127,8 @@ grid on;
 
 % Ploting PU Interferance Ratio Results 
 %%%%%%%% names of the files that will be imported 
-PUinterferance25 = csvread ('PU_Interfrance_ratio.25.csv'); 
-PUinterferance15 = csvread ('PU_Interfrance_ratio.15.csv'); 
+PUinterferance25 = csvread ('PU_Interfrance_ratio(.25).csv'); 
+PUinterferance15 = csvread ('PU_Interfrance_ratio(.15).csv'); 
 PUinterferance00 = csvread ('PU_Interfrance_ratio0.csv'); 
 
 

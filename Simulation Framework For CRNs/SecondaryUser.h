@@ -2,6 +2,7 @@
 #include <vector>
 #include "Band_Details.h"
 #include <iostream>
+#include <algorithm>
 
 
 class SecondaryUser

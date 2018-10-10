@@ -164,3 +164,7 @@ void FusionCenter::misDetection(const std::vector<int> &MDvsBand)
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	MdVsSUId.push_back(sumOfElement);
 }
+void FusionCenter::successfulVSTime(SecondaryUser &SU ,int succVsTimeSUId, unsigned int &succVsTimeN)
+{
+
+}
