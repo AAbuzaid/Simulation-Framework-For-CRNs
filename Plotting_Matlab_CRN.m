@@ -7,9 +7,9 @@ Throughput00 = csvread ('THROUGHPUT_VS_BAND_FOR_ALLSUs_PPU(.0).csv');
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
 
-x1= Throughput00 (:,1) % this is the results from probabilty of 0.0 
-y1= Throughput15 (:,1) % this is the results from probabilty of 0.15
-z1= Throughput25 (:,1) % this is the results from probabilty of 0.25
+x1= Throughput00 (:,1); % this is the results from probabilty of 0.0 
+y1= Throughput15 (:,1); % this is the results from probabilty of 0.15
+z1= Throughput25 (:,1); % this is the results from probabilty of 0.25
 
 %%%%%%%%%% the Drawing process 
 hold on;
