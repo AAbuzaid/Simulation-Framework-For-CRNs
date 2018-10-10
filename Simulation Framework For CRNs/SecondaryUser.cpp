@@ -54,13 +54,15 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
 			int randomBand = (rand() % emptyBands.size());
-			if (std::find(SUsOccupants.begin(), 
+			if (std::find(SUsOccupants.begin(),
 				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
 			{
 				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
 				std::cout << SUsOccupants[i] << " ";
-				Bands[randomBand]->setOccupants(i);
+				Bands[emptyBands[randomBand]]->setOccupants(i);
 			}
+			else
+				i--;
 		}
 
 		// Save which SUs are using a specific band
