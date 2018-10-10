@@ -47,7 +47,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details*> &Bands)
 		}
 	}
 }
-void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands)
+void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
 {
 	// Number of su bands needed 5-15
 	if (emptyBands.size() != 0){

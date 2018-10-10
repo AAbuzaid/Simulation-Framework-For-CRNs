@@ -65,7 +65,7 @@ int main()
 			SU[i]->scanningBands(BandVector);
 			FC.getSUsIds(i);
 			FC.getEmptyBands(SU[i]->emptyBands);
-			SU[i]->SUsTransmitting(BandVector);
+			SU[i]->SUsTransmitting(BandVector, i);
 			FC.bandsOccupiedBySU(SU[i]->SUsOccupants);
 			//clear all vector
 
