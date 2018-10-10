@@ -4,18 +4,22 @@
 #include <fstream>
 #include <algorithm>
 #include<iterator>
+#include <string>
 class Performance
 {
 public:
-	Performance(double timeSlot);
+	Performance(double timeSlot ,double PUprob,int SuccessfulSUID);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
 	void outputMDFile(const std::vector<int> &MDvsSU);
 	void outputCollision(const std::vector<int> &Collision);
 	void outputUtilization(const std::vector<int> &Utilization);
 	void outputThroughput(const std::vector<int> &throughput);
-	std::vector<int> PFA;
+	void outputSuccessfulVsTime(const std::vector<unsigned int> &successfulVsTime);
+	//std::vector<int> PFA;
 private:
-	int timeS;
+	double timeS;
+	int PuProb;
+	int succTxSuId;
 };
 

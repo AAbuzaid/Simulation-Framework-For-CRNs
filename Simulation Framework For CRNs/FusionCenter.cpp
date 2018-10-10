@@ -1,6 +1,6 @@
 #include "FusionCenter.h"
 
-FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax)
+FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax )
 	:emptyBands(SusN, std::vector<int>(0)),
 	bandOccupied(SusN, std::vector<int>(0)),
 	collisionVsSuN(SusN, 0),
@@ -72,7 +72,8 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 	}*/
 	bandOccupied[SuId] = suBand;
 }
-void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details*> &bandDetails)
+void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details*> &bandDetails
+	, int succVsTimeSUId, unsigned int &succVsTimeN)
 {
 	std::vector<int> temp;
 	/*for (int currentSU = 0; currentSU < NumberOfSUs; currentSU++)
@@ -101,8 +102,11 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			{
 				collisionVsSuN[bandDetails[bandN]->SuOccupants[i]]++;	//finally store the number of collision is the vector
 			}
-
-
+		}
+		else
+		{
+			if (SuId = succVsTimeSUId)
+				succVsTimeN++;
 		}
 		if (bandDetails[bandN]->SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
