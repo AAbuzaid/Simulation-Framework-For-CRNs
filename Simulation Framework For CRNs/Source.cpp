@@ -16,7 +16,7 @@ int main()
 	int MaxSuBand = 15;
 	double PFA = .1;
 	double PMD = .1;
-	std::vector<double> PPU(3, 0); //prob of PU
+	double PPU[3] = { 0 , .15 , .25 };
 	int succVsTimeSUId = 4;
 	int timeVSuccessfulReq = timeSlot / 2;
 	int successfulVsTimePUActiveForBandN = 50;
@@ -91,12 +91,12 @@ int main()
 		
 		//Here for preformance calculation
 		Performance result(timeSlot, ProbPU, succVsTimeSUId);
-		/*result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
+		result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
 		result.outputMDFile(FC.MdVsSUId);
 		result.outputCollision(FC.collisionVsSuN);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
-		result.outputSuccessfulVsTime(SuccessfulVsTime);*/
+		result.outputSuccessfulVsTime(SuccessfulVsTime);
 	}
 /*	for (int i = 0; i < NumberOfBands; i++)
 	{
