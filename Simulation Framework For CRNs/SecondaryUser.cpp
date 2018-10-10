@@ -20,14 +20,14 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	numOfBandsReqForSUs = SUN;
 }
 
-void SecondaryUser::scanningBands(const std::vector<Band_Details*> &Bands)
+void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 {
 	bool falseAlarm;
 	bool missDetection;
 	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
-			if (Bands[i]->isEmpty()) //H0
+			if (Bands[i].isEmpty()) //H0
 		{ 
 				falseAlarm = (rand() % 100) <= (PFA * 100.0);
 			//	std::cout << falseAlarm;
@@ -47,7 +47,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details*> &Bands)
 		}
 	}
 }
-void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
+void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
 {
 	// Number of su bands needed 5-15
 	if (emptyBands.size() != 0){
@@ -58,8 +58,8 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
 				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
 			{
 				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
-				std::cout << SUsOccupants[i] << " ";
-				Bands[emptyBands[randomBand]]->setOccupants(i);
+				//std::cout << SUsOccupants[i] << " ";
+				Bands[emptyBands[randomBand]].setOccupants(SUID);
 			}
 			else
 				i--;
@@ -67,7 +67,6 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details*> &Bands, int SUID)
 
 		// Save which SUs are using a specific band
 	}
-	std::cout << std::endl;
 }
 void SecondaryUser::emptyAllResult() {
 	emptyBands.clear();

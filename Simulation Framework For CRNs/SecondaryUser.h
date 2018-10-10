@@ -12,9 +12,9 @@ public:
 	SecondaryUser(double PFA, double PMD, int NumberOfBand , int SUN);	//Allow you to change the variable 
 	~SecondaryUser() {};
 	//void getBandNumber(int BN);							//get the number of bandwidth
-	void scanningBands(const std::vector<Band_Details*> &Bands);	//this function scan for empty bands and store them 
+	void scanningBands(const std::vector<Band_Details> &Bands);	//this function scan for empty bands and store them 
 															//in vector BandBeingScanned
-	void SUsTransmitting(std::vector<Band_Details*> &Bands,int SUID);		//All is well let's Tx		
+	void SUsTransmitting(std::vector<Band_Details> &Bands,int SUID);		//All is well let's Tx		
 	void emptyAllResult();
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing

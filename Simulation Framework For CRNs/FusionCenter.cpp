@@ -72,7 +72,7 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 	}*/
 	bandOccupied[SuId] = suBand;
 }
-void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details*> &bandDetails
+void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails
 	, int succVsTimeSUId, unsigned int &succVsTimeN)
 {
 	std::vector<int> temp;
@@ -93,14 +93,14 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 	{
 		//if (std::find(bandDetails[bandN].SuOccupants.begin(), //scan the band if there is any SU 
 			//bandDetails[bandN].SuOccupants.end(), bandN) != bandDetails[bandN].SuOccupants.end())
-		if(!bandDetails[bandN]->SuOccupants.empty())
+		if(!bandDetails[bandN].SuOccupants.empty())
 			utilizationVsBand[bandN]++; //calculate utilization VS band
-		if (bandDetails[bandN]->SuOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
-			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN]->SuOccupants.empty())//or there is one su and pu
+		if (bandDetails[bandN].SuOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
+			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SuOccupants.empty())//or there is one su and pu
 		{
-			for (int i = 0; i < bandDetails[bandN]->SuOccupants.size(); i++) //for scan the su that in the collision band 
+			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
-				collisionVsSuN[bandDetails[bandN]->SuOccupants[i]]++;	//finally store the number of collision is the vector
+				collisionVsSuN[bandDetails[bandN].SuOccupants[i]]++;	//finally store the number of collision is the vector
 			}
 		}
 		else
@@ -108,7 +108,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			if (SuId = succVsTimeSUId)
 				succVsTimeN++;
 		}
-		if (bandDetails[bandN]->SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
+		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
 	}
 }
