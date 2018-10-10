@@ -8,18 +8,18 @@
 class FusionCenter
 {
 public:
-	FusionCenter(int SUsN, int NBands, int maxSUBand);
+	FusionCenter(int SUsN, int NBands, int maxSUBand, double Pfa, double Pmd);
 	~FusionCenter();
 	void getSUsIds(int ID);
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
 	void bandsOccupiedBySU(const std::vector<int> &suBand);
-	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants
-		, int succVsTimeSUId , unsigned int &succVsTimeN);	//return int vector of collision vs su
+	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants); //return int vector of collision vs su
 	void majority();
 	void clearVectors();
 	void falseAlarm(const std::vector<int> &FAvsBand);
 	void misDetection(const std::vector<int> &MDvsBand);
-	void successfulVSTime(SecondaryUser &SUDetermanisticPU,int succVsTimeSUId, unsigned int &succVsTimeN);
+	void successfulVSTime(int succVsTimeSUId, int &succVsTimeN, int T);
+	void clearPerformanceOut();
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
@@ -39,6 +39,8 @@ private:
 	
 	bool appearsInVector(const int value , const std::vector<int> &searchIn);
 	std::vector<int> majorityBands;
+	double PFA, PMD;
+	unsigned int count = 0;
 	
 };
 
