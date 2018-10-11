@@ -16,6 +16,7 @@ public:
 	void outputUtilization(const std::vector<int> &Utilization);
 	void outputThroughput(const std::vector<int> &throughput);
 	void outputSuccessfulVsTime(const std::vector<unsigned int> &successfulVsTime);
+	void outputSuccSUTrans(const std::vector<int> &succSUTrans);
 	//std::vector<int> PFA;
 private:
 	double timeS;

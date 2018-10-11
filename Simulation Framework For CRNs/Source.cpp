@@ -75,6 +75,7 @@ int main()
 				SU[i].emptyAllResult();
 			}
 			FC.collision(bandOccByPus, BandVector, succVsTimeSUId, SuccessfulVsTime[T]);					//bands thats contain PUs
+			FC.successfulSUTrans(SU, BandVector);
 			FC.majority();
 			FC.clearVectors();
 			bandOccByPus.clear();
@@ -97,6 +98,7 @@ int main()
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccessfulVsTime(SuccessfulVsTime);
+		result.outputSuccSUTrans(FC.succSUTrans);
 	}
 /*	for (int i = 0; i < NumberOfBands; i++)
 	{
