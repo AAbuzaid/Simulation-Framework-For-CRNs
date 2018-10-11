@@ -76,7 +76,7 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 }
 void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails)
 {
-	std::vector<int> temp;
+	//std::cout<< collisionVsSuN[0]
 	/*for (int currentSU = 0; currentSU < NumberOfSUs; currentSU++)
 	{
 		for (int BandN = 0; BandN < NumberOfBands; BandN++)
@@ -102,6 +102,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
 				collisionVsSuN[bandDetails[bandN].SuOccupants[i]]++;	//finally store the number of collision is the vector
+				std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
 		
@@ -188,7 +189,7 @@ void FusionCenter::successfulVSTime(int succVsTimeSUId,int &succVsTimeN, int T)
 }
 void FusionCenter::clearPerformanceOut()
 {
-	std::vector<int> collisionVsSuN(NumberOfSUs, 0);
+	std::vector<int> collisionVsSuN(5, 0);
 	std::vector<int>utilizationVsBand(NumberOfBands, 0);
 	std::vector<int>throughput(NumberOfBands, 0);
 	FaVsSUId.clear();
