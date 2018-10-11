@@ -29,7 +29,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 	{
 			if (Bands[i].isEmpty()) //H0
 		{ 
-				falseAlarm = (rand() % 100) <= (PFA * 100.0);
+				falseAlarm = (rand() % 100) < (PFA * 100.0);
 			//	std::cout << falseAlarm;
 			if (falseAlarm) 				//there is false alarm
 				NumFA[i]++;		//number of false alarm vs band
@@ -72,4 +72,13 @@ void SecondaryUser::emptyAllResult() {
 	emptyBands.clear();
 	SUsOccupants.clear();
 	
+}
+void SecondaryUser::SuDetermanesticSensing(std::vector<int> &PU)
+{
+	
+}
+void SecondaryUser::emptyFAandMD()
+{
+	std::vector<int> NumFA(NumberOfBand, 0);
+	std::vector<int> numMD(NumberOfBand, 0);
 }

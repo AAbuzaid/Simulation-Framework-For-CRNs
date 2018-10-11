@@ -24,7 +24,7 @@ int main()
 	//For abdullah to write
 	//std::vector<Band_Details*> BandVector;
 	//To here
-	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand);
+	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand , PFA , PMD);
 	//std::vector<SecondaryUser> tryan(100, SecondaryUser(4, 4, 5, 5));
 	//std::vector <SecondaryUser*> SU;		//SU vector with 10 SUs
 	std::vector<unsigned int> SuccessfulVsTime(timeSlot , 0); //successful VS time output vector intilization
@@ -74,11 +74,11 @@ int main()
 				//clear all vector
 				SU[i].emptyAllResult();
 			}
-			FC.collision(bandOccByPus, BandVector, succVsTimeSUId, SuccessfulVsTime[T]);					//bands thats contain PUs
-			FC.successfulSUTrans(SU, BandVector);
+			FC.collision(bandOccByPus, BandVector);					//bands thats contain PUs
 			FC.majority();
 			FC.clearVectors();
 			bandOccByPus.clear();
+			//FC.successfulVSTime(succVsTimeSUId, timeVSuccessfulReq, T);
 			
 		}
 		BandVector[NumberOfBands - 1].clearBands();
@@ -86,7 +86,7 @@ int main()
 		{
 			FC.falseAlarm(SU[i].NumFA);
 			FC.misDetection(SU[i].numMD);
-			
+			SU[i].emptyFAandMD();
 		}
 		//deallocate pointer
 		
@@ -97,8 +97,8 @@ int main()
 		result.outputCollision(FC.collisionVsSuN);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
-		result.outputSuccessfulVsTime(SuccessfulVsTime);
-		result.outputSuccSUTrans(FC.succSUTrans);
+		//result.outputSuccessfulVsTime(SuccessfulVsTime);
+		FC.clearPerformanceOut();
 	}
 /*	for (int i = 0; i < NumberOfBands; i++)
 	{
