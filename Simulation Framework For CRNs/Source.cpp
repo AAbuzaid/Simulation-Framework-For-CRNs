@@ -83,15 +83,18 @@ int main()
 				//clear all vector
 				SU[i].emptyAllResult();
 			}
-			FC.collision(bandOccByPus, BandVector);					//bands thats contain PUs
+			FC.collision(bandOccByPus, BandVector);	
+			std::cout << "collision for SU ID " << ": ";//bands thats contain PUs
 			for (int b = 0; b < FC.collisionVsSuN.size(); b++)
-				std::cout <<"collision for SU ID " << b << ": " << FC.collisionVsSuN[b] << " ";
+				std::cout << FC.collisionVsSuN[b] << " ";
 			std::cout << std::endl;
+			std::cout << " utilization Vs Band Number " << ": ";
 			for (int b = 0; b < FC.utilizationVsBand.size(); b++)
-				std::cout << " utilization Vs Band Number "<< b << ": " << FC.utilizationVsBand[b] << " ";
+				std::cout << FC.utilizationVsBand[b] << " ";
 			std::cout << std::endl;
+			std::cout << "throughput vs band number: ";
 			for (int b = 0; b < FC.throughput.size(); b++)
-				std::cout <<"throughput vs band number " << b << ": " << FC.throughput[b] << " ";
+				std::cout << FC.throughput[b] << " ";
 			std::cout << std::endl;
 
 			FC.majority();
@@ -110,14 +113,17 @@ int main()
 		//deallocate pointer
 		
 		//Here for preformance calculation
+		std::cout << "sum of collision for SU ID: ";
 		for (int b = 0; b < FC.collisionVsSuN.size(); b++)
-			std::cout << "sum of collision for SU ID " << b << ": " << FC.collisionVsSuN[b] << " ";
+			std::cout << FC.collisionVsSuN[b] << " ";
 		std::cout << std::endl;
+		std::cout << "sum utilization Vs Band Number: ";
 		for (int b = 0; b < FC.utilizationVsBand.size(); b++)
-			std::cout << "sum utilization Vs Band Number " << b << ": " << FC.utilizationVsBand[b] << " ";
+			std::cout<< FC.utilizationVsBand[b] << " ";
 		std::cout << std::endl;
+		std::cout << "sum throughput vs band number: ";
 		for (int b = 0; b < FC.throughput.size(); b++)
-			std::cout <<"sum throughput vs band number "<< b <<": " << FC.throughput[b] << " ";
+			std::cout<< FC.throughput[b] << " ";
 		std::cout << std::endl;
 
 		Performance result(timeSlot, ProbPU, succVsTimeSUId);

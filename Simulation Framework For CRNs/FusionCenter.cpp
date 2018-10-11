@@ -102,7 +102,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
 				collisionVsSuN[bandDetails[bandN].SuOccupants[i]]++;	//finally store the number of collision is the vector
-				std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
+				//std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
 		
