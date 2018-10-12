@@ -1,18 +1,18 @@
 #include "FusionCenter.h"
 
-FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , double Pmd )
+FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , double Pmd , int numofbandforSu )
 	:emptyBands(SusN, std::vector<int>(0)),
 	bandOccupied(SusN, std::vector<int>(0)),
 	collisionVsSuN(SusN, 0),
 	utilizationVsBand(Nbands , 0),
-	throughput(Nbands , 0),
-	succSUTrans(SusN, 0)
+	throughput(Nbands , 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
 	maxSUsband = SUbandMax;
 	PFA = Pfa;
 	PMD = Pmd;
+	NumberOfBandsReqForEachSUs = numofbandforSu;
 
 	/*emptyBands = new int*[NumberOfSUs];					//creat two Dimentional array to store IDs of SUs and the result 
 	for (int raw = 0; raw < NumberOfSUs; raw++)			//of sensing for every one of them
@@ -77,7 +77,7 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 }
 void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails)
 {
-	std::vector<int> temp;
+	//std::cout<< collisionVsSuN[0]
 	/*for (int currentSU = 0; currentSU < NumberOfSUs; currentSU++)
 	{
 		for (int BandN = 0; BandN < NumberOfBands; BandN++)
@@ -103,6 +103,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
 				collisionVsSuN[bandDetails[bandN].SuOccupants[i]]++;	//finally store the number of collision is the vector
+				//std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
 		
@@ -162,50 +163,22 @@ void FusionCenter::misDetection(const std::vector<int> &MDvsBand)
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	MdVsSUId.push_back(sumOfElement);
 }
-void FusionCenter::successfulVSTime(int succVsTimeSUId,int &succVsTimeN, int T)
-{ 
-	bool falseAlarm;
-	bool missDetection;
-	std::vector<int> emptyBands;
-	if ( T < succVsTimeN)
+void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
+	, int T, std::vector<unsigned int> &SuccessfulVsTime , int bandN)
+{
+	if((bandN > 50 || bandN <50 && T < succVsTimeN) && bandDetails[bandN].SuOccupants.empty ) //no PU
 	{
-		falseAlarm = (rand() % 100) <= (PFA * 100.0);
-		//	std::cout << falseAlarm;
-		if (!falseAlarm) 				//there is false alarm
-			emptyBands.push_back(count);
+		if(bandDetails[bandN].SuOccupants.size() == 1 && bandDetails[bandN].setOccupants[0])
 	}
-	else	//H1
-	{
-		if (count < 50)
-		{
-			missDetection = (rand() % 100) < (PMD * 100);
-			if (missDetection)
-			{
-				emptyBands.push_back(count);
-			}
-		}
-	}
+		if (bandDetails[bandN].SuOccupants.size() == 1 && (T < succVsTimeN && bandN > 50))
+			SuccessfulVsTime[T]++;
 
 }
 void FusionCenter::clearPerformanceOut()
 {
-	std::vector<int> collisionVsSuN(NumberOfSUs, 0);
-	std::vector<int>utilizationVsBand(NumberOfBands, 0);
-	std::vector<int>throughput(NumberOfBands, 0);
-	FaVsSUId.clear();
+	std::fill(collisionVsSuN.begin(), collisionVsSuN.end(), 0);
+	std::fill(utilizationVsBand.begin(), utilizationVsBand.end(), 0);
+	std::fill(throughput.begin(), throughput.end(), 0);
 	MdVsSUId.clear();
-}
-
-
-void FusionCenter::successfulSUTrans(std::vector<SecondaryUser> &SU, std::vector<Band_Details> &Bands)
-{
-	for (int i = 0; i < NumberOfSUs; i++)
-	{
-		for (unsigned int j = 0; SU[i].SUsOccupants.size(); j++)
-		{
-			int testBand = SU[i].SUsOccupants[j];
-			if ((Bands[testBand].SuOccupants.size() == 1) && Bands[testBand].isEmpty())		// If only one SU occupies a particular band, and its PU isn't active:
-				succSUTrans[i]++;
-		}
-	}
+	FaVsSUId.clear();
 }
