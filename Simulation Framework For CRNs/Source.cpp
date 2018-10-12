@@ -50,6 +50,7 @@ int main()
 
 		for (unsigned int T = 0; T < timeSlot; T++)
 		{
+
 			for (int i = 0; i < NumberOfBands; i++)
 			{
 				/*if (T > timeVSuccessfulReq)
@@ -71,15 +72,22 @@ int main()
 				FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i);
 				FC.bandsOccupiedBySU(SU[i].SUsOccupants);
+				
 				//clear all vector
-				SU[i].emptyAllResult();
+				
 			}
 			FC.collision(bandOccByPus, BandVector);					//bands thats contain PUs
 			FC.majority();
 			FC.clearVectors();
+			FC.successfulSUTrans(SU, BandVector);
 			bandOccByPus.clear();
+			for (int i = 0; i < NumberOfSUs; i++) 
+			{
+				SU[i].emptyAllResult();
+			}
 			//FC.successfulVSTime(succVsTimeSUId, timeVSuccessfulReq, T);
-			
+			for (int i = 0; i < NumberOfBands; i++)
+				BandVector.clear();
 		}
 		BandVector[NumberOfBands - 1].clearBands();
 		for (int i = 0; i < NumberOfSUs; i++)
@@ -97,6 +105,7 @@ int main()
 		result.outputCollision(FC.collisionVsSuN);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
+		result.outputSuccSUTrans(FC.succSUTrans);
 		//result.outputSuccessfulVsTime(SuccessfulVsTime);
 		FC.clearPerformanceOut();
 	}

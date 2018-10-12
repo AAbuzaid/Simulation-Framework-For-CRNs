@@ -5,7 +5,8 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , dou
 	bandOccupied(SusN, std::vector<int>(0)),
 	collisionVsSuN(SusN, 0),
 	utilizationVsBand(Nbands , 0),
-	throughput(Nbands , 0)
+	throughput(Nbands , 0),
+	succSUTrans(SusN, 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
@@ -193,4 +194,18 @@ void FusionCenter::clearPerformanceOut()
 	std::vector<int>throughput(NumberOfBands, 0);
 	FaVsSUId.clear();
 	MdVsSUId.clear();
+}
+
+
+void FusionCenter::successfulSUTrans(std::vector<SecondaryUser> &SU, std::vector<Band_Details> &Bands)
+{
+	for (int i = 0; i < NumberOfSUs; i++)
+	{
+		for (unsigned int j = 0; SU[i].SUsOccupants.size(); j++)
+		{
+			int testBand = SU[i].SUsOccupants[j];
+			if ((Bands[testBand].SuOccupants.size() == 1) && Bands[testBand].isEmpty())		// If only one SU occupies a particular band, and its PU isn't active:
+				succSUTrans[i]++;
+		}
+	}
 }

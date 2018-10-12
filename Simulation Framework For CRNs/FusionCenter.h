@@ -20,12 +20,14 @@ public:
 	void misDetection(const std::vector<int> &MDvsBand);
 	void successfulVSTime(int succVsTimeSUId, int &succVsTimeN, int T);
 	void clearPerformanceOut();
+	void successfulSUTrans(std::vector<SecondaryUser>& SU, std::vector<Band_Details>& Bands);
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
 	std::vector<int> utilizationVsBand;
 	std::vector<int> collisionVsSuN; //this vector for su vs collision
 	std::vector<int> throughput;
+	std::vector<int> succSUTrans;
 	std::vector<unsigned int> successfulVsTime;
 private:
 	int SuId;
