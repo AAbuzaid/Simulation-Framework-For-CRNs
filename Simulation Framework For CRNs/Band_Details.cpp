@@ -41,13 +41,12 @@ void Band_Details::clearBands()
 {
 	SuOccupants.clear();
 }
-
-DetermanisticBand::DetermanisticBand(double T , int B)
+DetermanisticBand::DetermanisticBand(double T, int B)
 {
 	timeVSuccessfulReq = T;
 	successfulVsTimePUActiveForBandN = B;
 }
-bool DetermanisticBand::isEmpty(double T , int bandN) const
+bool DetermanisticBand::isEmpty(double T, int bandN) const
 {
 	if (T < timeVSuccessfulReq)
 		return true;
@@ -61,3 +60,4 @@ bool DetermanisticBand::isEmpty(double T , int bandN) const
 		}
 	}
 }
+

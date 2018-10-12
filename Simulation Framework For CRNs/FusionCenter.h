@@ -13,13 +13,15 @@ public:
 	void getSUsIds(int ID);
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
 	void bandsOccupiedBySU(const std::vector<int> &suBand);
-	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants); //return int vector of collision vs su
+	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants,
+		const std::vector<DetermanisticBand> &bandDetails, int succVsTimeSUId, double &succVsTimeN
+		, int T, std::vector<int> &SuccessfulVsTime,bool count); //return int vector of collision vs su
 	void majority();
 	void clearVectors();
 	void falseAlarm(const std::vector<int> &FAvsBand);
 	void misDetection(const std::vector<int> &MDvsBand);
 	void successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId
-		, double &succVsTimeN, int T , std::vector<unsigned int> &SuccessfulVsTime ,int bandN);
+		, double &succVsTimeN, double T , std::vector<int> &SuccessfulVsTime ,int bandN);
 	void clearPerformanceOut();
 	//output
 	std::vector<int> FaVsSUId;

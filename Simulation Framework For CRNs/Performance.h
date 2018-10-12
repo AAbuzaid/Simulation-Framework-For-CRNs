@@ -8,6 +8,7 @@
 class Performance
 {
 public:
+	Performance(int SuccessfulSUID) { succTxSuId = SuccessfulSUID; };
 	Performance(double timeSlot ,double PUprob,int SuccessfulSUID);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
@@ -15,7 +16,7 @@ public:
 	void outputCollision(const std::vector<int> &Collision);
 	void outputUtilization(const std::vector<int> &Utilization);
 	void outputThroughput(const std::vector<int> &throughput);
-	void outputSuccessfulVsTime(const std::vector<unsigned int> &successfulVsTime);
+	void outputSuccessfulVsTime(const std::vector<int> &successfulVsTime);
 	//std::vector<int> PFA;
 private:
 	double timeS;

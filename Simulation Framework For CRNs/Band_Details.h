@@ -22,8 +22,9 @@ private:
 class DetermanisticBand : public Band_Details
 {
 public:
-	DetermanisticBand(double , int);
-	bool isEmpty(double T ,int bandN) const;
+	DetermanisticBand(double, int);
+	bool isEmpty(double T, int bandN) const;
+
 private:
 	int successfulVsTimePUActiveForBandN;
 	double timeVSuccessfulReq;
