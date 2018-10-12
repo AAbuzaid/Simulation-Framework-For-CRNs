@@ -62,7 +62,7 @@ hold off;
 
 % Ploting SU sucessful transmission  Results 
 %%%%%%%% names of the files that will be imported 
-
+if isnumeric('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv')
 SucessfulTransmission25 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv'); 
 SucessfulTransmission15 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.15).csv'); 
 SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.0).csv'); 
@@ -71,7 +71,7 @@ SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.0).csv');
 %%%%%%% importing the first colume of each trail to get the graph going on 
 
 x3= SucessfulTransmission00 (:,1) ;% this is the results from probabilty of 0.0 
-y3= SucessfulTransmission15 (:,1) ;% this is the results from probabilty of 0.15
+y3= USucessfulTransmission15 (:,1) ;% this is the results from probabilty of 0.15
 z3= SucessfulTransmission25 (:,1) ;% this is the results from probabilty of 0.25
 
 %%%%%%%%%% the Drawing process
@@ -86,7 +86,7 @@ title ('SucessfulTransmission VS BAND FOR ALL SUs','Fontweight','Bold');
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
 grid on;
 hold off;
-
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,6 +98,7 @@ hold off;
 
 % Ploting SU Collisions Results 
 %%%%%%%% names of the files that will be imported 
+if exist('Collision_VS_SUID_FOR_ALLBANDs_PPU(.25).csv')
 Collision25 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU(.25).csv'); 
 Collision15 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU(.15).csv'); 
 Collision00 = csvread ('Collision_VS_SUID_FOR_ALLBANDs_PPU(.0).csv'); 
@@ -121,105 +122,7 @@ title ('Collision VS Time Slot FOR ALL SUs','Fontweight','Bold');
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
 grid on;
 hold off;
-
-% Ploting False alaram for all SUs  VS Time  Results 
-%%%%%%%% names of the files that will be imported 
-
-SUFA25 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.25).csv'); 
-SUFA15 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.15).csv'); 
-SUFA00 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.0).csv'); 
-
-
-%%%%%%% importing the first colume of each trail to get the graph going on 
-
-x7= SUFA00 (:,1); % this is the results from probabilty of 0.0 
-y7= SUFA15 (:,1); % this is the results from probabilty of 0.15
-z7= SUFA25 (:,1); % this is the results from probabilty of 0.25
-
-%%%%%%%%%% the Drawing process 
-figure(7)
-hold on;
-plot(x7,'Color','blue','LineWidth',2.0);
-plot(y7,'Color','red','linewidth',2.0,'LineStyle','-.');
-plot(z7,'Color','green','LineWidth',2.0,'LineStyle','-.');
-xlabel('Time SLOT','Fontweight','Bold');
-ylabel('SU False Alarms Avereged Over Time Slots','Fontweight','Bold');
-title ('SU False Alarms Avereged Over Time Slots For Each SU','Fontweight','Bold');
-legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
-grid on;
-hold off;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% Ploting Miss-Detecction for all SUs  VS Time  Results 
-%%%%%%%% names of the files that will be imported 
-
-SUMD25 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.25).csv'); 
-SUMD15 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.15).csv'); 
-SUMD00 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.0).csv'); 
-
-
-%%%%%%% importing the first colume of each trail to get the graph going on 
-
-x8= SUMD00 (:,1); % this is the results from probabilty of 0.0 
-y8= SUMD15 (:,1) ;% this is the results from probabilty of 0.15
-z8= SUMD25 (:,1) ;% this is the results from probabilty of 0.25
-
-%%%%%%%%%% the Drawing process
-figure (8)
-hold on;
-plot(x8,'Color','blue','LineWidth',2.0);
-plot(y8,'Color','red','linewidth',2.0,'LineStyle','-.');
-plot(z8,'Color','green','LineWidth',2.0,'LineStyle','-.');
-xlabel('Time slot','Fontweight','Bold');
-ylabel('SU Miss detection Avereged Over Time Slots','Fontweight','Bold');
-title ('SU Miss Detection Avereged Over Time Slots For Each SU','Fontweight','Bold');
-legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
-grid on;
-hold off;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Ploting Sucessful SU4  VS Time  Results 
-%%%%%%%% names of the files that will be imported 
-
-SU4BANDS25 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv'); 
-SU4BANDS15 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.15).csv'); 
-SU4BANDS00 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.0).csv'); 
-
-
-%%%%%%% importing the first colume of each trail to get the graph going on 
-
-x6= SU4BANDS00 (:,1) % this is the results from probabilty of 0.0 
-y6= SU4BANDSt15 (:,1) % this is the results from probabilty of 0.15
-z6= SU4BANDS25 (:,1) % this is the results from probabilty of 0.25
-
-%%%%%%%%%% the Drawing process
-figure(6)
-hold on;
-plot(x6,'Color','blue','LineWidth',2.0);
-plot(y6,'Color','red','linewidth',2.0,'LineStyle','-.');
-plot(z6,'Color','green','LineWidth',2.0,'LineStyle','-.');
-xlabel('Time SLOTS','Fontweight','Bold');
-ylabel('SU4BANDS','Fontweight','Bold');
-title ('SU4BANDS VS Time slots for SU4','Fontweight','Bold');
-legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
-grid on;
-hold off;
-
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -231,6 +134,7 @@ hold off;
 
 % Ploting PU Interferance Ratio Results 
 %%%%%%%% names of the files that will be imported 
+if isnumeric('PU_Interfrance_ratio.25.csv')
 PUinterferance25 = csvread ('PU_Interfrance_ratio.25.csv'); 
 PUinterferance15 = csvread ('PU_Interfrance_ratio.15.csv'); 
 PUinterferance00 = csvread ('PU_Interfrance_ratio0.csv'); 
@@ -254,7 +158,77 @@ title ('PUinterferance VS BAND FOR ALL PUs','Fontweight','Bold');
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
 grid on;
 
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ploting Sucessful SU4  VS Time  Results 
+%%%%%%%% names of the files that will be imported 
+if isnumeric('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv')
+SU4BANDS25 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv'); 
+SU4BANDS15 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.15).csv'); 
+SU4BANDS00 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.0).csv'); 
+
+
+%%%%%%% importing the first colume of each trail to get the graph going on 
+
+x6= SU4BANDS00 (:,1) % this is the results from probabilty of 0.0 
+y6= SU4BANDSt15 (:,1) % this is the results from probabilty of 0.15
+z6= SU4BANDS25 (:,1) % this is the results from probabilty of 0.25
+
+%%%%%%%%%% the Drawing process
+figure(6)
+hold on;
+plot(x6,'Color','blue','LineWidth',2.0);
+plot(y6,'Color','red','linewidth',2.0,'LineStyle','-.');
+plot(z6,'Color','green','LineWidth',2.0,'LineStyle','-.');
+xlabel('Time SLOTS','Fontweight','Bold');
+ylabel('SU4BANDS','Fontweight','Bold');
+title ('SU4BANDS VS Time slots for SU4','Fontweight','Bold');
+legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
+grid on;
+hold off;
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ploting False alaram for all SUs  VS Time  Results 
+%%%%%%%% names of the files that will be imported 
+if isnumeric('PFA_VS_SUID_FOR_ALLBANDs_PPU(.25).csv')
+SUFA25 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.25).csv'); 
+SUFA15 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.15).csv'); 
+SUFA00 = csvread ('PFA_VS_SUID_FOR_ALLBANDs_PPU(.0).csv'); 
+
+
+%%%%%%% importing the first colume of each trail to get the graph going on 
+
+x7= SUFA00 (:,1); % this is the results from probabilty of 0.0 
+y7= SUFA15 (:,1); % this is the results from probabilty of 0.15
+z7= SUFA25 (:,1); % this is the results from probabilty of 0.25
+
+%%%%%%%%%% the Drawing process 
+figure(7)
+hold on;
+plot(x7,'Color','blue','LineWidth',2.0);
+plot(y7,'Color','red','linewidth',2.0,'LineStyle','-.');
+plot(z7,'Color','green','LineWidth',2.0,'LineStyle','-.');
+xlabel('Time SLOT','Fontweight','Bold');
+ylabel('SU False Alarms Avereged Over Time Slots','Fontweight','Bold');
+title ('SU False Alarms Avereged Over Time Slots For Each SU','Fontweight','Bold');
+legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
+grid on;
+hold off;
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -264,7 +238,33 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+% Ploting Miss-Detecction for all SUs  VS Time  Results 
+%%%%%%%% names of the files that will be imported 
+if isnumeric('PMD_VS_SUID_FOR_ALLBANDs_PPU(.25).csv')
+SUMD25 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.25).csv'); 
+SUMD15 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.15).csv'); 
+SUMD00 = csvread ('PMD_VS_SUID_FOR_ALLBANDs_PPU(.0).csv'); 
 
+
+%%%%%%% importing the first colume of each trail to get the graph going on 
+
+x8= SUMD00 (:,1); % this is the results from probabilty of 0.0 
+y8= SUMD15 (:,1) ;% this is the results from probabilty of 0.15
+z8= SUMD25 (:,1) ;% this is the results from probabilty of 0.25
+
+%%%%%%%%%% the Drawing process
+figure (8)
+hold on;
+plot(x8,'Color','blue','LineWidth',2.0);
+plot(y8,'Color','red','linewidth',2.0,'LineStyle','-.');
+plot(z8,'Color','green','LineWidth',2.0,'LineStyle','-.');
+xlabel('Time slot','Fontweight','Bold');
+ylabel('SU Miss detection Avereged Over Time Slots','Fontweight','Bold');
+title ('SU Miss Detection Avereged Over Time Slots For Each SU','Fontweight','Bold');
+legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
+grid on;
+hold off;
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -275,7 +275,7 @@ grid on;
 
 % Ploting Changing The Load VS Bands Taken For SUs for all SUs  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
-
+if isnumeric('NUMBER_0F_SU5.csv')
 NOOFSU5 = csvread ('NUMBER_0F_SU5.csv'); 
 NOOFSU8 = csvread ('NUMBER_0F_SU8.csv'); 
 NOOFSU10 = csvread ('NUMBER_0F_SU10.csv'); 
@@ -306,7 +306,7 @@ title ('Changing The Load VS Bands Taken For SUs for all SUs','Fontweight','Bold
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
 grid on;
 hold off;
-
+end
 
 
 

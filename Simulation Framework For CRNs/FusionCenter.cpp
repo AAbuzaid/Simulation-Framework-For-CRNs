@@ -1,6 +1,6 @@
 #include "FusionCenter.h"
 
-FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , double Pmd )
+FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , double Pmd , int numofbandforSu )
 	:emptyBands(SusN, std::vector<int>(0)),
 	bandOccupied(SusN, std::vector<int>(0)),
 	collisionVsSuN(SusN, 0),
@@ -12,6 +12,7 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , dou
 	maxSUsband = SUbandMax;
 	PFA = Pfa;
 	PMD = Pmd;
+	NumberOfBandsReqForEachSUs = numofbandforSu;
 
 	/*emptyBands = new int*[NumberOfSUs];					//creat two Dimentional array to store IDs of SUs and the result 
 	for (int raw = 0; raw < NumberOfSUs; raw++)			//of sensing for every one of them
@@ -162,29 +163,15 @@ void FusionCenter::misDetection(const std::vector<int> &MDvsBand)
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	MdVsSUId.push_back(sumOfElement);
 }
-void FusionCenter::successfulVSTime(int succVsTimeSUId,int &succVsTimeN, int T)
-{ 
-	bool falseAlarm;
-	bool missDetection;
-	std::vector<int> emptyBands;
-	if ( T < succVsTimeN)
+void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
+	, int T, std::vector<unsigned int> &SuccessfulVsTime , int bandN)
+{
+	if((bandN > 50 || bandN <50 && T < succVsTimeN) && bandDetails[bandN].SuOccupants.empty ) //no PU
 	{
-		falseAlarm = (rand() % 100) <= (PFA * 100.0);
-		//	std::cout << falseAlarm;
-		if (!falseAlarm) 				//there is false alarm
-			emptyBands.push_back(count);
+		if(bandDetails[bandN].SuOccupants.size() == 1 && bandDetails[bandN].setOccupants[0])
 	}
-	else	//H1
-	{
-		if (count < 50)
-		{
-			missDetection = (rand() % 100) < (PMD * 100);
-			if (missDetection)
-			{
-				emptyBands.push_back(count);
-			}
-		}
-	}
+		if (bandDetails[bandN].SuOccupants.size() == 1 && (T < succVsTimeN && bandN > 50))
+			SuccessfulVsTime[T]++;
 
 }
 void FusionCenter::clearPerformanceOut()
@@ -192,6 +179,6 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(collisionVsSuN.begin(), collisionVsSuN.end(), 0);
 	std::fill(utilizationVsBand.begin(), utilizationVsBand.end(), 0);
 	std::fill(throughput.begin(), throughput.end(), 0);
-	std::fill(MdVsSUId.begin(), MdVsSUId.end(), 0);
-	std::fill(FaVsSUId.begin(), FaVsSUId.end(), 0);
+	MdVsSUId.clear();
+	FaVsSUId.clear();
 }

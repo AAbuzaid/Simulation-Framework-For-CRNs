@@ -6,9 +6,9 @@
 
 int main()
 {
-	//clock_t start, end, duration;
+	clock_t start, end, duration;
 	//Constant value which may change in the future
-	//start = clock();
+	start = clock();
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
 	int NumberOfBandsReqForEachSUs = 10;
@@ -24,10 +24,13 @@ int main()
 	//For abdullah to write
 	//std::vector<Band_Details*> BandVector;
 	//To here
-	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand , PFA , PMD);
+	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand , PFA , PMD , NumberOfBandsReqForEachSUs);
 	//std::vector<SecondaryUser> tryan(100, SecondaryUser(4, 4, 5, 5));
 	//std::vector <SecondaryUser*> SU;		//SU vector with 10 SUs
+	std::vector<DetermanisticBand> BandVec(NumberOfBands,
+		DetermanisticBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
 	std::vector<unsigned int> SuccessfulVsTime(timeSlot , 0); //successful VS time output vector intilization
+
 	for (auto ProbPU : PPU)
 	{
 		/*for (int i = 0; i < NumberOfBands; i++)				//Initialize a vector with NumberOfBands bands
@@ -52,6 +55,7 @@ int main()
 		{
 			for (int i = 0; i < NumberOfBands; i++)
 			{
+				FC.successfulVSTime(BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime ,i);
 				/*if (T > timeVSuccessfulReq)
 				{
 					if (i < successfulVsTimePUActiveForBandN)
@@ -82,6 +86,8 @@ int main()
 
 				//clear all vector
 				SU[i].emptyAllResult();
+				SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
+
 			}
 			FC.collision(bandOccByPus, BandVector);	
 			/*std::cout << "collision for SU ID " << ": ";//bands thats contain PUs
@@ -144,9 +150,21 @@ int main()
 		delete SU[i];
 
 	}*/
-	//end = clock();
-	//duration = (double)(end - start) / CLOCKS_PER_SEC;
-	//printf("Decoding time = %d\n", duration);
+	//successful vs time calculation 
+	
+		std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSUs));
+	/*for (double T = 0; T < 10; T++)
+	{
+		for (int i = 0; i < NumberOfSUs; i++)
+		{
+			SU[i].successfulVSTime(BandVector,timeVSuccessfulReq , T , i);
+
+		}
+		//FC.successfulVSTime(BandVector, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime);
+	}*/
+	end = clock();
+	duration = (double)(end - start) / CLOCKS_PER_SEC;
+	printf("Decoding time = %d\n", duration);
 	system("pause");
 	return 0;
 }

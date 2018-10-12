@@ -18,17 +18,19 @@ public:
 	void SuDetermanesticSensing(std::vector<int> &band);
 	void emptyAllResult();
 	void emptyFAandMD();
+	void successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T , int SUID);
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUsOccupants;		//bands occupented by SU
 	std::vector<int> NumFA;
 	std::vector<int> numMD;
 	
+	
 private:
 	int NumberOfBand;									
 	double PFA, PMD;													//probability of false alarm and missdetection
 	//std::vector<int> BandBeingScaned;									//Band Being scanned for SUs and PUs
-	
-	unsigned int numOfBandsReqForSUs; //Number of bands for SUs 5-15
+	unsigned int count = 0;
+	 int numOfBandsReqForSUs; //Number of bands for SUs 5-15
 };
 
