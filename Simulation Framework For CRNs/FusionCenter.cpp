@@ -189,9 +189,9 @@ void FusionCenter::successfulVSTime(int succVsTimeSUId,int &succVsTimeN, int T)
 }
 void FusionCenter::clearPerformanceOut()
 {
-	std::vector<int> collisionVsSuN(5, 0);
-	std::vector<int>utilizationVsBand(NumberOfBands, 0);
-	std::vector<int>throughput(NumberOfBands, 0);
-	FaVsSUId.clear();
-	MdVsSUId.clear();
+	std::fill(collisionVsSuN.begin(), collisionVsSuN.end(), 0);
+	std::fill(utilizationVsBand.begin(), utilizationVsBand.end(), 0);
+	std::fill(throughput.begin(), throughput.end(), 0);
+	std::fill(MdVsSUId.begin(), MdVsSUId.end(), 0);
+	std::fill(FaVsSUId.begin(), FaVsSUId.end(), 0);
 }

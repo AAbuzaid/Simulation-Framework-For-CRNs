@@ -12,7 +12,7 @@ int main()
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
 	int NumberOfBandsReqForEachSUs = 10;
-	double timeSlot = 10;
+	double timeSlot = 20000;
 	int MaxSuBand = 15;
 	double PFA = .1;
 	double PMD = .1;
@@ -48,7 +48,7 @@ int main()
 		std::vector<Band_Details> BandVector(NumberOfBands, Band_Details(ProbPU));
 		std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSUs));
 
-		for (unsigned int T = 0; T < timeSlot; T++)
+		for (double T = 0; T < timeSlot; T++)
 		{
 			for (int i = 0; i < NumberOfBands; i++)
 			{
@@ -58,8 +58,8 @@ int main()
 						bandOccByPus.push_back(i);
 				}
 					FC.successfulVSTime(*SU[succVsTimeSUId], succVsTimeSUId, SuccessfulVsTime[succVsTimeSUId]);*/
-				if (i != 0)
-					BandVector[i - 1].clearBands();
+				if (T != 0)
+					BandVector[i].clearBands();
 				BandVector[i].randomPUState();		//Randomizes PUState each timeSlot
 				if (!BandVector[i].isEmpty())
 					bandOccByPus.push_back(i);		//remove State from constructor
@@ -71,31 +71,31 @@ int main()
 				FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i);
 				FC.bandsOccupiedBySU(SU[i].SUsOccupants);
-				std::cout << "secondary user ID:" << i << "scanning result: ";
+				/*std::cout << "secondary user ID:" << i << "scanning result: ";
 				for (int b = 0; b < SU[i].emptyBands.size(); b++)
 					std::cout << SU[i].emptyBands[b] << " ";
 				std::cout << std::endl;
 				std::cout << "secondary user ID: " << i << "Occupaied band: ";
 				for (int b = 0; b < SU[i].SUsOccupants.size(); b++)
 					std::cout << SU[i].SUsOccupants[b] << " ";
-				std::cout << std::endl;
+				std::cout << std::endl;*/
 
 				//clear all vector
 				SU[i].emptyAllResult();
 			}
 			FC.collision(bandOccByPus, BandVector);	
-			std::cout << "collision for SU ID " << ": ";//bands thats contain PUs
+			/*std::cout << "collision for SU ID " << ": ";//bands thats contain PUs
 			for (int b = 0; b < FC.collisionVsSuN.size(); b++)
 				std::cout << FC.collisionVsSuN[b] << " ";
-			std::cout << std::endl;
-			std::cout << " utilization Vs Band Number " << ": ";
+			std::cout << std::endl;*/
+			/*std::cout << " utilization Vs Band Number " << ": ";
 			for (int b = 0; b < FC.utilizationVsBand.size(); b++)
 				std::cout << FC.utilizationVsBand[b] << " ";
 			std::cout << std::endl;
 			std::cout << "throughput vs band number: ";
 			for (int b = 0; b < FC.throughput.size(); b++)
 				std::cout << FC.throughput[b] << " ";
-			std::cout << std::endl;
+			std::cout << std::endl;*/
 
 			FC.majority();
 			FC.clearVectors();
@@ -103,7 +103,7 @@ int main()
 			//FC.successfulVSTime(succVsTimeSUId, timeVSuccessfulReq, T);
 			
 		}
-		BandVector[NumberOfBands - 1].clearBands();
+		
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			FC.falseAlarm(SU[i].NumFA);
@@ -113,7 +113,7 @@ int main()
 		//deallocate pointer
 		
 		//Here for preformance calculation
-		std::cout << "sum of collision for SU ID: ";
+		/*std::cout << "sum of collision for SU ID: ";
 		for (int b = 0; b < FC.collisionVsSuN.size(); b++)
 			std::cout << FC.collisionVsSuN[b] << " ";
 		std::cout << std::endl;
@@ -124,7 +124,7 @@ int main()
 		std::cout << "sum throughput vs band number: ";
 		for (int b = 0; b < FC.throughput.size(); b++)
 			std::cout<< FC.throughput[b] << " ";
-		std::cout << std::endl;
+		std::cout << std::endl;*/
 
 		Performance result(timeSlot, ProbPU, succVsTimeSUId);
 		result.outputFAFile(FC.FaVsSUId); //this function output the file which contain PFA VS SUId
