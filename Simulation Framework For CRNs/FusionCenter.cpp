@@ -76,13 +76,15 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 	}*/
 	bandOccupied[SuId] = suBand;
 }
-void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails)
+void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector<Band_Details> &bandDetails,
+	const std::vector<DetermanisticBand> &bandvec, int succVsTimeSUId, double &succVsTimeN
+	, int T, std::vector< int> &SuccessfulVsT , bool count)
 {
 	//std::cout<< collisionVsSuN[0]
 	/*for (int currentSU = 0; currentSU < NumberOfSUs; currentSU++)
 	{
 		for (int BandN = 0; BandN < NumberOfBands; BandN++)
-		{ 
+		{
 			if (SUN != currentSU)
 				std::set_intersection(SuOccupants[BandN].SuOccupants.begin(), SuOccupants[BandN].SuOccupants.begin(),
 					SuOccupants[BandN].SuOccupants.begin(), SuOccupants[BandN].SuOccupants.begin(), std::back_inserter(temp));
@@ -90,13 +92,13 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			To be cont...
 
 		}
-		
+
 	}*/
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan for bands in which there is more than one SU collision
 	{
 		//if (std::find(bandDetails[bandN].SuOccupants.begin(), //scan the band if there is any SU 
 			//bandDetails[bandN].SuOccupants.end(), bandN) != bandDetails[bandN].SuOccupants.end())
-		if(!bandDetails[bandN].SuOccupants.empty())
+		if (!bandDetails[bandN].SuOccupants.empty())
 			utilizationVsBand[bandN]++; //calculate utilization VS band
 		if (bandDetails[bandN].SuOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
 			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SuOccupants.empty())//or there is one su and pu
@@ -107,9 +109,12 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 				//std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
-		
 		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
+		// successful VS time 
+		if(count)
+		successfulVSTime(bandvec, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
+
 	}
 }
 bool FusionCenter::appearsInVector(const int value, const std::vector<int> &searchIn) //to find if the value in the vector
@@ -138,6 +143,7 @@ void FusionCenter::majority()	//this class find what band is empty by majority r
 			else
 				vectoria[bandN]--; //how much one says it is not empty 
 		}
+
 		if (vectoria[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
 			majorityBands.push_back(bandN); //this band is empty by majority rule
 	}
@@ -165,16 +171,19 @@ void FusionCenter::misDetection(const std::vector<int> &MDvsBand)
 	MdVsSUId.push_back(sumOfElement);
 }
 void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
-	, int T, std::vector<unsigned int> &SuccessfulVsTime , int bandN)
+	, double T, std::vector< int> &SuccessfulVsTime , int bandN)
 {
-	/*if((bandN > 50 || bandN <50 && T < succVsTimeN) && bandDetails[bandN].SuOccupants.empty ) //no PU
+	if ((bandN > 50 || bandN < 50 && T < succVsTimeN) && !bandDetails[bandN].SuOccupants.empty()) //no PU
 	{
-		//if(bandDetails[bandN].SuOccupants.size() == 1 && bandDetails[bandN].setOccupants[0])
-	}
-		if (bandDetails[bandN].SuOccupants.size() == 1 && (T < succVsTimeN && bandN > 50))
+		if (bandDetails[bandN].SuOccupants.size() == 1 && bandDetails[bandN].SuOccupants[0] == succVsTimeSUId) //there is one su (4)
 			SuccessfulVsTime[T]++;
-	*/
+	}
 }
+	
+		/*if (bandDetails[bandN].SuOccupants.size() == 1 && (T < succVsTimeN && bandN > 50))
+			SuccessfulVsTime[T]++;*/
+
+
 void FusionCenter::clearPerformanceOut()
 {
 	std::fill(collisionVsSuN.begin(), collisionVsSuN.end(), 0);

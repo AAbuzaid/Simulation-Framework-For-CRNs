@@ -71,17 +71,13 @@ void Performance::outputThroughput(const std::vector<int> &throughput)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputSuccessfulVsTime(const std::vector<unsigned int> &SuccessfulVsTime)
+void Performance::outputSuccessfulVsTime(const std::vector<int> &SuccessfulVsTime)
 {
-	double tS = timeS;
-	std::vector<double> oFile;
-	std::transform(SuccessfulVsTime.begin(), SuccessfulVsTime.end(), std::back_inserter(oFile),
-		[tS](int num) {return num / tS; }); //this function divide all element in vector
 	std::ofstream outputFileFAvsSUid;
 	outputFileFAvsSUid.open("Successful_VS_Time_FOR_SU(" + std::to_string(succTxSuId)
-		+")_PPU(." + std::to_string(PuProb) + ").csv");
+		+")_Deterministic.csv");
 	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
-	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	std::copy(SuccessfulVsTime.begin(), SuccessfulVsTime.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
 

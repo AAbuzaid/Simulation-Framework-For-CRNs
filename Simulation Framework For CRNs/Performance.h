@@ -8,6 +8,7 @@
 class Performance
 {
 public:
+	Performance(int SuccessfulSUID) { succTxSuId = SuccessfulSUID; };
 	Performance(double timeSlot ,double PUprob,int SuccessfulSUID);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
