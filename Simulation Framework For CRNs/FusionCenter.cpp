@@ -118,7 +118,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 		}
 		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
-		// successful VS time 
+		//successful VS time 
 		if(count)
 		successfulVSTime(bandvec, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
 

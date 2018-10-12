@@ -65,7 +65,7 @@ int main()
 
 			}
 			FC.collision(bandOccByPus, BandVector, BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime ,count);
-			FC.successfulSUTrans(BandVector);
+			//FC.successfulSUTrans(BandVector);
 			FC.majority();
 			FC.clearVectors();
 			bandOccByPus.clear();
@@ -92,7 +92,7 @@ int main()
 	Performance result(succVsTimeSUId);
 	result.outputSuccessfulVsTime(SuccessfulVsTime);
 	end = clock();
-	duration = (double)(end - start) / CLOCKS_PER_SEC;
+	duration =(end - start);
 	printf("Decoding time = %d\n", duration);
 	system("pause");
 	return 0;
