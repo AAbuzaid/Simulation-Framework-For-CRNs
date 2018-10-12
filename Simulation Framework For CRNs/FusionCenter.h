@@ -21,12 +21,15 @@ public:
 	void successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId
 		, double &succVsTimeN, int T , std::vector<unsigned int> &SuccessfulVsTime ,int bandN);
 	void clearPerformanceOut();
+	void successfulSUTrans( std::vector<Band_Details>& Bands);
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
 	std::vector<int> utilizationVsBand;
 	std::vector<int> collisionVsSuN; //this vector for su vs collision
 	std::vector<int> throughput;
+	std::vector<int> succSUTrans;
+
 private:
 	int SuId;
 	//int **emptyBands;

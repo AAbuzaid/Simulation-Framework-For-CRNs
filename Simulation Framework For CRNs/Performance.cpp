@@ -91,9 +91,9 @@ void Performance::outputSuccSUTrans(const std::vector<int> &succSUTrans)
 	std::vector<double> oFile;
 	std::transform(succSUTrans.begin(), succSUTrans.end(), std::back_inserter(oFile),
 		[tS](int num) {return num / tS; }); //this function divide all element in vector
-	std::ofstream outputFileFAvsSUid;
-	outputFileFAvsSUid.open("SuccessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(." + std::to_string(PuProb) + ").csv");
-	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
+	std::ofstream outputFileSuccessfulvsSUid;
+	outputFileSuccessfulvsSUid.open("SuccessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileSuccessfulvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
-	outputFileFAvsSUid.close();
+	outputFileSuccessfulvsSUid.close();
 }
