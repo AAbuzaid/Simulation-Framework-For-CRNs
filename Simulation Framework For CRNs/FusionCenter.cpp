@@ -191,6 +191,8 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(throughput.begin(), throughput.end(), 0);
 	MdVsSUId.clear();
 	FaVsSUId.clear();
+	//std::fill(FaVsSUId.begin(), FaVsSUId.end(), 0);
+	std::fill(succSUTrans.begin(), succSUTrans.end(), 0);
 }
 
 void FusionCenter::successfulSUTrans( std::vector<Band_Details> &Bands)
@@ -202,7 +204,6 @@ void FusionCenter::successfulSUTrans( std::vector<Band_Details> &Bands)
 			int testBand = bandOccupied[i][j];
 			if (Bands[testBand].SuOccupants.size() == 1 && Bands[testBand].isEmpty())
 				succSUTrans[i]++;
-
 		}
 	}
 }

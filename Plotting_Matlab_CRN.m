@@ -86,6 +86,14 @@ legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabi
 grid on;
 hold off;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Ploting False alaram for all SUs  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
 
@@ -160,12 +168,12 @@ hold off;
 % Ploting Sucessful SU4  VS Time  Results 
 %%%%%%%% names of the files that will be imported 
 
-SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU(4)_Deterministic.csv'); 
+SuccessfulTransmissionVStime00 = csvread ('Successful_VS_Time_FOR_SU(4)_Deterministic.csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
 
-x3= SucessfulTransmission00 (:,1) ;% this is the results from probabilty of 0.0 
+x3= SuccessfulTransmissionVStime00 (:,1) ;% this is the results from probabilty of 0.0 
 %%%%%%%%%% the Drawing process
 figure(3)
 plot(x3,'Color','blue');
@@ -175,23 +183,27 @@ title ('SucessfulTransmission VS BAND FOR SU(4)','Fontweight','Bold');
 legend ('SU ID 4');
 grid on;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Ploting SU sucessful transmission  Results 
 %%%%%%%% names of the files that will be imported 
 
-SucessfulTransmission25 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.25).csv'); 
-SucessfulTransmission15 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.15).csv'); 
-SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU(4)_PPU(.0).csv'); 
+SuccessfulTransmission25 = csvread ('SuccessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.25).csv'); 
+SuccessfulTransmission15 = csvread ('SuccessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.15).csv'); 
+SuccessfulTransmission00 = csvread ('SuccessfulTransmission_VS_BAND_FOR_ALLSUs_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
 
-x3= SucessfulTransmission00 (:,1) ;% this is the results from probabilty of 0.0 
-y3= SucessfulTransmission15 (:,1) ;% this is the results from probabilty of 0.15
-z3= SucessfulTransmission25 (:,1) ;% this is the results from probabilty of 0.25
+x3= SuccessfulTransmission00 (:,1) ;% this is the results from probabilty of 0.0 
+y3= SuccessfulTransmission15 (:,1) ;% this is the results from probabilty of 0.15
+z3= SuccessfulTransmission25 (:,1) ;% this is the results from probabilty of 0.25
 
 %%%%%%%%%% the Drawing process
 figure(10)
@@ -200,8 +212,8 @@ plot(x3,'Color','blue','LineWidth',2.0);
 plot(y3,'Color','red','linewidth',2.0,'LineStyle','-.');
 plot(z3,'Color','green','LineWidth',2.0,'LineStyle','-.');
 xlabel('Bands','Fontweight','Bold');
-ylabel('SucessfulTransmission','Fontweight','Bold');
-title ('SucessfulTransmission VS BAND FOR ALL SUs','Fontweight','Bold');
+ylabel('SuccessfulTransmission','Fontweight','Bold');
+title ('SuccessfulTransmission VS BAND FOR ALL SUs','Fontweight','Bold');
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
 grid on;
 hold off;
