@@ -6,10 +6,7 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , dou
 	collisionVsSuN(SusN, 0),
 	utilizationVsBand(Nbands , 0),
 	throughput(Nbands , 0),
-	succSUTrans(SusN, 0),
-	PUInterfereDen(Nbands, 0),
-	PUInterfereNum(Nbands, 0),
-	PUInterfere(Nbands, 0)
+	succSUTrans(SusN, 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
@@ -119,13 +116,8 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 			succSUTrans[bandDetails[bandN].SuOccupants[i]]++;
 			}
 		}
-		if (!bandDetails[bandN].isEmpty())
-			PUInterfereDen[bandN]++;
-		if (!bandDetails[bandN].SuOccupants.empty())
-			PUInterfereNum[bandN]++;
 		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
-		std::cout << PUInterfereDen[bandN] << " ";
 		//successful VS time 
 		if(count)
 		successfulVSTime(bandvec, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
@@ -179,7 +171,7 @@ void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand)
 	sumOfElement = std::accumulate(FAvsBand.begin(), FAvsBand.end(), 0);
 	FaVsSUId.push_back(sumOfElement);
 }
-void FusionCenter::missDetection(const std::vector<int> &MDvsBand) 
+void FusionCenter::misDetection(const std::vector<int> &MDvsBand) 
 {
 	int sumOfElement = 0;
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);

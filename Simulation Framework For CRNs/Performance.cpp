@@ -93,12 +93,3 @@ void Performance::outputSuccSUTrans(const std::vector<int> &succSUTrans)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
-
-void Performance::outputPUInterference(const std::vector<double> &PUInterfere)
-{
-	std::ofstream outputFilePUInterfere;
-	outputFilePUInterfere.open("PU_Interference_ratio(." + std::to_string(PuProb) + ").csv");
-	std::ostream_iterator<double> outputIterator(outputFilePUInterfere, "\n");
-	std::copy(PUInterfere.begin(), PUInterfere.end(), outputIterator);
-	outputFilePUInterfere.close();
-}
