@@ -109,6 +109,13 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 				//std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
+		else
+		{
+			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
+			{
+			succSUTrans[bandDetails[bandN].SuOccupants[i]]++;
+			}
+		}
 		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
 		// successful VS time 
@@ -195,7 +202,7 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(succSUTrans.begin(), succSUTrans.end(), 0);
 }
 
-void FusionCenter::successfulSUTrans( std::vector<Band_Details> &Bands)
+void FusionCenter::successfulSUTrans(const std::vector<Band_Details> &Bands)
 {
 	for (int i = 0; i < NumberOfSUs; i++)
 	{

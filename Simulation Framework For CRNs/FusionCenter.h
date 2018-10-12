@@ -23,7 +23,7 @@ public:
 	void successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId
 		, double &succVsTimeN, double T , std::vector<int> &SuccessfulVsTime ,int bandN);
 	void clearPerformanceOut();
-	void successfulSUTrans( std::vector<Band_Details>& Bands);
+	void successfulSUTrans(const std::vector<Band_Details>& Bands);
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
