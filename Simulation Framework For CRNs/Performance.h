@@ -18,6 +18,7 @@ public:
 	void outputThroughput(const std::vector<int> &throughput);
 	void outputSuccessfulVsTime(const std::vector<int> &successfulVsTime);
 	void outputSuccSUTrans(const std::vector<int> &succSUTrans);
+	void outputPUInterference(const std::vector<double> &PUInterfere);
 	//std::vector<int> PFA;
 private:
 	double timeS;

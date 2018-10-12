@@ -74,8 +74,12 @@ int main()
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			FC.falseAlarm(SU[i].NumFA);
-			FC.misDetection(SU[i].numMD);
+			FC.missDetection(SU[i].numMD);
 			SU[i].emptyFAandMD();
+		}
+		for (int i = 0; i < NumberOfBands; i++)
+		{
+			FC.PUInterfere[i] = FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]);
 		}
 
 		Performance result(timeSlots, ProbPU, succVsTimeSUId);
@@ -85,6 +89,7 @@ int main()
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
+		result.outputPUInterference(FC.PUInterfere);
 		FC.clearPerformanceOut();
 		count = false;
 	}
