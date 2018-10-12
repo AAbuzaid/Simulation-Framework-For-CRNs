@@ -31,6 +31,9 @@ public:
 	std::vector<int> collisionVsSuN; //this vector for su vs collision
 	std::vector<int> throughput;
 	std::vector<int> succSUTrans;
+	std::vector<int> PUInterfereDen;
+	std::vector<int> PUInterfereNum;
+	std::vector<double> PUInterfere;
 
 private:
 	int SuId;
