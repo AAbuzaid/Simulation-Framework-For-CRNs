@@ -224,9 +224,9 @@ hold off;
 
 % Ploting PU Interferance Ratio Results 
 %%%%%%%% names of the files that will be imported 
-PUinterferance25 = csvread ('PU_Interfrance_ratio(.25).csv'); 
-PUinterferance15 = csvread ('PU_Interfrance_ratio(.15).csv'); 
-PUinterferance00 = csvread ('PU_Interfrance_ratio(.0).csv'); 
+PUinterferance25 = csvread ('PU_Interference_ratio(.25).csv'); 
+PUinterferance15 = csvread ('PU_Interference_ratio(.15).csv'); 
+PUinterferance00 = csvread ('PU_Interference_ratio(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
