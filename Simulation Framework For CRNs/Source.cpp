@@ -60,24 +60,24 @@ int main()
 				//clear all vectors
 				SU[i].emptyAllResult();
 				if(count)
-				SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
+					SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
 				SU[i].emptyAllResult();
 
 			}
 			FC.collision(bandOccByPus, BandVector, BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime ,count);
-			//FC.successfulSUTrans(BandVector);
 			FC.majority();
 			FC.clearVectors();
 			bandOccByPus.clear();
 			
 		}
+		FC.successfulSUTrans(timeSlots);
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			FC.falseAlarm(SU[i].NumFA);
 			FC.missDetection(SU[i].numMD);
 			SU[i].emptyFAandMD();
 		}
-		for (int i = 0; i < NumberOfBands; i++)	//PU interferance 
+		for (int i = 0; i < NumberOfBands; i++)	//PU interference 
 		{
 			if (ProbPU == 0.0)
 				FC.PUInterfere.push_back(0);

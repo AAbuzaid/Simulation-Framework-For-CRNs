@@ -8,7 +8,8 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax ,double Pfa , dou
 	throughput(Nbands , 0),
 	succSUTrans(SusN, 0),
 	PUInterfereDen(Nbands, 0),
-	PUInterfereNum(Nbands, 0)
+	PUInterfereNum(Nbands, 0),
+	changingLoad(5, 0)
 {
 	NumberOfSUs = SusN;
 	NumberOfBands = Nbands;
@@ -113,10 +114,10 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 		}
 		else
 		{
-			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
+			/*for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
 			succSUTrans[bandDetails[bandN].SuOccupants[i]]++;
-			}
+			}*/
 		}
 		if (!bandDetails[bandN].isEmpty())
 			PUInterfereDen[bandN]++;
@@ -204,20 +205,20 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(throughput.begin(), throughput.end(), 0);
 	MdVsSUId.clear();
 	FaVsSUId.clear();
-	//std::fill(FaVsSUId.begin(), FaVsSUId.end(), 0);
 	std::fill(succSUTrans.begin(), succSUTrans.end(), 0);
 	PUInterfere.clear();
 }
 
-void FusionCenter::successfulSUTrans(const std::vector<Band_Details> &Bands)
+void FusionCenter::successfulSUTrans(double timeSlots)
 {
 	for (int i = 0; i < NumberOfSUs; i++)
 	{
-		for (unsigned int j = 0; j < bandOccupied[i].size(); j++)
+		succSUTrans[i] = timeSlots * NumberOfBandsReqForEachSUs - collisionVsSuN[i];
+		/*for (unsigned int j = 0; j < bandOccupied[i].size(); j++)
 		{
 			int testBand = bandOccupied[i][j];
 			if (Bands[testBand].SuOccupants.size() == 1 && Bands[testBand].isEmpty())
 				succSUTrans[i]++;
-		}
+		}*/
 	}
 }

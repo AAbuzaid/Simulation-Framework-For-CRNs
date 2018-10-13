@@ -23,7 +23,7 @@ public:
 	void successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId
 		, double &succVsTimeN, double T , std::vector<int> &SuccessfulVsTime ,int bandN);
 	void clearPerformanceOut();
-	void successfulSUTrans(const std::vector<Band_Details>& Bands);
+	void successfulSUTrans(double timeSlots);
 	//output
 	std::vector<int> FaVsSUId;
 	std::vector<int> MdVsSUId;
@@ -34,6 +34,7 @@ public:
 	std::vector<int> PUInterfereDen;
 	std::vector<int> PUInterfereNum;
 	std::vector<double> PUInterfere;
+	std::vector<int> changingLoad;
 
 private:
 	int SuId;
