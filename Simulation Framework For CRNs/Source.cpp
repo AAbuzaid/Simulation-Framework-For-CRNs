@@ -77,7 +77,7 @@ int main()
 			FC.missDetection(SU[i].numMD);
 			SU[i].emptyFAandMD();
 		}
-		for (int i = 0; i < NumberOfBands; i++)
+		for (int i = 0; i < NumberOfBands; i++)	//PU interferance 
 		{
 			if (ProbPU == 0.0)
 				FC.PUInterfere.push_back(0);
