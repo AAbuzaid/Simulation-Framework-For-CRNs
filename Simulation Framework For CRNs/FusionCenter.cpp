@@ -115,10 +115,10 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 		}
 		else
 		{
-			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
+			/*for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
 			succSUTrans[bandDetails[bandN].SuOccupants[i]]++;
-			}
+			}*/
 		}
 		if (!bandDetails[bandN].isEmpty())
 			PUInterfereDen[bandN]++;
@@ -243,15 +243,16 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(cooperateMD.begin(), cooperateMD.end(), 0);
 }
 
-void FusionCenter::successfulSUTrans(const std::vector<Band_Details> &Bands)
+void FusionCenter::successfulSUTrans(double timeSlots)
 {
 	for (int i = 0; i < NumberOfSUs; i++)
 	{
-		for (unsigned int j = 0; j < bandOccupied[i].size(); j++)
+		succSUTrans[i] = timeSlots * NumberOfBandsReqForEachSUs - collisionVsSuN[i];
+		/*for (unsigned int j = 0; j < bandOccupied[i].size(); j++)
 		{
 			int testBand = bandOccupied[i][j];
 			if (Bands[testBand].SuOccupants.size() == 1 && Bands[testBand].isEmpty())
 				succSUTrans[i]++;
-		}
+		}*/
 	}
 }

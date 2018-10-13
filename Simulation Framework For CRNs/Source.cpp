@@ -71,13 +71,14 @@ int main()
 			bandOccByPus.clear();
 
 		}
+		FC.successfulSUTrans(timeSlots);
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			FC.falseAlarm(SU[i].NumFA);
 			FC.missDetection(SU[i].numMD);
 			SU[i].emptyFAandMD();
 		}
-		for (int i = 0; i < NumberOfBands; i++)	//PU interferance 
+		for (int i = 0; i < NumberOfBands; i++)	//PU interference 
 		{
 			if (ProbPU == 0.0)
 				FC.PUInterfere.push_back(0);

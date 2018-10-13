@@ -73,7 +73,7 @@ void SecondaryUser::emptyAllResult() {
 	SUsOccupants.clear();
 	
 }
-void SecondaryUser::SuDetermanesticSensing(std::vector<int> &PU)
+void SecondaryUser::SuDeterministicSensing(std::vector<int> &PU)
 {
 	
 }

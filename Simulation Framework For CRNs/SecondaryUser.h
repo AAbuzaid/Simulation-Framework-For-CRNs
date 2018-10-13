@@ -14,7 +14,7 @@ public:
 	void scanningBands(const std::vector<Band_Details> &Bands);	//this function scan for empty bands and store them 
 															//in vector BandBeingScanned
 	void SUsTransmitting(std::vector<Band_Details> &Bands,int SUID);		//All is well let's Tx		
-	void SuDetermanesticSensing(std::vector<int> &band);
+	void SuDeterministicSensing(std::vector<int> &band);
 	void emptyAllResult();
 	void emptyFAandMD();
 	void successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T , int SUID);
