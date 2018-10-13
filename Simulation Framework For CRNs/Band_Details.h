@@ -15,7 +15,7 @@ public:
 	void clearBands();
 
 private:
-	bool PUState;
+	bool PUOFF;
 	double ProbON;
 	//std::vector<unsigned int> Occupants;
 };

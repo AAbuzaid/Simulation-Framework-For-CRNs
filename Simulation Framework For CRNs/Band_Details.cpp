@@ -4,14 +4,14 @@
 Band_Details::Band_Details()
 {
 	ProbON = .5;
-	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;		//Randomly chooses true or false based on ProbON percentage
+	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;		//Randomly chooses true or false based on ProbON percentage
 
 }
 
 Band_Details::Band_Details(double ProbOn)
 {
 	ProbON = ProbOn;
-	PUState = (double(rand()) / double(RAND_MAX)) <= ProbON;
+	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;
 }
 
 void Band_Details::setOccupants(unsigned int i)
@@ -25,12 +25,12 @@ Band_Details::~Band_Details()
 
 bool Band_Details::isEmpty() const
 {
-	return PUState;
+	return PUOFF;
 }
 
 void Band_Details::randomPUState()
 {
-	PUState = (double(rand()) / double(RAND_MAX)) > ProbON;
+	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;
 }
 
 bool Band_Details::getProbON() const

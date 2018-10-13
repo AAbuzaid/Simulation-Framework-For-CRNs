@@ -120,7 +120,7 @@ void FusionCenter::collision(const std::vector<int> &PUVsBand, const std::vector
 		}
 		if (!bandDetails[bandN].isEmpty())
 			PUInterfereDen[bandN]++;
-		if (!bandDetails[bandN].SuOccupants.empty())
+		if (!bandDetails[bandN].SuOccupants.empty() && !bandDetails[bandN].isEmpty())
 			PUInterfereNum[bandN]++;
 		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
 			throughput[bandN]++;
@@ -177,7 +177,7 @@ void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand)
 	sumOfElement = std::accumulate(FAvsBand.begin(), FAvsBand.end(), 0);
 	FaVsSUId.push_back(sumOfElement);
 }
-void FusionCenter::misDetection(const std::vector<int> &MDvsBand) 
+void FusionCenter::missDetection(const std::vector<int> &MDvsBand) 
 {
 	int sumOfElement = 0;
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
