@@ -232,7 +232,7 @@ plot(z5,'Color','green','LineWidth',2.0,'LineStyle','-.');
 xlabel('Bands','Fontweight','Bold');
 ylabel('PU Interference','Fontweight','Bold');
 title ('PU Interference VS BAND FOR ALL PUs','Fontweight','Bold');
-legend ('Probability Of Activation 0.0 ','Probability Of Activation 0.15','Probability Of Activation 0.25 ');
+legend ('Probabilty Of Activation 0.0 ','Probabilty Of Activation 0.15','Probabilty Of Activation 0.25 ');
 grid on;
 
 
@@ -284,7 +284,7 @@ plot(G9,'Color','yellow','LineWidth',2.0,'LineStyle','-.');
 xlabel('SU ID','Fontweight','Bold');
 ylabel('Average Value of Used Bands for each SU  ','Fontweight','Bold');
 title ('Changing The Load VS Bands Taken For SUs for all SUs','Fontweight','Bold');
-legend ('Probability Of Activation 0.0 ','Probability Of Activation 0.15','Probability Of Activation 0.25 ');
+legend ('Probabilty Of Activation 0.0 ','Probabilty Of Activation 0.15','Probabilty Of Activation 0.25 ');
 grid on;
 hold off;
 

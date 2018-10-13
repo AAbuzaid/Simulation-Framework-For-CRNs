@@ -22,24 +22,24 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 
 void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 {
-	bool falseAlarm;
-	bool missDetection;
+	bool falseAlarmPr;
+	bool missDetectionPr;
 	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
 			if (Bands[i].isEmpty()) //H0
 		{ 
-				falseAlarm = (rand() % 100) < (PFA * 100.0);
+				falseAlarmPr = (rand() % 100) < (PFA * 100.0);
 			//	std::cout << falseAlarm;
-			if (falseAlarm) 				//there is false alarm
+			if (falseAlarmPr) 				//there is false alarm
 				NumFA[i]++;		//number of false alarm vs band
 			else
 				emptyBands.push_back(i); 
 		}
 		else	//H1
 		{
-				missDetection = (rand() % 100) < (PMD * 100);
-			if (missDetection)
+				missDetectionPr = (rand() % 100) < (PMD * 100);
+			if (missDetectionPr)
 			{
 				emptyBands.push_back(i);
 				numMD[i]++; //number of misdetection vs band
