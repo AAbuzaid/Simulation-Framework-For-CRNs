@@ -37,8 +37,8 @@ int main()
 		{
 			for (int i = 0; i < NumberOfBands; i++)
 			{
-			
-			
+
+
 				if (T != 0)
 				{
 					BandVector[i].clearBands();
@@ -46,7 +46,7 @@ int main()
 				}
 				BandVector[i].randomPUState();		//Randomizes PUState each timeSlot
 				if (!BandVector[i].isEmpty())
-					bandOccByPus.push_back(i);		
+					bandOccByPus.push_back(i);
 			}
 			for (int i = 0; i < NumberOfSUs; i++)
 			{
@@ -55,21 +55,21 @@ int main()
 				FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i);
 				FC.bandsOccupiedBySU(SU[i].SUsOccupants);
-				
+
 
 				//clear all vectors
 				SU[i].emptyAllResult();
-				if(count)
-				SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
+				if (count)
+					SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
 				SU[i].emptyAllResult();
 
 			}
-			FC.collision(bandOccByPus, BandVector, BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime ,count);
+			FC.collision(bandOccByPus, BandVector, BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime, count);
 			//FC.successfulSUTrans(BandVector);
-			FC.majority();
+			//FC.majority(bandOccByPus);
 			FC.clearVectors();
 			bandOccByPus.clear();
-			
+
 		}
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
@@ -84,7 +84,7 @@ int main()
 			else
 				FC.PUInterfere.push_back(FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]));
 		}
-		Performance result(timeSlots, ProbPU, succVsTimeSUId);
+		Performance result(timeSlots, ProbPU, succVsTimeSUId , NumberOfSUs);
 		result.outputFAFile(FC.FaVsSUId); //this function outputs the file which contain PFA VS SUId
 		result.outputMDFile(FC.MdVsSUId);
 		result.outputCollision(FC.collisionVsSuN);
@@ -92,6 +92,8 @@ int main()
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
 		result.outputPUInterference(FC.PUInterfere);	//for taugh
+		result.outputFACooperative(FC.cooperateFA); //this function outputs the file which contain PFA VS SUId
+		result.outputMDCooperative(FC.cooperateMD);
 		FC.clearPerformanceOut();
 		count = false;
 	}

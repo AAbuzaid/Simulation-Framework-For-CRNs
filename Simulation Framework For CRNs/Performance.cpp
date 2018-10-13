@@ -2,11 +2,12 @@
 
 
 
-Performance::Performance(double timeSlot , double PUprob, int SuccessfulSUID)
+Performance::Performance(double timeSlot , double PUprob, int SuccessfulSUID , int numberOfSus)
 {
 	timeS = timeSlot;
 	succTxSuId = SuccessfulSUID;
 	PuProb = PUprob *100;
+	numberOfSUs = double(numberOfSus);
 }
 
 
@@ -100,4 +101,28 @@ void Performance::outputPUInterference(const std::vector<double> &PUInterfere)
 	std::ostream_iterator<double> outputIterator(outputFilePUInterfere, "\n");
 	std::copy(PUInterfere.begin(), PUInterfere.end(), outputIterator);
 	outputFilePUInterfere.close();
+}
+void Performance::outputMDCooperative(const std::vector<int> &PMDvsSUs)
+{
+	double tS = timeS;
+	std::vector<double> oFile;
+	std::transform(PMDvsSUs.begin(), PMDvsSUs.end(), std::back_inserter(oFile),
+		[tS](int num) {return num / (tS); }); //this function divide all element in vector
+	std::ofstream outputFileSuccessfulvsSUid;
+	outputFileSuccessfulvsSUid.open("PMD_VS_SUID_FOR_ALLBANDs_Cooperative_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileSuccessfulvsSUid, "\n");
+	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileSuccessfulvsSUid.close();
+}
+void Performance::outputFACooperative(const std::vector<int> &PFAvsSU)
+{
+	double tS = timeS;
+	std::vector<double> oFile;
+	std::transform(PFAvsSU.begin(), PFAvsSU.end(), std::back_inserter(oFile),
+		[tS](int num) {return num / (tS); }); //this function divide all element in vector
+	std::ofstream outputFileSuccessfulvsSUid;
+	outputFileSuccessfulvsSUid.open("PFA_VS_SUID_FOR_ALLBANDs_Cooperative_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileSuccessfulvsSUid, "\n");
+	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileSuccessfulvsSUid.close();
 }

@@ -124,4 +124,7 @@ void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, doub
 
 	}
 }
-	
+/*void SecondaryUser::changingLoad(const std::vector<int> &loads)
+{
+
+}*/
