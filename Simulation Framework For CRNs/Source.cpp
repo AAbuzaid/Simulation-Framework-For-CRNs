@@ -88,7 +88,7 @@ int main()
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
-		result.outputPUInterference(FC.PUInterfere);
+		result.outputPUInterference(FC.PUInterfere);	//for taugh
 		FC.clearPerformanceOut();
 		count = false;
 	}
