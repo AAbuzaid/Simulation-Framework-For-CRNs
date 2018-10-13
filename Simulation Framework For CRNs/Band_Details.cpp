@@ -25,7 +25,7 @@ Band_Details::~Band_Details()
 
 bool Band_Details::isEmpty() const
 {
-	return !PUState;
+	return PUState;
 }
 
 void Band_Details::randomPUState()

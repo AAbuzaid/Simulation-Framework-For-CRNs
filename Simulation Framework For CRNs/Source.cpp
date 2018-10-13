@@ -74,14 +74,13 @@ int main()
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
 			FC.falseAlarm(SU[i].NumFA);
-			FC.missDetection(SU[i].numMD);
+			FC.misDetection(SU[i].numMD);
 			SU[i].emptyFAandMD();
 		}
 		for (int i = 0; i < NumberOfBands; i++)
 		{
-			FC.PUInterfere[i] = FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]);		// Calculate PU Interference Ratio
+			FC.PUInterfere.push_back(FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]));
 		}
-
 		Performance result(timeSlots, ProbPU, succVsTimeSUId);
 		result.outputFAFile(FC.FaVsSUId); //this function outputs the file which contain PFA VS SUId
 		result.outputMDFile(FC.MdVsSUId);
