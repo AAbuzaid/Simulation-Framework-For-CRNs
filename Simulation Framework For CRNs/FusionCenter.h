@@ -16,7 +16,7 @@ public:
 	void collision(const std::vector<int> &PU,const std::vector<Band_Details> &SUOccupants,
 		const std::vector<DetermanisticBand> &bandDetails, int succVsTimeSUId, double &succVsTimeN
 		, int T, std::vector<int> &SuccessfulVsTime,bool count); //return int vector of collision vs su
-	void majority(std::vector<int> &puInBand);
+	void majority(std::vector<int> &puInBand ,const std::vector<SecondaryUser> &SU);
 	void clearVectors();
 	void falseAlarm(const std::vector<int> &FAvsBand);
 	void missDetection(const std::vector<int> &MDvsBand);

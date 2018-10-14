@@ -13,10 +13,10 @@ int main()
 	int NumberOfSUs = 10;
 	int NumberOfBandsReqForEachSUs = 10;
 	double timeSlots = 20000;
-	int MaxSuBand = 15;
+	int MaxSuBand = 10;
 	double PFA = .1;
 	double PMD = .1;
-	double PPU[3] = { 0 , .15 , .25 };
+	double PPU[3] = {0 , .15 , .25 };
 	int succVsTimeSUId = 4;
 	double timeVSuccessfulReq = timeSlots / 2;
 	int successfulVsTimePUActiveForBandN = 50;
@@ -65,8 +65,8 @@ int main()
 
 			}
 			FC.collision(bandOccByPus, BandVector, BandVec, succVsTimeSUId, timeVSuccessfulReq, T, SuccessfulVsTime, count);
-			//FC.successfulSUTrans(BandVector);
-			//FC.majority(bandOccByPus);
+			FC.successfulSUTrans(timeSlots);
+			//FC.majority(bandOccByPus);	//this band do cooperative decision on the empty band 
 			FC.clearVectors();
 			bandOccByPus.clear();
 

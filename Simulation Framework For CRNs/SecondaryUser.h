@@ -31,5 +31,6 @@ private:
 	//std::vector<int> BandBeingScaned;									//Band Being scanned for SUs and PUs
 	unsigned int count = 0;
 	 int numOfBandsReqForSUs; //Number of bands for SUs 5-15
+	 int randomBand;
 };
 

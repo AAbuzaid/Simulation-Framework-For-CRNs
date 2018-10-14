@@ -51,7 +51,7 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
 {
 	for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 	{
-		int randomBand = (rand() % Bands.size());
+		randomBand = (rand() % Bands.size());
 		if (std::find(SUsOccupants.begin(),
 			SUsOccupants.end(), randomBand) == SUsOccupants.end())
 		{
@@ -64,12 +64,12 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
 	}
 
 
-	
+
 	//this code do local sensing (extra for project 2)
-	/*if (emptyBands.size() != 0){
+	/*if (emptyBands.size() != 0) {
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
-			int randomBand = (rand() % emptyBands.size());
+			randomBand = (rand() % emptyBands.size());
 			if (std::find(SUsOccupants.begin(),
 				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
 			{
@@ -80,10 +80,10 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
 			else
 				i--;
 		}
-
 		// Save which SUs are using a specific band
 	}*/
 }
+
 void SecondaryUser::emptyAllResult() {
 	emptyBands.clear();
 	SUsOccupants.clear();

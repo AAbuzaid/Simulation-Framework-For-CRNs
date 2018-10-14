@@ -63,7 +63,7 @@ void FusionCenter::getEmptyBands(const std::vector<int> &Bands)
 			break;
 		}
 	}*/
-	
+	if(!Bands.empty())
 	emptyBands[SuId] = Bands;
 
 }
@@ -143,56 +143,82 @@ bool FusionCenter::appearsInVector(const int value, const std::vector<int> &sear
 		return false; // no matches found
 	
 }
-void FusionCenter::majority(std::vector<int> &puInBand)	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
+void FusionCenter::majority(std::vector<int> &puInBand, const std::vector<SecondaryUser> &SU)	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
 {
-	std::vector<int> vectoria(NumberOfBands , 0);	//temp vector
+	std::vector<int> FA_Temp(NumberOfSUs, 0);	//temp vector
+	std::vector<int> MD_Temp(NumberOfSUs, 0);
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands 
 	{
-		for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
+		for (int SUN = 0; SUN < NumberOfSUs; SUN++)	//to enter the 2D vector empty class
 		{
-			std::sort(emptyBands[SUN].begin() , emptyBands[SUN].end());
-			if (std::binary_search(emptyBands[SUN].begin(), emptyBands[SUN].end(), bandN))
-			{	//inter in here if the band is says empty by SUN
-				vectoria[bandN]++; //how much SU says the band is empty 
-
+			if (SU[SUN].NumFA[bandN])
+			{
+				FA_Temp[SUN]++;
 			}
 			else
-				vectoria[bandN]--; //how much one says it is not empty 
+				FA_Temp[bandN]--; //how much one says it is not empty 
+			if (SU[SUN].numMD[bandN])
+			{
+				cooperateMD[SUN]++;
+			}
+			else
+				cooperateMD[bandN]--; //how much one says it is not empty 
+		}
+		for (int i = 0; i < NumberOfSUs; i++)
+		{
+
+		}
+		std::transform(cooperateFA.begin() , cooperateMD.end() , std::back_inserter(cooperateFA))
+		//this code for majority decision for PU active in the band
+		/*std::vector<int> vectoria(NumberOfBands , 0);	//temp vector
+		for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands
+		{
+			for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
+			{
+				std::sort(emptyBands[SUN].begin() , emptyBands[SUN].end());
+				if (std::binary_search(emptyBands[SUN].begin(), emptyBands[SUN].end(), bandN))
+				{	//inter in here if the band is says empty by SUN
+					vectoria[bandN]++; //how much SU says the band is empty
+
+				}
+				else
+					vectoria[bandN]--; //how much one says it is not empty
+			}
+
+			if (vectoria[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
+				majorityBands.push_back(bandN); //this band is empty by majority rule
+		}
+		std::vector<int> temper;
+		std::sort(majorityBands.begin(), majorityBands.end());
+		std::sort(puInBand.begin(), puInBand.end());
+		std::set_intersection(majorityBands.begin(), majorityBands.end(), puInBand.begin()
+			, puInBand.end(), std::back_inserter(temper));
+		std::vector<int> emp;
+		for (int i = 0; i < NumberOfBands; i++)
+		{
+			if (std::binary_search(majorityBands.begin(), majorityBands.end(), i) &&
+				std::binary_search(puInBand.begin(), puInBand.end(), i))
+				emp.push_back(i);
+		}
+		for (int k = 0; k < NumberOfSUs; k++)
+		{
+			for (int i = 0; i < temper.size(); i++)
+			{
+				if (std::binary_search(emptyBands[k].begin(), emptyBands[k].end(), temper[i]))
+					cooperateMD[k]++;
+
+			}
+			for (int i = 0; i < emp.size(); i++)
+			{
+				if (std::binary_search(emptyBands[k].begin(), emptyBands[k].end(), emp[i]))
+					cooperateFA[k]++;
+			}
 		}
 
-		if (vectoria[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
-			majorityBands.push_back(bandN); //this band is empty by majority rule
-	}
-	std::vector<int> temper;
-	std::sort(majorityBands.begin(), majorityBands.end());
-	std::sort(puInBand.begin(), puInBand.end());
-	std::set_intersection(majorityBands.begin(), majorityBands.end(), puInBand.begin()
-		, puInBand.end(), std::back_inserter(temper));
-	std::vector<int> emp;
-	for (int i = 0; i < NumberOfBands; i++)
-	{
-		if (std::binary_search(majorityBands.begin(), majorityBands.end(), i) &&
-			std::binary_search(puInBand.begin(), puInBand.end(), i))
-			emp.push_back(i);
-	}
-	for (int k = 0; k < NumberOfSUs; k++)
-	{
-		for (int i = 0; i < temper.size(); i++)
-		{
-			if (std::binary_search(emptyBands[k].begin(), emptyBands[k].end(), temper[i]))
-				cooperateMD[k]++;
-			
-		}
-		for (int i = 0; i < emp.size(); i++)
-		{
-			if (std::binary_search(emptyBands[k].begin(), emptyBands[k].end(), emp[i]))
-				cooperateFA[k]++;
-		}
-	}
-	
-	std::vector<int>().swap(temper);
-	std::vector<int>().swap(emp);
+		std::vector<int>().swap(temper);
+		std::vector<int>().swap(emp);*/
 
+	}
 }
 
 void FusionCenter::clearVectors()
@@ -208,6 +234,10 @@ void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand)
 	int sumOfElement = 0;
 	sumOfElement = std::accumulate(FAvsBand.begin(), FAvsBand.end(), 0);
 	FaVsSUId.push_back(sumOfElement);
+	for (int i = 0; i < NumberOfBands; i++)
+	{
+		
+	}
 }
 void FusionCenter::missDetection(const std::vector<int> &MDvsBand) 
 {
