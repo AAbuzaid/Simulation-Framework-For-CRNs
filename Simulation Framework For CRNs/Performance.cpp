@@ -2,9 +2,9 @@
 
 
 
-Performance::Performance(double timeSlot , double PUprob, int SuccessfulSUID , int numberOfSus)
+Performance::Performance(int timeSlot , double PUprob, int SuccessfulSUID , int numberOfSus)
 {
-	timeS = timeSlot;
+	timeS = double(timeSlot);
 	succTxSuId = SuccessfulSUID;
 	PuProb = PUprob *100;
 	numberOfSUs = double(numberOfSus);
@@ -122,6 +122,18 @@ void Performance::outputFACooperative(const std::vector<int> &PFAvsSU)
 		[tS](int num) {return num / (tS); }); //this function divide all element in vector
 	std::ofstream outputFileSuccessfulvsSUid;
 	outputFileSuccessfulvsSUid.open("PFA_VS_SUID_FOR_ALLBANDs_Cooperative_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileSuccessfulvsSUid, "\n");
+	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileSuccessfulvsSUid.close();
+}
+void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc)
+{
+	double tS = timeS * numberOfSUs;
+	std::vector<double> oFile;
+	std::transform(loadsVsSucc.begin(), loadsVsSucc.end(), std::back_inserter(oFile),
+		[tS](int num) {return num / tS; }); //this function divide all element in vector
+	std::ofstream outputFileSuccessfulvsSUid;
+	outputFileSuccessfulvsSUid.open("SuccessfulTransmission_VS_CHNANGING_LOADS_FOR_ALLSUs_PPU(." + std::to_string(PuProb) + ").csv");
 	std::ostream_iterator<double> outputIterator(outputFileSuccessfulvsSUid, "\n");
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();

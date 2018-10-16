@@ -5,7 +5,7 @@ class Band_Details
 {
 public:
 	Band_Details();
-	Band_Details(double ProbON);
+	Band_Details(double ProbON , int loads);
 	bool isEmpty() const;
 	void randomPUState();
 	bool getProbON() const;
@@ -13,6 +13,7 @@ public:
 	void setOccupants(unsigned int i);
 	~Band_Details();
 	void clearBands();
+	std::vector<std::vector<int>> SuOccupantsForDiffLoads;
 
 private:
 	bool PUOFF;

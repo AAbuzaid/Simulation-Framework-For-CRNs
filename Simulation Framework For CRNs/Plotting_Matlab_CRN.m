@@ -168,7 +168,7 @@ SucessfulTransmission00 = csvread ('Successful_VS_Time_FOR_SU(4)_Deterministic.c
 x3= SucessfulTransmission00 (:,1) ;% this is the results from probabilty of 0.0 
 %%%%%%%%%% the Drawing process
 figure(3)
-plot(x3,'Color','blue');
+plot(x3);
 xlabel('Bands','Fontweight','Bold');
 ylabel('SucessfulTransmission','Fontweight','Bold');
 title ('SucessfulTransmission VS BAND FOR SU(4)','Fontweight','Bold');
@@ -212,9 +212,9 @@ hold off;
 
 % Ploting PU Interferance Ratio Results 
 %%%%%%%% names of the files that will be imported 
-PUinterferance25 = csvread ('PU_Interfrance_ratio(.25).csv'); 
-PUinterferance15 = csvread ('PU_Interfrance_ratio(.15).csv'); 
-PUinterferance00 = csvread ('PU_Interfrance_ratio(.0).csv'); 
+PUinterferance25 = csvread ('PU_Interference_ratio(.25).csv'); 
+PUinterferance15 = csvread ('PU_Interference_ratio(.15).csv'); 
+PUinterferance00 = csvread ('PU_Interference_ratio(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 

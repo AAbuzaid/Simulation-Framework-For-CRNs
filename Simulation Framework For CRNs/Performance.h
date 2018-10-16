@@ -9,7 +9,7 @@ class Performance
 {
 public:
 	Performance(int SuccessfulSUID) { succTxSuId = SuccessfulSUID; };
-	Performance(double timeSlot ,double PUprob,int SuccessfulSUID, int numberOfSus);
+	Performance(int timeSlot ,double PUprob,int SuccessfulSUID, int numberOfSus);
 	~Performance() {};
 	void outputFAFile(const std::vector<int> &PFAvsSU);
 	void outputMDFile(const std::vector<int> &MDvsSU);
@@ -21,6 +21,7 @@ public:
 	void outputPUInterference(const std::vector<double> &PUInterfere);
 	void outputMDCooperative(const std::vector<int> &MDvsSU);
 	void outputFACooperative(const std::vector<int> &PFAvsSU);
+	void outputChangingLoad(const std::vector<int> &loadsVsSucc);
 
 	//std::vector<int> PFA;
 private:

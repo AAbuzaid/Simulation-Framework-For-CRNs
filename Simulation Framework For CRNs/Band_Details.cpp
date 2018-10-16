@@ -8,7 +8,8 @@ Band_Details::Band_Details()
 
 }
 
-Band_Details::Band_Details(double ProbOn)
+Band_Details::Band_Details(double ProbOn , int loads):
+	SuOccupantsForDiffLoads(loads , std::vector<int>())
 {
 	ProbON = ProbOn;
 	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;

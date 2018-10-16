@@ -47,7 +47,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 		}
 	}
 }
-void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
+void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID , const std::vector<int> &loadReq)
 {
 	for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 	{
@@ -63,8 +63,25 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID)
 			i--;
 	}
 
-
-
+		lInc = 0;
+		for (auto loads : loadReq)
+		{
+			//std::vector<int>().swap(occupentsLoads[lInc]);
+			for (int i = 0; i < loads; i++)
+			{
+				randomBand = (rand() % Bands.size());
+				if (std::find(pick.begin(),
+					pick.end(), randomBand) == pick.end())
+				{
+					pick.push_back(randomBand);
+					Bands[randomBand].SuOccupantsForDiffLoads[lInc].push_back(SUID);
+				}
+				else
+					i--;
+				std::vector<int>().swap(pick);
+			}
+			lInc++;
+		}
 	//this code do local sensing (extra for project 2)
 	/*if (emptyBands.size() != 0) {
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band

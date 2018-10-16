@@ -13,7 +13,7 @@ public:
 	//void getBandNumber(int BN);							//get the number of bandwidth
 	void scanningBands(const std::vector<Band_Details> &Bands);	//this function scan for empty bands and store them 
 															//in vector BandBeingScanned
-	void SUsTransmitting(std::vector<Band_Details> &Bands,int SUID);		//All is well let's Tx		
+	void SUsTransmitting(std::vector<Band_Details> &Bands,int SUID, const std::vector<int> &loadReq);		//All is well let's Tx		
 	void SuDeterministicSensing(std::vector<int> &band);
 	void emptyAllResult();
 	void emptyFAandMD();
@@ -25,6 +25,8 @@ public:
 	std::vector<int> NumFA;
 	std::vector<int> numMD;
 	std::vector<int> changeLoads;
+	//std::vector<std::vector<int>> occupentsLoads;
+
 private:
 	int NumberOfBand;									
 	double PFA, PMD;													//probability of false alarm and missdetection
@@ -32,5 +34,7 @@ private:
 	unsigned int count = 0;
 	 int numOfBandsReqForSUs; //Number of bands for SUs 5-15
 	 int randomBand;
+	 int lInc;
+	 std::vector<int> pick;
 };
 
