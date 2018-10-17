@@ -8,8 +8,8 @@
 class FusionCenter
 {
 public:
-	FusionCenter(int SUsN, int NBands, int maxSUBand, double Pfa, double Pmd , int,int );
-	~FusionCenter();
+	FusionCenter(int SUsN, int NBands, double Pfa, double Pmd , int,int );
+	~FusionCenter() {};
 	void getSUsIds(int ID);
 	void getEmptyBands(const std::vector<int> &Bands); //band that did't have PUs in it
 	void bandsOccupiedBySU(const std::vector<int> &suBand);
@@ -37,17 +37,11 @@ public:
 	std::vector<int> PUInterfereDen;
 	std::vector<int> PUInterfereNum;
 	std::vector<double> PUInterfere;
-	std::vector<int> cooperateFA;
-	std::vector<int> cooperateMD;
-	std::vector<int> resultFacoop;
-	std::vector<int> resultMdcoop;
 	std::vector<std::vector<int>> successfulTxForLoads;
 	std::vector<int> successfulVsLoads;
 
 private:
 	int SuId;
-	//int **emptyBands;
-	//int **bandOccupied;
 	int NumberOfSUs;
 	int NumberOfBands;
 	int maxSUsband;
@@ -59,8 +53,6 @@ private:
 	double PFA, PMD;
 	unsigned int count = 0;
 	int NumberOfBandsReqForEachSUs;
-	std::vector<std::vector <int>> FA_Temp;	//temp vector
-	std::vector<std::vector <int>> MD_Temp;	//temp vector
 	int numberOfLoads;
 	std::vector<int> falseAlarmCoopBand;
 	std::vector<int> missDetectionCoopBand;

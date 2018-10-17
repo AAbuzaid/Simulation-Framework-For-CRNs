@@ -13,7 +13,6 @@ int main()
 	int NumberOfSUs = 10;
 	int NumberOfBandsReqForEachSUs = 10;
 	int timeSlots = 20000;
-	int MaxSuBand = 10;
 	double PFA = .1;
 	double PMD = .1;
 	double PPU[3] = {0 , .15 , .25 };
@@ -23,7 +22,7 @@ int main()
 	int successfulVsTimePUActiveForBandN = 50;
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
 
-	FusionCenter FC(NumberOfSUs, NumberOfBands, MaxSuBand , PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
+	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
 
 	std::vector<DetermanisticBand> BandVec(NumberOfBands,
 		DetermanisticBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
@@ -53,11 +52,9 @@ int main()
 			{
 				SU[i].scanningBands(BandVector);
 				FC.getSUsIds(i);
-				FC.getEmptyBands(SU[i].emptyBands);
+				//FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i , loadsChange);
-				FC.bandsOccupiedBySU(SU[i].SUsOccupants);
-
-
+				//FC.bandsOccupiedBySU(SU[i].SUsOccupants);
 				//clear all vectors
 				SU[i].emptyAllResult();
 				if (count)
@@ -71,8 +68,7 @@ int main()
 			FC.majority(bandOccByPus , SU);	//this band do cooperative decision on the empty band 
 			FC.changingLoad(loadsChange);
 			FC.clearVectors();
-			bandOccByPus.clear();
-			//std::cout << std::endl;
+			std::vector<int>().swap(bandOccByPus);
 
 		}
 		FC.successfulSUTrans(timeSlots);

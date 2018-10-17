@@ -69,7 +69,6 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 			SUsOccupants.end(), randomBand) == SUsOccupants.end())
 		{
 			SUsOccupants.push_back(randomBand);						// Assigning is random
-			//std::cout << SUsOccupants[i] << " ";
 			Bands[randomBand].setOccupants(SUID);
 		}
 		else
@@ -78,23 +77,19 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 		lInc = 0;
 		for (auto loads : loadReq)
 		{
-			//std::cout << "load" << " " << loads << " ";
 			//std::vector<int>().swap(occupentsLoads[lInc]);
 			for (int i = 0; i < loads; i++)
 			{
-				//std::cout << " " << loads << " ";
 				randomBand = (rand() % Bands.size());
 				if (std::find(pick.begin(),
 					pick.end(), randomBand) == pick.end())
 				{
 					pick.push_back(randomBand);
 					Bands[randomBand].SuOccupantsForDiffLoads[lInc].push_back(SUID);
-					//std::cout <<" " <<randomBand  << " ";
 				}
 				else
 					i--;
 			}
-			//std::cout << std::endl;
 			lInc++;
 			std::vector<int>().swap(pick);
 
@@ -139,7 +134,6 @@ void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, doub
 {
 	bool falseAlarm;
 	bool missDetection;
-	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
 		if (Bands[i].isEmpty(T, i)) //H0
@@ -166,7 +160,6 @@ void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, doub
 				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
 			{
 				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
-				//std::cout << SUsOccupants[i] << " ";
 				Bands[emptyBands[randomBand]].setOccupants(SUID);
 			}
 			else
@@ -176,7 +169,4 @@ void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, doub
 
 	}
 }
-/*void SecondaryUser::changingLoad(const std::vector<int> &loads)
-{
 
-}*/

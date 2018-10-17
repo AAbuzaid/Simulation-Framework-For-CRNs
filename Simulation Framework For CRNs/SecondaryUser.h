@@ -18,7 +18,6 @@ public:
 	void emptyAllResult();
 	void emptyFAandMD();
 	void successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T , int SUID);
-	void changingLoad(const std::vector<int> &loads);
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUsOccupants;		//bands occupented by SU
