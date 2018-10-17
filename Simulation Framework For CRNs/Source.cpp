@@ -18,7 +18,7 @@ int main()
 	double PMD = .1;
 	double PPU[3] = {0 , .15 , .25 };
 	int succVsTimeSUId = 4;
-	std::vector<int> loadsChange = { 5,8,10,12,15 };
+	std::vector<int> loadsChange = {5,8,10,12,15};
 	double timeVSuccessfulReq = timeSlots / 2;
 	int successfulVsTimePUActiveForBandN = 50;
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
@@ -68,17 +68,18 @@ int main()
 			}
 			FC.performanceCalculation(bandOccByPus, BandVector, BandVec, succVsTimeSUId
 				, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange);
-			//FC.majority(bandOccByPus);	//this band do cooperative decision on the empty band 
+			FC.majority(bandOccByPus , SU);	//this band do cooperative decision on the empty band 
 			FC.changingLoad(loadsChange);
 			FC.clearVectors();
 			bandOccByPus.clear();
+			//std::cout << std::endl;
 
 		}
 		FC.successfulSUTrans(timeSlots);
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
-			FC.falseAlarm(SU[i].NumFA);
-			FC.missDetection(SU[i].numMD);
+			FC.falseAlarm(SU[i].NumFA , SU[i].NumFACoop);
+			FC.missDetection(SU[i].NumMD , SU[i].NumMDCoop);
 			SU[i].emptyFAandMD();
 		}
 		for (int i = 0; i < NumberOfBands; i++)	//PU interference 
@@ -96,9 +97,11 @@ int main()
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
 		result.outputPUInterference(FC.PUInterfere);	//for taugh
-		result.outputFACooperative(FC.cooperateFA); //this function outputs the file which contain PFA VS SUId
-		result.outputMDCooperative(FC.cooperateMD);
+		//result.outputFACooperative(FC.cooperateFA); //this function outputs the file which contain PFA VS SUId
+		//result.outputMDCooperative(FC.cooperateMD);
 		result.outputChangingLoad(FC.successfulVsLoads);
+		result.outputFAFileCoop(FC.FaVsSUIdCoop);
+		result.outputMDFileCoop(FC.MdVsSUIdCoop);
 		FC.clearPerformanceOut();
 		count = false;
 	}

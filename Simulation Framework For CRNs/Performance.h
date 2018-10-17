@@ -22,7 +22,8 @@ public:
 	void outputMDCooperative(const std::vector<int> &MDvsSU);
 	void outputFACooperative(const std::vector<int> &PFAvsSU);
 	void outputChangingLoad(const std::vector<int> &loadsVsSucc);
-
+	void outputFAFileCoop(const std::vector<int> &PFAvsSUCoop);
+	void outputMDFileCoop(const std::vector<int> &MDvsSUCoop);
 	//std::vector<int> PFA;
 private:
 	double timeS;

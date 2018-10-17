@@ -9,8 +9,6 @@ FusionCenter::FusionCenter(int SusN, int Nbands, int SUbandMax, double Pfa, doub
 	succSUTrans(SusN, 0),
 	PUInterfereDen(Nbands, 0),
 	PUInterfereNum(Nbands, 0),
-	cooperateFA(SusN, 0),
-	cooperateMD(SusN, 0),
 	FA_Temp(NumberOfSUs, std::vector<int>(SusN)),
 	MD_Temp(NumberOfSUs, std::vector<int>(SusN)),
 	successfulTxForLoads(numberOfloads, std::vector<int>(SusN,0)),
@@ -160,23 +158,55 @@ bool FusionCenter::appearsInVector(const int value, const std::vector<int> &sear
 		return false; // no matches found
 	
 }
-void FusionCenter::majority(std::vector<int> &puInBand, const std::vector<SecondaryUser> &SU)	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
+void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUser> &SU)	//this class find what band is empty by majority rule which(num of SU who says yes > who says no)
 {
-	int val = 0 , temp = 0;
+	int counter = 0;
+	int counter1 = 0;
+	for (int bandN = 0; bandN < NumberOfBands; bandN++)
+	{
+		for (int suN = 0; suN < NumberOfSUs; suN++)
+		{
+			if (SU[suN].NumFA[bandN] > 1)
+				counter++;
+			else
+				counter--;
+			if(SU[suN].NumMD[bandN] > 1)
+				counter1++;
+			else
+				counter1--;
+		}
+		if (counter > 0)
+			falseAlarmCoopBand.push_back(bandN);
+		if (counter1 > 0)
+			missDetectionCoopBand.push_back(bandN);
+	}
+	for (int bandC : falseAlarmCoopBand)
+	{
+		for (int su = 0; su < NumberOfSUs; su++)
+			SU[su].NumFACoop[bandC] = SU[su].NumFACoop[bandC] + SU[su].NumFA[bandC];
+
+		
+	}
+	for (int bandC : missDetectionCoopBand)
+	{
+		for(int su = 0; su < NumberOfSUs; su++)
+			SU[su].NumMDCoop[bandC] = SU[su].NumMDCoop[bandC] + SU[su].NumMD[bandC];
+	}
+
+	/*int val = 0 , temp = 0;
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands 
 	{
-		for (int SUN = 0; SUN < NumberOfSUs; SUN++)	//to enter the 2D vector empty class
+		for (int SUN = 0; SUN < NumberOfSUs; SUN++)	//to enter the 2D vector empty class 
 		{
 			val = MD_Temp[SUN][bandN]++;
 			temp = FA_Temp[SUN][bandN];
 			if (SU[SUN].NumFA[bandN])
 			{
-				
 				FA_Temp[SUN][bandN]++;
 			}
 			else
 				FA_Temp[SUN][bandN]--;
-			if (SU[SUN].numMD[bandN])
+			if (SU[SUN].NumMD[bandN])
 			{
 				MD_Temp[SUN][bandN]++;
 			}
@@ -184,11 +214,7 @@ void FusionCenter::majority(std::vector<int> &puInBand, const std::vector<Second
 				MD_Temp[SUN][bandN]--;
 		}
 
-	}
-	for (int suId = 0; suId < NumberOfSUs; suId++)
-	{
-		//std::replace_if(FA_Temp[suId].begin() , FA_Temp)
-	}
+	}*/
 	
 	//this code for majority decision for PU active in the band
 	/*std::vector<int> vectoria(NumberOfBands , 0);	//temp vector
@@ -249,20 +275,29 @@ void FusionCenter::clearVectors()
 	for (int i = 0; i < bandOccupied.size(); i++)
 		bandOccupied[i].clear();
 	majorityBands.clear();
-	
+	std::vector<int>().swap(falseAlarmCoopBand);
+	std::vector<int>().swap(missDetectionCoopBand);
+
 }
-void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand)
+void FusionCenter::falseAlarm(const std::vector<int> &FAvsBand , const std::vector<int> &FAvsBandCoop)
 {
 	int sumOfElement = 0;
+	int sumOfElementCoop = 0;
 	sumOfElement = std::accumulate(FAvsBand.begin(), FAvsBand.end(), 0);
+	sumOfElementCoop = std::accumulate(FAvsBandCoop.begin(), FAvsBandCoop.end(), 0);
 	FaVsSUId.push_back(sumOfElement);
+	FaVsSUIdCoop.push_back(sumOfElementCoop);
 	
 }
-void FusionCenter::missDetection(const std::vector<int> &MDvsBand) 
+void FusionCenter::missDetection(const std::vector<int> &MDvsBand, const std::vector<int> &MDvsBandCoop)
 {
 	int sumOfElement = 0;
+	int sumOfElementCoop = 0;
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
+	sumOfElementCoop = std::accumulate(MDvsBandCoop.begin(), MDvsBandCoop.end(), 0);
 	MdVsSUId.push_back(sumOfElement);
+	MdVsSUIdCoop.push_back(sumOfElementCoop);
+
 }
 void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
 	, double T, std::vector< int> &SuccessfulVsTime , int bandN)
@@ -291,6 +326,8 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(cooperateFA.begin(), cooperateFA.end(), 0);
 	std::fill(cooperateMD.begin(), cooperateMD.end(), 0);
 	std::fill(successfulVsLoads.begin(), successfulVsLoads.end(), 0);
+	std::vector<int>().swap(FaVsSUIdCoop);
+	std::vector<int>().swap(MdVsSUIdCoop);
 
 }
 
@@ -312,6 +349,7 @@ void FusionCenter::changingLoad(const std::vector<int> &loadReq)
 	for (int i = 0; i < loadReq.size(); i++)
 	{
 		successfulVsLoads[i] = successfulVsLoads[i] + std::accumulate(successfulTxForLoads[i].begin(), successfulTxForLoads[i].end(), 0);
+		//std::cout << "load  " << i << " f" << successfulVsLoads[i] << " ";
 		std::fill(successfulTxForLoads[i].begin(), successfulTxForLoads[i].end(), 0);
 
 	}

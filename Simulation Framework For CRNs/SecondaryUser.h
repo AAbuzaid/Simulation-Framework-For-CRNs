@@ -23,9 +23,11 @@ public:
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUsOccupants;		//bands occupented by SU
 	std::vector<int> NumFA;
-	std::vector<int> numMD;
+	std::vector<int> NumMD;
 	std::vector<int> changeLoads;
 	//std::vector<std::vector<int>> occupentsLoads;
+	std::vector<int> NumFACoop;
+	std::vector<int> NumMDCoop;
 
 private:
 	int NumberOfBand;									

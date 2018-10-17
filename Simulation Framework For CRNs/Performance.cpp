@@ -138,3 +138,27 @@ void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
+void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop)
+{
+	double tS = timeS;
+	std::vector<double> oFile;
+	std::transform(PFAvsSUCoop.begin(), PFAvsSUCoop.end(), std::back_inserter(oFile),
+		[tS](int num) {return num / tS; }); //this function divide all element in vector
+	std::ofstream outputFileFAvsSUid;
+	outputFileFAvsSUid.open("PFA_VS_SUID_FOR_ALLBANDs_Coop_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
+	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
+}
+void Performance::outputMDFileCoop(const std::vector<int> &MDAvsSUCoop)
+{
+	double tS = timeS;
+	std::vector<double> oFile;
+	std::transform(MDAvsSUCoop.begin(), MDAvsSUCoop.end(), std::back_inserter(oFile),
+		[tS](int num) {return num / tS; }); //this function divide all element in vector
+	std::ofstream outputFileFAvsSUid;
+	outputFileFAvsSUid.open("PFA_VS_SUID_FOR_ALLBANDs_Coop_PPU(." + std::to_string(PuProb) + ").csv");
+	std::ostream_iterator<double> outputIterator(outputFileFAvsSUid, "\n");
+	std::copy(oFile.begin(), oFile.end(), outputIterator);
+	outputFileFAvsSUid.close();
+}
