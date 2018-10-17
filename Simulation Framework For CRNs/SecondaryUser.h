@@ -28,6 +28,10 @@ public:
 	//std::vector<std::vector<int>> occupentsLoads;
 	std::vector<int> NumFACoop;
 	std::vector<int> NumMDCoop;
+	std::vector<int> currentFA;
+	std::vector<int> currentMD;
+
+
 
 private:
 	int NumberOfBand;									

@@ -14,7 +14,7 @@ SecondaryUser::SecondaryUser()
 
 SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN)
 	:NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),NumFACoop(NumberOfBandint, 0),
-	NumMDCoop(NumberOfBandint, 0)
+	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0)
 {
 	PFA = PF_A;
 	PMD = PM_D;
@@ -26,6 +26,9 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 {
 	bool falseAlarmPr;
 	bool missDetectionPr;
+	std::fill(currentFA.begin(), currentFA.end(), 0);
+	std::fill(currentMD.begin(), currentMD.end(), 0);
+
 	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
@@ -35,19 +38,25 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 
 				falseAlarmPr = (rand() % 100) < (PFA * 100.0);
 			//	std::cout << falseAlarm;
-			if (falseAlarmPr) 				//there is false alarm
-				NumFA[i]++;		//number of false alarm vs band
-			else
+				if (falseAlarmPr)
+				{				//there is false alarm
+					NumFA[i]++;		//number of false alarm vs band
+					currentFA[i]++;
+				}
+				else
 				emptyBands.push_back(i);
 		}
 		else	//H1
 		{
 				missDetectionPr = (rand() % 100) < (PMD * 100);
-			if (missDetectionPr)
-			{
-				emptyBands.push_back(i);
-				NumMD[i]++; //number of misdetection vs band
-			}
+				if (missDetectionPr)
+				{
+					emptyBands.push_back(i);
+					{
+						NumMD[i]++; //number of misdetection vs band
+						currentMD[i]++;
+					}
+				}
 		}
 	}
 }

@@ -183,14 +183,14 @@ void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUse
 	for (int bandC : falseAlarmCoopBand)
 	{
 		for (int su = 0; su < NumberOfSUs; su++)
-			SU[su].NumFACoop[bandC] = SU[su].NumFACoop[bandC] + SU[su].NumFA[bandC];
+			SU[su].NumFACoop[bandC] = SU[su].NumFACoop[bandC] + SU[su].currentFA[bandC];
 
 		
 	}
 	for (int bandC : missDetectionCoopBand)
 	{
 		for(int su = 0; su < NumberOfSUs; su++)
-			SU[su].NumMDCoop[bandC] = SU[su].NumMDCoop[bandC] + SU[su].NumMD[bandC];
+			SU[su].NumMDCoop[bandC] = SU[su].NumMDCoop[bandC] + SU[su].currentMD[bandC];
 	}
 
 	/*int val = 0 , temp = 0;
@@ -295,6 +295,7 @@ void FusionCenter::missDetection(const std::vector<int> &MDvsBand, const std::ve
 	int sumOfElementCoop = 0;
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	sumOfElementCoop = std::accumulate(MDvsBandCoop.begin(), MDvsBandCoop.end(), 0);
+	std::cout << sumOfElementCoop << " ";
 	MdVsSUId.push_back(sumOfElement);
 	MdVsSUIdCoop.push_back(sumOfElementCoop);
 
