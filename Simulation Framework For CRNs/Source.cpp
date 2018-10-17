@@ -97,11 +97,16 @@ int main()
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
 		result.outputPUInterference(FC.PUInterfere);	//for taugh
-		//result.outputFACooperative(FC.cooperateFA); //this function outputs the file which contain PFA VS SUId
-		//result.outputMDCooperative(FC.cooperateMD);
 		result.outputChangingLoad(FC.successfulVsLoads);
+		//cooparitive sensing
 		result.outputFAFileCoop(FC.FaVsSUIdCoop);
 		result.outputMDFileCoop(FC.MdVsSUIdCoop);
+		result.outputCollisionCoop(FC.collisionVsSuN);
+		result.outputUtilizationCoop(FC.utilizationVsBand);
+		result.outputThroughputCoop(FC.throughput);
+		result.outputSuccSUTransCoop(FC.succSUTrans);
+		result.outputPUInterferenceCoop(FC.PUInterfere);	
+		result.outputChangingLoadCoop(FC.successfulVsLoads);
 		FC.clearPerformanceOut();
 		count = false;
 	}

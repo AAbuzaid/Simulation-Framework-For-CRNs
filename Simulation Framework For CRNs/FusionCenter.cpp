@@ -295,7 +295,6 @@ void FusionCenter::missDetection(const std::vector<int> &MDvsBand, const std::ve
 	int sumOfElementCoop = 0;
 	sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	sumOfElementCoop = std::accumulate(MDvsBandCoop.begin(), MDvsBandCoop.end(), 0);
-	std::cout << sumOfElementCoop << " ";
 	MdVsSUId.push_back(sumOfElement);
 	MdVsSUIdCoop.push_back(sumOfElementCoop);
 
