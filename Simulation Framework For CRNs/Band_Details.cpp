@@ -13,6 +13,8 @@ Band_Details::Band_Details(double ProbOn , int loads):
 {
 	ProbON = ProbOn;
 	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
+	if (ProbON == 1)
+		PUOFF = false;
 }
 
 void Band_Details::setOccupants(int i)
@@ -32,6 +34,10 @@ bool Band_Details::isEmpty() const
 void Band_Details::randomPUState()
 {
 	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
+	if (ProbON == 1)
+		PUOFF = false;
+	if (PUOFF)
+		std::cout << PUOFF << " ";
 }
 
 bool Band_Details::getProbON() const
@@ -40,7 +46,8 @@ bool Band_Details::getProbON() const
 }
 void Band_Details::clearBands()
 {
-	SuOccupants.clear();
+	std::vector<int>().swap(SuOccupants);
+	std::vector<int>().swap(SuOccupantsCooparitive);
 }
 DetermanisticBand::DetermanisticBand(double T, int B)
 {

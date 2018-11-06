@@ -22,8 +22,6 @@ int main()
 	double timeVSuccessfulReq = timeSlots / 2;
 	int successfulVsTimePUActiveForBandN = 50;
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
-	unsigned int activePUTimes = 0;
-	unsigned int inactivePUTimes = 0;
 	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
 
 	std::vector<DetermanisticBand> BandVec(NumberOfBands,
@@ -51,16 +49,11 @@ int main()
 				if (!BandVector[i].isEmpty())
 				{
 					bandOccByPus.push_back(i);
-					++activePUTimes;
-				}
-				else
-				{
-					++inactivePUTimes;
 				}
 			}
 			for (int i = 0; i < NumberOfSUs; i++)
 			{
-				SU[i].scanningBands(BandVector);
+				SU[i].scanningBands(BandVector , bandOccByPus.size(), i);
 				FC.getSUsIds(i);
 				//FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i , loadsChange);
@@ -90,10 +83,16 @@ int main()
 
 		}
 		FC.successfulSUTrans(timeSlots);
+		std::vector<double> FAvsSUID;
+		std::vector<double> MDvsSUID;
 		for (int i = 0; i < NumberOfSUs; i++)
 		{
-			FC.falseAlarm(SU[i].NumFA , SU[i].NumFACoop);
-			FC.missDetection(SU[i].NumMD , SU[i].NumMDCoop);
+			FC.falseAlarm(SU[i].NumFACoop);
+			FC.missDetection(SU[i].NumMDCoop);
+			
+			FAvsSUID.push_back(SU[i].FaVsSUId);
+			MDvsSUID.push_back(SU[i].MdVsSUId);
+			//std::cout << SU[i].FaVsSUId << " ";
 			SU[i].emptyFAandMD();
 		}
 		for (int i = 0; i < NumberOfBands; i++)	//PU interference 
@@ -103,11 +102,9 @@ int main()
 			else
 				FC.PUInterfere.push_back(FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]));
 		}
-		activePUTimes = activePUTimes / double(timeSlots);
-		inactivePUTimes = inactivePUTimes / double(timeSlots);
 		Performance result(timeSlots, ProbPU, succVsTimeSUId , NumberOfSUs);
-		result.outputFAFile(FC.FaVsSUId); //this function outputs the file which contain PFA VS SUId
-		result.outputMDFile(FC.MdVsSUId);
+		result.outputFAFile(FAvsSUID); //this function outputs the file which contain PFA VS SUId
+		result.outputMDFile(MDvsSUID);
 		result.outputCollision(FC.collisionVsSuN);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
@@ -125,8 +122,8 @@ int main()
 		result.outputChangingLoadCoop(FC.successfulVsLoads);
 		FC.clearPerformanceOut();
 		count = false;
-		activePUTimes = 0;
-		inactivePUTimes = 0;
+		FAvsSUID.clear();
+		MDvsSUID.clear();
 	}
 
 	Performance result(succVsTimeSUId);

@@ -11,7 +11,7 @@ Performance::Performance(int timeSlot , double PUprob, int SuccessfulSUID , int 
 }
 
 
-void Performance::outputFAFile(const std::vector<int> &PFAvsSU) const
+void Performance::outputFAFile(const std::vector<double> &PFAvsSU) const
 {	
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -23,7 +23,7 @@ void Performance::outputFAFile(const std::vector<int> &PFAvsSU) const
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputMDFile(const std::vector<int> &MDvsSU) const
+void Performance::outputMDFile(const std::vector<double> &MDvsSU) const
 {
 	
 	double tS = timeS;
@@ -114,7 +114,7 @@ void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc) const
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
-void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop) const
+void Performance::outputFAFileCoop(const std::vector<double> &PFAvsSUCoop) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -126,7 +126,7 @@ void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop) const
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputMDFileCoop(const std::vector<int> &MDAvsSUCoop) const
+void Performance::outputMDFileCoop(const std::vector<double> &MDAvsSUCoop) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;

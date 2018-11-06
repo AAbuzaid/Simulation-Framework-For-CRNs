@@ -11,8 +11,8 @@ public:
 	Performance(int SuccessfulSUID) { succTxSuId = SuccessfulSUID; };
 	Performance(int timeSlot ,double PUprob,int SuccessfulSUID, int numberOfSus);
 	~Performance() {};
-	void outputFAFile(const std::vector<int> &PFAvsSU) const;
-	void outputMDFile(const std::vector<int> &MDvsSU) const;
+	void outputFAFile(const std::vector<double> &PFAvsSU) const;
+	void outputMDFile(const std::vector<double> &MDvsSU) const;
 	void outputCollision(const std::vector<int> &Collision)	const;
 	void outputUtilization(const std::vector<int> &Utilization) const;
 	void outputThroughput(const std::vector<int> &throughput) const;
@@ -21,8 +21,8 @@ public:
 	void outputPUInterference(const std::vector<double> &PUInterfere) const;
 	void outputChangingLoad(const std::vector<int> &loadsVsSucc) const;
 	//cooparitive sensing result
-	void outputFAFileCoop(const std::vector<int> &PFAvsSUCoop) const;
-	void outputMDFileCoop(const std::vector<int> &MDvsSUCoop) const;
+	void outputFAFileCoop(const std::vector<double> &PFAvsSUCoop) const;
+	void outputMDFileCoop(const std::vector<double> &MDvsSUCoop) const;
 	void outputCollisionCoop(const std::vector<int> &Collision) const;
 	void outputUtilizationCoop(const std::vector<int> &Utilization) const;
 	void outputThroughputCoop(const std::vector<int> &throughput) const;

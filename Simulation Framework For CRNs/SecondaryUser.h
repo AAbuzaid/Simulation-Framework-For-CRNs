@@ -3,7 +3,7 @@
 #include "Band_Details.h"
 #include <iostream>
 #include <algorithm>
-
+#include <iterator>
 class SecondaryUser
 {
 public:
@@ -11,7 +11,7 @@ public:
 	SecondaryUser(double PFA, double PMD, int NumberOfBand , int SUN , bool );	//Allow you to change the variable 
 	~SecondaryUser() {};
 	//void getBandNumber(int BN);							//get the number of bandwidth
-	void scanningBands(const std::vector<Band_Details> &Bands);	//this function scan for empty bands and store them 
+	void scanningBands(const std::vector<Band_Details> &Bands, double activePUTime ,int SUID);	//this function scan for empty bands and store them 
 															//in vector BandBeingScanned
 	void SUsTransmitting(std::vector<Band_Details> &Bands,int SUID, const std::vector<int> &loadReq);		//All is well let's Tx		
 	void SuDeterministicSensing(std::vector<int> &band);
@@ -23,14 +23,15 @@ public:
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUsOccupants;		//bands occupented by SU
 	std::vector<int> SUsOccupantsCoop;		//bands occupented by SU
-	std::vector<int> NumFA;
-	std::vector<int> NumMD;
 	std::vector<int> changeLoads;
 	//std::vector<std::vector<int>> occupentsLoads;
-	std::vector<int> NumFACoop;
-	std::vector<int> NumMDCoop;
-	std::vector<int> currentFA;
-	std::vector<int> currentMD;
+	std::vector<double> NumFACoop;
+	std::vector<double> NumMDCoop;
+	std::vector<double> currentFA;
+	std::vector<double> currentMD;
+	double FaVsSUId = 0;
+	double MdVsSUId = 0;
+
 
 
 
@@ -44,5 +45,7 @@ private:
 	 int lInc;
 	 std::vector<int> pick;
 	 bool coop;
+	 double NumFA = 0;
+	 double NumMD = 0;
 };
 

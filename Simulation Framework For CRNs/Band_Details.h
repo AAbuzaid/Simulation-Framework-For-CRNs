@@ -10,6 +10,7 @@ public:
 	void randomPUState();
 	bool getProbON() const;
 	std::vector<int> SuOccupants;
+	std::vector<int> SuOccupantsCooparitive;
 	void setOccupants(int i);
 	~Band_Details();
 	void clearBands();

@@ -1,10 +1,7 @@
 #include "SecondaryUser.h"
 
 
-
 SecondaryUser::SecondaryUser()
-	:NumFA(100 ,0) ,NumMD(100 , 0)
-	
 {
 	NumberOfBand = 100;
 	PFA = .1;
@@ -13,7 +10,8 @@ SecondaryUser::SecondaryUser()
 }
 
 SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooparitive)
-	:NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),NumFACoop(NumberOfBandint, 0),
+	://NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),
+	NumFACoop(NumberOfBandint, 0),
 	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0 )
 {
 	PFA = PF_A;
@@ -23,7 +21,7 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	coop = cooparitive;
 }
 
-void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
+void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double activePUTime , int SUID)
 {
 	bool falseAlarmPr;
 	bool missDetectionPr;
@@ -41,7 +39,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 			//	std::cout << falseAlarm;
 				if (falseAlarmPr)
 				{					//there is false alarm
-					++NumFA[i];		//number of false alarm vs band
+					//++NumFA[i];		//number of false alarm vs band
+					++NumFA;
 					++currentFA[i];
 				}
 				else
@@ -54,12 +53,27 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 				{
 					emptyBands.push_back(i);
 					{
-						++NumMD[i]; //number of misdetection vs band
+						//++NumMD[i]; //number of misdetection vs band
+						++NumMD;
 						++currentMD[i];
 					}
 				}
 		}
 	}
+	FaVsSUId += NumFA / (Bands.size() - activePUTime);
+//	std::cout << FaVsSUId << " ";
+	if (activePUTime <= 0)
+		MdVsSUId += NumMD / activePUTime;
+	/*for (int i = 0; i < Bands.size(); i++)
+	{
+		NumFA[i] = NumFA[i] / (Bands.size() - activePUTime);
+		std::cout << NumFA[i] << " ";
+		NumMD[i] = NumMD[i] /activePUTimeMD;
+		currentFA[i] = currentFA[i] / (Bands.size() - activePUTime);
+		currentMD[i] = currentMD[i] / activePUTimeMD;
+	}*/
+	NumFA = 0;
+	NumMD = 0;
 }
 void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID , const std::vector<int> &loadReq)
 {
@@ -134,8 +148,10 @@ void SecondaryUser::SuDeterministicSensing(std::vector<int> &PU)
 }
 void SecondaryUser::emptyFAandMD()
 {
-	std::fill(NumFA.begin(), NumFA.end(), 0);
-	std::fill(NumMD.begin(), NumMD.end(), 0);
+	//std::fill(NumFA.begin(), NumFA.end(), 0);
+	//std::fill(NumMD.begin(), NumMD.end(), 0);
+	FaVsSUId = 0;
+	MdVsSUId = 0;
 	std::fill(NumFACoop.begin(), NumFACoop.end(), 0);
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
@@ -197,4 +213,5 @@ void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID,
 		}
 	}
 }
+
 
