@@ -12,10 +12,10 @@ Band_Details::Band_Details(double ProbOn , int loads):
 	SuOccupantsForDiffLoads(loads , std::vector<int>())
 {
 	ProbON = ProbOn;
-	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;
+	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
 }
 
-void Band_Details::setOccupants(unsigned int i)
+void Band_Details::setOccupants(int i)
 {
 	SuOccupants.push_back(i);
 }
@@ -31,7 +31,7 @@ bool Band_Details::isEmpty() const
 
 void Band_Details::randomPUState()
 {
-	PUOFF = (double(rand()) / double(RAND_MAX)) > ProbON;
+	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
 }
 
 bool Band_Details::getProbON() const

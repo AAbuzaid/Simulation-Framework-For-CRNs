@@ -10,7 +10,7 @@ public:
 	void randomPUState();
 	bool getProbON() const;
 	std::vector<int> SuOccupants;
-	void setOccupants(unsigned int i);
+	void setOccupants(int i);
 	~Band_Details();
 	void clearBands();
 	std::vector<std::vector<int>> SuOccupantsForDiffLoads;

@@ -39,6 +39,8 @@ public:
 	std::vector<double> PUInterfere;
 	std::vector<std::vector<int>> successfulTxForLoads;
 	std::vector<int> successfulVsLoads;
+	std::vector<int> majorityBands;
+
 
 private:
 	int SuId;
@@ -49,7 +51,6 @@ private:
 	std::vector<std::vector<int>> bandOccupied;
 	
 	bool appearsInVector(const int value , const std::vector<int> &searchIn);
-	std::vector<int> majorityBands;
 	double PFA, PMD;
 	unsigned int count = 0;
 	int NumberOfBandsReqForEachSUs;

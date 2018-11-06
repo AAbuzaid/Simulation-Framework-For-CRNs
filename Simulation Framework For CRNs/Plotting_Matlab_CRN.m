@@ -21,6 +21,7 @@ xlabel('Bands','Fontweight','Bold');
 ylabel('Throughput','Fontweight','Bold');
 title ('Throughput VS BAND FOR ALL SUs','Fontweight','Bold');
 legend ('Probabilty Of ACtivation 0.0 ','Probabilty Of ACtivation 0.15','Probabilty Of ACtivation 0.25 ');
+axis([0 100 0 1]) ; 
 grid on;
 hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -208,13 +209,31 @@ hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ch00 = csvread ('SuccessfulTransmission_VS_CHNANGING_LOADS_FOR_ALLSUs_PPU(.0).csv'); ;
+ch15 = csvread ('SuccessfulTransmission_VS_CHNANGING_LOADS_FOR_ALLSUs_PPU(.15).csv'); 
+ch25 = csvread ('SuccessfulTransmission_VS_CHNANGING_LOADS_FOR_ALLSUs_PPU(.25).csv'); 
+x5= ch00 (:,1); % this is the results from probabilty of 0.0 
+y5= ch15 (:,1) ;% this is the results from probabilty of 0.15
+z5= ch25 (:,1) ;% this is the results from pro
+figure(5)
+hold on;
+plot(x5,'Color','blue','LineWidth',2.0);
+plot(y5,'Color','red','linewidth',2.0,'LineStyle','-.');
+plot(z5,'Color','green','LineWidth',2.0,'LineStyle','-.');
+set(gca,'XTick',[1 2 3 4 5] ); %This is what it's going to appear in those places.
+set(gca,'XTickLabel',[5 8 10 12 15] ); %This is what it's going to appear in those places.
 
+xlabel('LOAD','Fontweight','Bold');
+ylabel('Successful Tx','Fontweight','Bold');
+title ('successful TX Vs Load','Fontweight','Bold');
+legend ('changing load 0.0 ','changing load 0.15','changing load 0.25');
+grid on;
 
 % Ploting PU Interferance Ratio Results 
 %%%%%%%% names of the files that will be imported 
-PUinterferance25 = csvread ('PU_Interference_ratio(.25).csv'); 
-PUinterferance15 = csvread ('PU_Interference_ratio(.15).csv'); 
-PUinterferance00 = csvread ('PU_Interference_ratio(.0).csv'); 
+PUinterferance25 = csvread ('PU_Interference_ratio_PPU(.25).csv'); 
+PUinterferance15 = csvread ('PU_Interference_ratio_PPU(.15).csv'); 
+PUinterferance00 = csvread ('PU_Interference_ratio_PPU(.0).csv'); 
 
 
 %%%%%%% importing the first colume of each trail to get the graph going on 
@@ -224,7 +243,7 @@ y5= PUinterferance15 (:,1) ;% this is the results from probabilty of 0.15
 z5= PUinterferance25 (:,1) ;% this is the results from probabilty of 0.25
 
 %%%%%%%%%% the Drawing process
-figure(5)
+figure(20)
 hold on;
 plot(x5,'Color','blue','LineWidth',2.0);
 plot(y5,'Color','red','linewidth',2.0,'LineStyle','-.');

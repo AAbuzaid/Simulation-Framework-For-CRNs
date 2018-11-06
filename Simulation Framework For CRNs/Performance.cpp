@@ -11,7 +11,7 @@ Performance::Performance(int timeSlot , double PUprob, int SuccessfulSUID , int 
 }
 
 
-void Performance::outputFAFile(const std::vector<int> &PFAvsSU)
+void Performance::outputFAFile(const std::vector<int> &PFAvsSU) const
 {	
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -23,7 +23,7 @@ void Performance::outputFAFile(const std::vector<int> &PFAvsSU)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputMDFile(const std::vector<int> &MDvsSU)
+void Performance::outputMDFile(const std::vector<int> &MDvsSU) const
 {
 	
 	double tS = timeS;
@@ -36,7 +36,7 @@ void Performance::outputMDFile(const std::vector<int> &MDvsSU)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputCollision(const std::vector<int> &Collision)
+void Performance::outputCollision(const std::vector<int> &Collision) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -48,7 +48,7 @@ void Performance::outputCollision(const std::vector<int> &Collision)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputUtilization(const std::vector<int> &utilization)
+void Performance::outputUtilization(const std::vector<int> &utilization) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -60,7 +60,7 @@ void Performance::outputUtilization(const std::vector<int> &utilization)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputThroughput(const std::vector<int> &throughput)
+void Performance::outputThroughput(const std::vector<int> &throughput) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -72,7 +72,7 @@ void Performance::outputThroughput(const std::vector<int> &throughput)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputSuccessfulVsTime(const std::vector<int> &SuccessfulVsTime)
+void Performance::outputSuccessfulVsTime(const std::vector<int> &SuccessfulVsTime) const
 {
 	std::ofstream outputFileFAvsSUid;
 	outputFileFAvsSUid.open("Successful_VS_Time_FOR_SU(" + std::to_string(succTxSuId)
@@ -82,7 +82,7 @@ void Performance::outputSuccessfulVsTime(const std::vector<int> &SuccessfulVsTim
 	outputFileFAvsSUid.close();
 }
 
-void Performance::outputSuccSUTrans(const std::vector<int> &succSUTrans)
+void Performance::outputSuccSUTrans(const std::vector<int> &succSUTrans) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -94,7 +94,7 @@ void Performance::outputSuccSUTrans(const std::vector<int> &succSUTrans)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
-void Performance::outputPUInterference(const std::vector<double> &PUInterfere)
+void Performance::outputPUInterference(const std::vector<double> &PUInterfere) const
 {
 	std::ofstream outputFilePUInterfere;
 	outputFilePUInterfere.open("PU_Interference_ratio_PPU(." + std::to_string(PuProb) + ").csv");
@@ -102,7 +102,7 @@ void Performance::outputPUInterference(const std::vector<double> &PUInterfere)
 	std::copy(PUInterfere.begin(), PUInterfere.end(), outputIterator);
 	outputFilePUInterfere.close();
 }
-void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc)
+void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc) const
 {
 	double tS = timeS * numberOfSUs;
 	std::vector<double> oFile;
@@ -114,7 +114,7 @@ void Performance::outputChangingLoad(const std::vector<int> &loadsVsSucc)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
-void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop)
+void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -126,7 +126,7 @@ void Performance::outputFAFileCoop(const std::vector<int> &PFAvsSUCoop)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputMDFileCoop(const std::vector<int> &MDAvsSUCoop)
+void Performance::outputMDFileCoop(const std::vector<int> &MDAvsSUCoop) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -138,7 +138,7 @@ void Performance::outputMDFileCoop(const std::vector<int> &MDAvsSUCoop)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputCollisionCoop(const std::vector<int> &Collision)
+void Performance::outputCollisionCoop(const std::vector<int> &Collision) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -150,7 +150,7 @@ void Performance::outputCollisionCoop(const std::vector<int> &Collision)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputUtilizationCoop(const std::vector<int> &utilization)
+void Performance::outputUtilizationCoop(const std::vector<int> &utilization) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -162,7 +162,7 @@ void Performance::outputUtilizationCoop(const std::vector<int> &utilization)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputThroughputCoop(const std::vector<int> &throughput)
+void Performance::outputThroughputCoop(const std::vector<int> &throughput) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -174,7 +174,7 @@ void Performance::outputThroughputCoop(const std::vector<int> &throughput)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileFAvsSUid.close();
 }
-void Performance::outputSuccessfulVsTimeCoop(const std::vector<int> &SuccessfulVsTime)
+void Performance::outputSuccessfulVsTimeCoop(const std::vector<int> &SuccessfulVsTime) const
 {
 	std::ofstream outputFileFAvsSUid;
 	outputFileFAvsSUid.open("Successful_VS_Time_FOR_SU(" + std::to_string(succTxSuId)
@@ -184,7 +184,7 @@ void Performance::outputSuccessfulVsTimeCoop(const std::vector<int> &SuccessfulV
 	outputFileFAvsSUid.close();
 }
 
-void Performance::outputSuccSUTransCoop(const std::vector<int> &succSUTrans)
+void Performance::outputSuccSUTransCoop(const std::vector<int> &succSUTrans) const
 {
 	double tS = timeS;
 	std::vector<double> oFile;
@@ -196,7 +196,7 @@ void Performance::outputSuccSUTransCoop(const std::vector<int> &succSUTrans)
 	std::copy(oFile.begin(), oFile.end(), outputIterator);
 	outputFileSuccessfulvsSUid.close();
 }
-void Performance::outputPUInterferenceCoop(const std::vector<double> &PUInterfere)
+void Performance::outputPUInterferenceCoop(const std::vector<double> &PUInterfere) const
 {
 	std::ofstream outputFilePUInterfere;
 	outputFilePUInterfere.open("PU_Interference_ratio_Coop_PPU(." + std::to_string(PuProb) + ").csv");
@@ -204,7 +204,7 @@ void Performance::outputPUInterferenceCoop(const std::vector<double> &PUInterfer
 	std::copy(PUInterfere.begin(), PUInterfere.end(), outputIterator);
 	outputFilePUInterfere.close();
 }
-void Performance::outputChangingLoadCoop(const std::vector<int> &loadsVsSucc)
+void Performance::outputChangingLoadCoop(const std::vector<int> &loadsVsSucc) const
 {
 	double tS = timeS * numberOfSUs;
 	std::vector<double> oFile;

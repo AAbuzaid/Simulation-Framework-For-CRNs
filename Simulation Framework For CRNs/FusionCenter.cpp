@@ -41,22 +41,22 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan for bands in which there is more than one SU collision
 	{
 		if (!bandDetails[bandN].SuOccupants.empty())
-			utilizationVsBand[bandN]++; //calculate utilization VS band
+			++utilizationVsBand[bandN]; //calculate utilization VS band
 		if (bandDetails[bandN].SuOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
 			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SuOccupants.empty())//or there is one su and pu
 		{
 			for (int i = 0; i < bandDetails[bandN].SuOccupants.size(); i++) //for scan the su that in the collision band 
 			{
-				collisionVsSuN[bandDetails[bandN].SuOccupants[i]]++;	//finally store the number of collision is the vector
+				++collisionVsSuN[bandDetails[bandN].SuOccupants[i]];	//finally store the number of collision is the vector
 				//std::cout << collisionVsSuN[bandDetails[bandN].SuOccupants[i]] << " ";
 			}
 		}
 		if (!bandDetails[bandN].isEmpty())
-			PUInterfereDen[bandN]++;
+			++PUInterfereDen[bandN];
 		if (!bandDetails[bandN].SuOccupants.empty() && !bandDetails[bandN].isEmpty())
-			PUInterfereNum[bandN]++;
-		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
-			throughput[bandN]++;
+			++PUInterfereNum[bandN];
+		if (bandDetails[bandN].SuOccupants.size() == 1 && !appearsInVector(bandN , PUVsBand))
+			++throughput[bandN];
 		//successful VS time 
 		if(count)
 		successfulVSTime(bandvec, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
@@ -65,19 +65,18 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 		{
 			if (bandDetails[bandN].SuOccupantsForDiffLoads[i].size() == 1 && !appearsInVector(bandN, PUVsBand))
 			{
-				successfulTxForLoads[i][bandDetails[bandN].SuOccupantsForDiffLoads[i][0]]++;
+				++successfulTxForLoads[i][bandDetails[bandN].SuOccupantsForDiffLoads[i][0]];
 
 			}
 			std::vector<int>().swap(bandDetails[bandN].SuOccupantsForDiffLoads[i]);
 		}
 		
-
 	}
 }
 bool FusionCenter::appearsInVector(const int value, const std::vector<int> &searchIn) //to find if the value in the vector
 {
 	
-		for (int i = 0; i < searchIn.size(); i++)
+		for (unsigned int i = 0; i < searchIn.size(); i++)
 		{
 			if (value == searchIn[i])
 				return true;
@@ -95,13 +94,13 @@ void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUse
 		for (int suN = 0; suN < NumberOfSUs; suN++)
 		{
 			if (SU[suN].NumFA[bandN] > 1)
-				counter++;
+				++counter;
 			else
-				counter--;
+				--counter;
 			if(SU[suN].NumMD[bandN] > 1)
-				counter1++;
+				++counter1;
 			else
-				counter1--;
+				--counter1;
 		}
 		if (counter > 0)
 			falseAlarmCoopBand.push_back(bandN);
@@ -122,23 +121,23 @@ void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUse
 	}
 
 	//this code for majority decision for PU active in the band
-	/*std::vector<int> vectora(NumberOfBands , 0);	//temp vector
+	std::vector<int> vectora(NumberOfBands , 0);	//temp vector
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands
 	{
 		for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
 		{
 			if (std::find(emptyBands[SUN].begin(), emptyBands[SUN].end(), bandN) != emptyBands[SUN].end())
 			{	//inter in here if the band is says empty by SUN
-				vectora[bandN]++; //how much SU says the band is empty
+				++vectora[bandN]; //how much SU says the band is empty
 
 			}
 			else
-				vectora[bandN]--; //how much one says it is not empty
+				--vectora[bandN]; //how much one says it is not empty
 		}
 
 		if (vectora[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
 			majorityBands.push_back(bandN); //this band is empty by majority rule
-	}	*/
+	}	
 }
 
 
@@ -179,7 +178,7 @@ void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDe
 	if ((bandN > 50 || bandN < 50 && T < succVsTimeN) && !bandDetails[bandN].SuOccupants.empty()) //no PU
 	{
 		if (bandDetails[bandN].SuOccupants.size() == 1 && bandDetails[bandN].SuOccupants[0] == succVsTimeSUId) //there is one su (4)
-			SuccessfulVsTime[T]++;
+			++SuccessfulVsTime[T];
 	}
 }
 void FusionCenter::clearPerformanceOut()
