@@ -198,23 +198,5 @@ void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, doub
 
 	}
 }
-/*void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive)
-{
-	if (emptyBandsCooparitive.size() != 0) {
-		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
-		{
-			randomBand = (rand() % emptyBandsCooparitive.size());
-			if (std::find(SUsOccupantsCoop.begin(),
-				SUsOccupantsCoop.end(), emptyBandsCooparitive[randomBand]) == SUsOccupantsCoop.end())
-			{
-				SUsOccupantsCoop.push_back(emptyBandsCooparitive[randomBand]);						// Assigning is random
-				//std::cout << SUsOccupants[i] << " ";
-				Bands[emptyBandsCooparitive[randomBand]].setOccupants(SUID);
-			}
-			else
-				--i;
-		}
-	}
-}*/
 
 

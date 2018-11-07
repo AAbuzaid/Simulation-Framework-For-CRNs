@@ -3,7 +3,7 @@
 #include "FusionCenter.h"
 #include "Performance.h"
 #include <time.h>
-bool cooparitive = false;
+bool cooparitive = true;
 
 int main()
 {
@@ -24,8 +24,8 @@ int main()
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
 	bandOccByPus.reserve(NumberOfBands+1);
 	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
-	std::vector<DetermanisticBand> BandVec(NumberOfBands,
-		DetermanisticBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
+	std::vector<DeterministicBand> BandVec(NumberOfBands,
+		DeterministicBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
 	BandVec.reserve(NumberOfBands+1);
 	std::vector<int> SuccessfulVsTime(timeSlots , 0); //successful VS time output vector intilization
 	SuccessfulVsTime.reserve(timeSlots);
@@ -36,7 +36,6 @@ int main()
 	BandVector.reserve(NumberOfBands + 1);
 	SU.reserve(NumberOfSUs + 1);
 	std::vector<Band_Details>::iterator bandConstruct;
-	std::vector<SecondaryUser>::iterator SUConstruct;
 	bool count = true;
 	for (auto ProbPU : PPU)
 	{
@@ -82,7 +81,6 @@ int main()
 			FC.changingLoad(loadsChange);
 			FC.clearVectors();
 			std::vector<int>().swap(bandOccByPus);
-
 		}
 		FC.successfulSUTrans(timeSlots);
 		std::vector<double> FAvsSUID;
@@ -91,7 +89,6 @@ int main()
 		{
 			FC.falseAlarm(SU[i].NumFACoop);
 			FC.missDetection(SU[i].NumMDCoop);
-			
 			FAvsSUID.push_back(SU[i].FaVsSUId);
 			MDvsSUID.push_back(SU[i].MdVsSUId);
 			//std::cout << SU[i].FaVsSUId << " ";
