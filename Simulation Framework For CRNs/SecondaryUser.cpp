@@ -27,7 +27,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 	bool missDetectionPr;
 	std::fill(currentFA.begin(), currentFA.end(), 0);
 	std::fill(currentMD.begin(), currentMD.end(), 0);
-
+	NumFA = 0;
+	NumMD = 0;
 	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
@@ -63,6 +64,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 	FaVsSUId += NumFA / (Bands.size() - activePUTime);
 //	std::cout << FaVsSUId << " ";
 	if (activePUTime <= 0)
+		MdVsSUId = 0;
+	else
 		MdVsSUId += NumMD / activePUTime;
 	/*for (int i = 0; i < Bands.size(); i++)
 	{
@@ -72,13 +75,10 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 		currentFA[i] = currentFA[i] / (Bands.size() - activePUTime);
 		currentMD[i] = currentMD[i] / activePUTimeMD;
 	}*/
-	NumFA = 0;
-	NumMD = 0;
 }
 void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID , const std::vector<int> &loadReq)
 {
-	if (!coop)
-	{
+	
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
 			randomBand = (rand() % Bands.size());
@@ -92,11 +92,6 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 			else
 				--i;
 		}
-	}
-	else
-	{
-
-	}
 //	std::cout << std::endl;
 		lInc = 0;
 		for (auto loads : loadReq)

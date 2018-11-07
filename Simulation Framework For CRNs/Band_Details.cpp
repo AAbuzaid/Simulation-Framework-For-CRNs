@@ -36,8 +36,6 @@ void Band_Details::randomPUState()
 	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
 	if (ProbON == 1)
 		PUOFF = false;
-	if (PUOFF)
-		std::cout << PUOFF << " ";
 }
 
 bool Band_Details::getProbON() const

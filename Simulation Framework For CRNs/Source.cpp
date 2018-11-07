@@ -3,7 +3,7 @@
 #include "FusionCenter.h"
 #include "Performance.h"
 #include <time.h>
-bool cooparitive = false;
+bool cooparitive = true;
 
 int main()
 {
@@ -67,16 +67,8 @@ int main()
 
 			}
 			FC.performanceCalculation(bandOccByPus, BandVector, BandVec, succVsTimeSUId
-				, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange);
-			FC.majority(bandOccByPus , SU);	//this band do cooperative decision on the empty band 
-			/*if(cooparitive)
-				{
-					for(int i =0; i < NumberOfSUs ; i++)
-						SU[i].SUsTransmitting(BandVector, i, FC.majorityBands);
-
-				FC.performanceCalculation(bandOccByPus, BandVector, BandVec, succVsTimeSUId
-					, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange);
-				}*/
+				, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange , cooparitive);
+			FC.majority(bandOccByPus , SU , BandVector);	//this band do cooperative decision on the empty band 
 			FC.changingLoad(loadsChange);
 			FC.clearVectors();
 			std::vector<int>().swap(bandOccByPus);
@@ -98,9 +90,15 @@ int main()
 		for (int i = 0; i < NumberOfBands; i++)	//PU interference 
 		{
 			if (ProbPU == 0.0)
+			{
 				FC.PUInterfere.push_back(0);
+				FC.PUInterfereCooparitive.push_back(0);
+			}
 			else
+			{
 				FC.PUInterfere.push_back(FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]));
+				FC.PUInterfereCooparitive.push_back(FC.PUInterfereNumCooparitive[i] / double(FC.PUInterfereDen[i]));
+			}
 		}
 		Performance result(timeSlots, ProbPU, succVsTimeSUId , NumberOfSUs);
 		result.outputFAFile(FAvsSUID); //this function outputs the file which contain PFA VS SUId
@@ -112,14 +110,17 @@ int main()
 		result.outputPUInterference(FC.PUInterfere);	//for taugh
 		result.outputChangingLoad(FC.successfulVsLoads);
 		//cooparitive sensing
-		result.outputFAFileCoop(FC.FaVsSUIdCoop);
-		result.outputMDFileCoop(FC.MdVsSUIdCoop);
-		result.outputCollisionCoop(FC.collisionVsSuN);
-		result.outputUtilizationCoop(FC.utilizationVsBand);
-		result.outputThroughputCoop(FC.throughput);
-		result.outputSuccSUTransCoop(FC.succSUTrans);
-		result.outputPUInterferenceCoop(FC.PUInterfere);	
-		result.outputChangingLoadCoop(FC.successfulVsLoads);
+		if (cooparitive)
+		{
+			result.outputFAFileCoop(FC.FaVsSUIdCoop);
+			result.outputMDFileCoop(FC.MdVsSUIdCoop);
+			result.outputCollisionCoop(FC.collisionVsSuNCooparitive);
+			result.outputUtilizationCoop(FC.utilizationVsBandCooparitive);
+			result.outputThroughputCoop(FC.throughputCooparitive);
+			result.outputSuccSUTransCoop(FC.succSUTrans);
+			result.outputPUInterferenceCoop(FC.PUInterfereCooparitive);
+			result.outputChangingLoadCoop(FC.successfulVsLoads);
+		}
 		FC.clearPerformanceOut();
 		count = false;
 		FAvsSUID.clear();

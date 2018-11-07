@@ -15,8 +15,8 @@ public:
 	void bandsOccupiedBySU(const std::vector<int> &suBand);
 	void performanceCalculation(const std::vector<int> &PU,std::vector<Band_Details> &SUOccupants,
 		const std::vector<DetermanisticBand> &bandDetails, int succVsTimeSUId, double &succVsTimeN
-		, int T, std::vector<int> &SuccessfulVsTime,bool count ,const std::vector<int> &loadsReq); //return int vector of collision vs su
-	void majority(std::vector<int> &puInBand ,std::vector<SecondaryUser> &SU, const std::vector<Band_Details> &Band_D);
+		, int T, std::vector<int> &SuccessfulVsTime,bool count ,const std::vector<int> &loadsReq , bool cooparitive); //return int vector of collision vs su
+	void majority(std::vector<int> &puInBand ,std::vector<SecondaryUser> &SU, std::vector<Band_Details> &Band_D);
 	void clearVectors();
 	void falseAlarm(const std::vector<double> &FAvsBandCoop);
 	void missDetection(const std::vector<double> &MDvsBandCoop);
@@ -40,6 +40,14 @@ public:
 	std::vector<std::vector<int>> successfulTxForLoads;
 	std::vector<int> successfulVsLoads;
 	std::vector<int> majorityBands;
+	//cooparitive
+	std::vector<int> utilizationVsBandCooparitive;
+	std::vector<int> collisionVsSuNCooparitive; //this vector for su vs collision
+	std::vector<int> throughputCooparitive;
+	std::vector<int> PUInterfereNumCooparitive;
+	std::vector<double> PUInterfereCooparitive;
+
+
 
 
 private:
