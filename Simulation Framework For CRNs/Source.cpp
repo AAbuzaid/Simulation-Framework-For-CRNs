@@ -64,10 +64,10 @@ int main()
 			for (int i = 0; i < NumberOfSUs; i++)
 			{
 				SU[i].scanningBands(BandVector , bandOccByPus.size(), i);
-				FC.getSUsIds(i);
+				FC.getSUID(i);
 				//FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i , loadsChange);
-				//FC.bandsOccupiedBySU(SU[i].SUsOccupants);
+				//FC.bandsOccupiedBySU(SU[i].SUOccupants);
 				//clear all vectors
 				SU[i].emptyAllResult();
 				if (count)
@@ -92,8 +92,8 @@ int main()
 			FC.falseAlarm(SU[i].NumFACoop);
 			FC.missDetection(SU[i].NumMDCoop);
 			
-			FAvsSUID.push_back(SU[i].FaVsSUId);
-			MDvsSUID.push_back(SU[i].MdVsSUId);
+			FAvsSUID.push_back(SU[i].FAVsSU);
+			MDvsSUID.push_back(SU[i].MDVsSU);
 			//std::cout << SU[i].FaVsSUId << " ";
 			SU[i].emptyFAandMD();
 		}

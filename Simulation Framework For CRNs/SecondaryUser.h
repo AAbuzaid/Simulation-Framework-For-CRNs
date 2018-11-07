@@ -29,7 +29,7 @@ public:
 	std::vector<double> currentFA;
 	std::vector<double> currentMD;
 	double FAVsSU = 0;
-	double MdVsSU = 0;
+	double MDVsSU = 0;
 
 
 

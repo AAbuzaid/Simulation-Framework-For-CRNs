@@ -47,7 +47,7 @@ void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
 	bandOccupied[SuId] = suBand;
 }
 void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::vector<Band_Details> &bandDetails,
-	const std::vector<DeterministicBand> &bandvec, int succVsTimeSUId, double &succVsTimeN
+	const std::vector<DetermanisticBand> &bandvec, int succVsTimeSUId, double &succVsTimeN
 	, int T, std::vector< int> &SuccessfulVsT , bool count, const std::vector<int> &loadsReq , bool CooperativeOrNot)
 {
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan for bands in which there is more than one SU collision
@@ -205,11 +205,11 @@ void FusionCenter::missDetection(const std::vector<double> &MDvsBandCoop)
 	int sumOfElementCoop = 0;
 	//sumOfElement = std::accumulate(MDvsBand.begin(), MDvsBand.end(), 0);
 	sumOfElementCoop = std::accumulate(MDvsBandCoop.begin(), MDvsBandCoop.end(), 0);
-	//MdVsSU.push_back(sumOfElement);
+	//MDVsSU.push_back(sumOfElement);
 	MdVsSUIdCoop.push_back(sumOfElementCoop);
 
 }
-void FusionCenter::successfulVSTime(const std::vector<DeterministicBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
+void FusionCenter::successfulVSTime(const std::vector<DetermanisticBand> &bandDetails,int succVsTimeSUId, double &succVsTimeN
 	, double T, std::vector< int> &SuccessfulVsTime , int bandN)
 {
 	if ((bandN > 50 || bandN < 50 && T < succVsTimeN) && !bandDetails[bandN].SUOccupants.empty()) //no PU
@@ -227,7 +227,7 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(utilizationVsBandCooparitive.begin(), utilizationVsBandCooparitive.end(), 0);
 	std::fill(throughputCooparitive.begin(), throughputCooparitive.end(), 0);
 	std::vector<double>().swap(FAVsSU);
-	std::vector<double>().swap(MdVsSU);
+	std::vector<double>().swap(MDVsSU);
 	std::fill(succSUTrans.begin(), succSUTrans.end(), 0);
 	std::vector<double>().swap(PUInterfere);
 	std::vector<double>().swap(PUInterfereCooparitive);
