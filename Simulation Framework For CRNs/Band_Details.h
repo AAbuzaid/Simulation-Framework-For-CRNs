@@ -9,21 +9,21 @@ public:
 	bool isEmpty() const;
 	void randomPUState();
 	bool getProbON() const;
-	std::vector<int> SuOccupants;
+	std::vector<int> SUOccupants;
 	void setOccupants(int i);
 	~Band_Details();
 	void clearBands();
-	std::vector<std::vector<int>> SuOccupantsForDiffLoads;
+	std::vector<std::vector<int>> SUOccupantsForDiffLoads;
 
 private:
 	bool PUOFF;
 	double ProbON;
 	//std::vector<unsigned int> Occupants;
 };
-class DetermanisticBand : public Band_Details
+class DeterministicBand : public Band_Details
 {
 public:
-	DetermanisticBand(double, int);
+	DeterministicBand(double, int);
 	bool isEmpty(double T, int bandN) const;
 
 private:

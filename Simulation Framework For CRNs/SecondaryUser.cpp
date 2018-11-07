@@ -12,7 +12,7 @@ SecondaryUser::SecondaryUser()
 	numOfBandsReqForSUs = 10;
 }
 
-SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooparitive)
+SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooperative)
 	:NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),NumFACoop(NumberOfBandint, 0),
 	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0 )
 {
@@ -20,13 +20,13 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	PMD = PM_D;
 	NumberOfBand = NumberOfBandint;
 	numOfBandsReqForSUs = SUN;
-	coop = cooparitive;
+	coop = cooperative;
 }
 
 void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 {
 	bool falseAlarmPr;
-	bool missDetectionPr;
+	bool misDetectionPr;
 	std::fill(currentFA.begin(), currentFA.end(), 0);
 	std::fill(currentMD.begin(), currentMD.end(), 0);
 
@@ -49,8 +49,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 		}
 		else	//H1
 		{
-				missDetectionPr = (rand() % 100) < (PMD * 100);
-				if (missDetectionPr)
+				misDetectionPr = (rand() % 100) < (PMD * 100);
+				if (misDetectionPr)
 				{
 					emptyBands.push_back(i);
 					{
@@ -95,7 +95,7 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 					pick.end(), randomBand) == pick.end())
 				{
 					pick.push_back(randomBand);
-					Bands[randomBand].SuOccupantsForDiffLoads[lInc].push_back(SUID);
+					Bands[randomBand].SUOccupantsForDiffLoads[lInc].push_back(SUID);
 				}
 				else
 					--i;
@@ -140,7 +140,7 @@ void SecondaryUser::emptyFAandMD()
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
 
-void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T, int SUID)
+void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T, int SUID)
 {
 	bool falseAlarm;
 	bool missDetection;

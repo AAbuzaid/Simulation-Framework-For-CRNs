@@ -9,7 +9,7 @@ Band_Details::Band_Details()
 }
 
 Band_Details::Band_Details(double ProbOn , int loads):
-	SuOccupantsForDiffLoads(loads , std::vector<int>())
+	SUOccupantsForDiffLoads(loads , std::vector<int>())
 {
 	ProbON = ProbOn;
 	PUOFF = (double(rand()) / double(RAND_MAX)) >= ProbON;
@@ -17,7 +17,7 @@ Band_Details::Band_Details(double ProbOn , int loads):
 
 void Band_Details::setOccupants(int i)
 {
-	SuOccupants.push_back(i);
+	SUOccupants.push_back(i);
 }
 
 Band_Details::~Band_Details()
@@ -40,14 +40,14 @@ bool Band_Details::getProbON() const
 }
 void Band_Details::clearBands()
 {
-	SuOccupants.clear();
+	SUOccupants.clear();
 }
-DetermanisticBand::DetermanisticBand(double T, int B)
+DeterministicBand::DeterministicBand(double T, int B)
 {
 	timeVSuccessfulReq = T;
 	successfulVsTimePUActiveForBandN = B;
 }
-bool DetermanisticBand::isEmpty(double T, int bandN) const
+bool DeterministicBand::isEmpty(double T, int bandN) const
 {
 	if (T < timeVSuccessfulReq)
 		return true;
