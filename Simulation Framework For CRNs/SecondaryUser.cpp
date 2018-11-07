@@ -9,7 +9,7 @@ SecondaryUser::SecondaryUser()
 	numOfBandsReqForSUs = 10;
 }
 
-SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooparitive)
+SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooperative)
 	://NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),
 	NumFACoop(NumberOfBandint, 0),
 	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0 )
@@ -18,7 +18,7 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	PMD = PM_D;
 	NumberOfBand = NumberOfBandint;
 	numOfBandsReqForSUs = SUN;
-	coop = cooparitive;
+	coop = cooperative;
 	/*NumMDCoop.reserve(NumberOfBandint + 1);
 	NumMDCoop.reserve(NumberOfBandint + 1);
 	pick.reserve(NumberOfBandint + 1);
@@ -159,7 +159,7 @@ void SecondaryUser::emptyFAandMD()
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
 
-void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T, int SUID)
+void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T, int SUID)
 {
 	bool falseAlarm;
 	bool missDetection;

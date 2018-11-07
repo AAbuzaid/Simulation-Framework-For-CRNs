@@ -47,12 +47,12 @@ void Band_Details::clearBands()
 	std::vector<int>().swap(SUOccupants);
 	std::vector<int>().swap(SUOccupantsCooperative);
 }
-DetermanisticBand::DetermanisticBand(double T, int B)
+DeterministicBand::DeterministicBand(double T, int B)
 {
 	timeVSuccessfulReq = T;
 	successfulVsTimePUActiveForBandN = B;
 }
-bool DetermanisticBand::isEmpty(double T, int bandN) const
+bool DeterministicBand::isEmpty(double T, int bandN) const
 {
 	if (T < timeVSuccessfulReq)
 		return true;
