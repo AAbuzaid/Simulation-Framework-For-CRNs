@@ -19,6 +19,14 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	NumberOfBand = NumberOfBandint;
 	numOfBandsReqForSUs = SUN;
 	coop = cooparitive;
+	/*NumMDCoop.reserve(NumberOfBandint + 1);
+	NumMDCoop.reserve(NumberOfBandint + 1);
+	pick.reserve(NumberOfBandint + 1);
+	emptyBands.reserve(NumberOfBandint + 1);
+	SUsOccupants.reserve(NumberOfBandint + 1);
+	SUsOccupantsCoop.reserve(NumberOfBandint + 1);
+	currentFA.reserve(NumberOfBand + 1);
+	currentMD.reserve(NumberOfBand + 1);*/
 }
 
 void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double activePUTime , int SUID)
@@ -113,7 +121,7 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 			std::vector<int>().swap(pick);
 
 		}
-	//this code do local sensing (extra for project 2)
+	//this code do local sensing (extra)
 	/*if (emptyBands.size() != 0) {
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
@@ -190,7 +198,7 @@ void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, doub
 
 	}
 }
-void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive)
+/*void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive)
 {
 	if (emptyBandsCooparitive.size() != 0) {
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
@@ -207,6 +215,6 @@ void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID,
 				--i;
 		}
 	}
-}
+}*/
 
 

@@ -22,18 +22,28 @@ int main()
 	double timeVSuccessfulReq = timeSlots / 2;
 	int successfulVsTimePUActiveForBandN = 50;
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
+	bandOccByPus.reserve(NumberOfBands+1);
 	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
-
 	std::vector<DetermanisticBand> BandVec(NumberOfBands,
 		DetermanisticBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
+	BandVec.reserve(NumberOfBands+1);
 	std::vector<int> SuccessfulVsTime(timeSlots , 0); //successful VS time output vector intilization
+	SuccessfulVsTime.reserve(timeSlots);
+	std::vector<Band_Details> BandVector(NumberOfBands, Band_Details(PPU[0], loadsChange.size()));
+	std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSUs, cooparitive));
+	//std::vector<Band_Details> BandVector;
+	//std::vector<SecondaryUser> SU;
+	BandVector.reserve(NumberOfBands + 1);
+	SU.reserve(NumberOfSUs + 1);
+	std::vector<Band_Details>::iterator bandConstruct;
+	std::vector<SecondaryUser>::iterator SUConstruct;
 	bool count = true;
 	for (auto ProbPU : PPU)
 	{
-		std::vector<Band_Details> BandVector(NumberOfBands, Band_Details(ProbPU , loadsChange.size()));
-		std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSUs , cooparitive));
-
-
+		for (bandConstruct = BandVector.begin(); bandConstruct != BandVector.end(); bandConstruct++)
+		{
+			*bandConstruct = Band_Details(ProbPU, loadsChange.size());
+		}
 		for (int T = 0; T < timeSlots; T++)
 		{
 			for (int i = 0; i < NumberOfBands; i++)
@@ -100,14 +110,14 @@ int main()
 				FC.PUInterfereCooparitive.push_back(FC.PUInterfereNumCooparitive[i] / double(FC.PUInterfereDen[i]));
 			}
 		}
-		Performance result(timeSlots, ProbPU, succVsTimeSUId , NumberOfSUs);
+		Performance result(timeSlots, ProbPU, succVsTimeSUId, NumberOfSUs);
 		result.outputFAFile(FAvsSUID); //this function outputs the file which contain PFA VS SUId
 		result.outputMDFile(MDvsSUID);
 		result.outputCollision(FC.collisionVsSuN);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
-		result.outputPUInterference(FC.PUInterfere);	//for taugh
+		result.outputPUInterference(FC.PUInterfere);
 		result.outputChangingLoad(FC.successfulVsLoads);
 		//cooparitive sensing
 		if (cooparitive)
@@ -126,12 +136,11 @@ int main()
 		FAvsSUID.clear();
 		MDvsSUID.clear();
 	}
-
 	Performance result(succVsTimeSUId);
 	result.outputSuccessfulVsTime(SuccessfulVsTime);
 	end = clock();
 	duration =(end - start);
-	printf("Decoding time = %d\n", duration);
+	printf("Decoding time in ms = %d\n", duration);
 	system("pause");
 	return 0;
 }
