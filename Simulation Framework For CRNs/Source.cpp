@@ -12,7 +12,7 @@ int main()
 	start = clock();
 	int NumberOfBands = 100;
 	int NumberOfSUs = 10;
-	int NumberOfBandsReqForEachSUs = 10;
+	int NumberOfBandsReqForEachSU = 10;
 	int timeSlots = 20000;
 	double PFA = .1;
 	double PMD = .1;
@@ -21,16 +21,16 @@ int main()
 	std::vector<int> loadsChange = {5,8,10,12,15};
 	double timeVSuccessfulReq = timeSlots / 2;
 	int successfulVsTimePUActiveForBandN = 50;
-	std::vector<int> bandOccByPus;	//bands occupied by PUs
-	bandOccByPus.reserve(NumberOfBands+1);
-	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
-	std::vector<DeterministicBand> BandVec(NumberOfBands,
+	std::vector<int> bandsOccByPUs;	//bands occupied by PUs
+	bandsOccByPUs.reserve(NumberOfBands+1);
+	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSU,loadsChange.size());
+	std::vector<DeterministicBand> BandVectorDeterministic(NumberOfBands,
 		DeterministicBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
-	BandVec.reserve(NumberOfBands+1);
+	BandVectorDeterministic.reserve(NumberOfBands+1);
 	std::vector<int> SuccessfulVsTime(timeSlots , 0); //successful VS time output vector intilization
 	SuccessfulVsTime.reserve(timeSlots);
 	std::vector<Band_Details> BandVector(NumberOfBands, Band_Details(PPU[0], loadsChange.size()));
-	std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSUs, cooparitive));
+	std::vector<SecondaryUser> SU(NumberOfSUs, SecondaryUser(PFA, PMD, NumberOfBands, NumberOfBandsReqForEachSU, cooperative));
 	//std::vector<Band_Details> BandVector;
 	//std::vector<SecondaryUser> SU;
 	BandVector.reserve(NumberOfBands + 1);
@@ -48,39 +48,39 @@ int main()
 			for (int i = 0; i < NumberOfBands; i++)
 			{
 
-
 				if (T != 0)
 				{
 					BandVector[i].clearBands();
-					BandVec[i].clearBands();
+					BandVectorDeterministic[i].clearBands();
 				}
 				BandVector[i].randomPUState();		//Randomizes PUState each timeSlot
 				if (!BandVector[i].isEmpty())
 				{
-					bandOccByPus.push_back(i);
+					bandsOccByPUs.push_back(i);
 				}
 			}
 			for (int i = 0; i < NumberOfSUs; i++)
 			{
-				SU[i].scanningBands(BandVector , bandOccByPus.size(), i);
-				FC.getSUsIds(i);
+				SU[i].scanningBands(BandVector , bandsOccByPUs.size(), i);
+				FC.getSUID(i);
 				//FC.getEmptyBands(SU[i].emptyBands);
 				SU[i].SUsTransmitting(BandVector, i , loadsChange);
-				//FC.bandsOccupiedBySU(SU[i].SUsOccupants);
+				//FC.bandsOccupiedBySU(SU[i].SUOccupants);
 				//clear all vectors
 				SU[i].emptyAllResult();
 				if (count)
-					SU[i].successfulVSTime(BandVec, timeVSuccessfulReq, T, i);
+					SU[i].successfulVSTime(BandVectorDeterministic, timeVSuccessfulReq, T, i);
 				SU[i].emptyAllResult();
 
 
 			}
-			FC.performanceCalculation(bandOccByPus, BandVector, BandVec, succVsTimeSUId
-				, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange , cooparitive);
-			FC.majority(bandOccByPus , SU , BandVector);	//this band do cooperative decision on the empty band 
+			FC.performanceCalculation(bandsOccByPUs, BandVector, BandVectorDeterministic, succVsTimeSUId
+				, timeVSuccessfulReq, T, SuccessfulVsTime, count, loadsChange , cooperative);
+			FC.majority(bandsOccByPUs , SU , BandVector);	//this band do cooperative decision on the empty band 
 			FC.changingLoad(loadsChange);
 			FC.clearVectors();
-			std::vector<int>().swap(bandOccByPus);
+			std::vector<int>().swap(bandsOccByPUs);
+
 		}
 		FC.successfulSUTrans(timeSlots);
 		std::vector<double> FAvsSUID;
@@ -89,8 +89,9 @@ int main()
 		{
 			FC.falseAlarm(SU[i].NumFACoop);
 			FC.missDetection(SU[i].NumMDCoop);
-			FAvsSUID.push_back(SU[i].FaVsSUId);
-			MDvsSUID.push_back(SU[i].MdVsSUId);
+			
+			FAvsSUID.push_back(SU[i].FAVsSU);
+			MDvsSUID.push_back(SU[i].MDVsSU);
 			//std::cout << SU[i].FaVsSUId << " ";
 			SU[i].emptyFAandMD();
 		}
@@ -99,33 +100,33 @@ int main()
 			if (ProbPU == 0.0)
 			{
 				FC.PUInterfere.push_back(0);
-				FC.PUInterfereCooparitive.push_back(0);
+				FC.PUInterfereCooperative.push_back(0);
 			}
 			else
 			{
 				FC.PUInterfere.push_back(FC.PUInterfereNum[i] / double(FC.PUInterfereDen[i]));
-				FC.PUInterfereCooparitive.push_back(FC.PUInterfereNumCooparitive[i] / double(FC.PUInterfereDen[i]));
+				FC.PUInterfereCooperative.push_back(FC.PUInterfereNumCooperative[i] / double(FC.PUInterfereDen[i]));
 			}
 		}
 		Performance result(timeSlots, ProbPU, succVsTimeSUId, NumberOfSUs);
 		result.outputFAFile(FAvsSUID); //this function outputs the file which contain PFA VS SUId
 		result.outputMDFile(MDvsSUID);
-		result.outputCollision(FC.collisionVsSuN);
+		result.outputCollision(FC.collisionVsSU);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
 		result.outputPUInterference(FC.PUInterfere);
 		result.outputChangingLoad(FC.successfulVsLoads);
-		//cooparitive sensing
-		if (cooparitive)
+		//cooperative sensing
+		if (cooperative)
 		{
 			result.outputFAFileCoop(FC.FaVsSUIdCoop);
 			result.outputMDFileCoop(FC.MdVsSUIdCoop);
-			result.outputCollisionCoop(FC.collisionVsSuNCooparitive);
-			result.outputUtilizationCoop(FC.utilizationVsBandCooparitive);
-			result.outputThroughputCoop(FC.throughputCooparitive);
+			result.outputCollisionCoop(FC.collisionVsSUCooperative);
+			result.outputUtilizationCoop(FC.utilizationVsBandCooperative);
+			result.outputThroughputCoop(FC.throughputCooperative);
 			result.outputSuccSUTransCoop(FC.succSUTrans);
-			result.outputPUInterferenceCoop(FC.PUInterfereCooparitive);
+			result.outputPUInterferenceCoop(FC.PUInterfereCooperative);
 			result.outputChangingLoadCoop(FC.successfulVsLoads);
 		}
 		FC.clearPerformanceOut();
