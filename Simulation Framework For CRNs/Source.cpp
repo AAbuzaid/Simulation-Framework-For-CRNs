@@ -3,7 +3,7 @@
 #include "FusionCenter.h"
 #include "Performance.h"
 #include <time.h>
-bool cooparitive = true;
+bool cooparitive = false;
 
 int main()
 {
