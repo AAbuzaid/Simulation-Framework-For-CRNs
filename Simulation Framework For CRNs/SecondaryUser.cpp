@@ -1,10 +1,7 @@
 #include "SecondaryUser.h"
 
 
-
 SecondaryUser::SecondaryUser()
-	:NumFA(100 ,0) ,NumMD(100 , 0)
-	
 {
 	NumberOfBand = 100;
 	PFA = .1;
@@ -12,24 +9,26 @@ SecondaryUser::SecondaryUser()
 	numOfBandsReqForSUs = 10;
 }
 
-SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooperative)
-	:NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),NumFACoop(NumberOfBandint, 0),
+SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooparitive)
+	://NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),
+	NumFACoop(NumberOfBandint, 0),
 	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0 )
 {
 	PFA = PF_A;
 	PMD = PM_D;
 	NumberOfBand = NumberOfBandint;
 	numOfBandsReqForSUs = SUN;
-	coop = cooperative;
+	coop = cooparitive;
 }
 
-void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
+void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double activePUTime , int SUID)
 {
 	bool falseAlarmPr;
-	bool misDetectionPr;
+	bool missDetectionPr;
 	std::fill(currentFA.begin(), currentFA.end(), 0);
 	std::fill(currentMD.begin(), currentMD.end(), 0);
-
+	NumFA = 0;
+	NumMD = 0;
 	//BandBeingScaned.push_back = Bands.bandNumber();
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
@@ -41,7 +40,8 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 			//	std::cout << falseAlarm;
 				if (falseAlarmPr)
 				{					//there is false alarm
-					++NumFA[i];		//number of false alarm vs band
+					//++NumFA[i];		//number of false alarm vs band
+					++NumFA;
 					++currentFA[i];
 				}
 				else
@@ -49,22 +49,36 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands)
 		}
 		else	//H1
 		{
-				misDetectionPr = (rand() % 100) < (PMD * 100);
-				if (misDetectionPr)
+				missDetectionPr = (rand() % 100) < (PMD * 100);
+				if (missDetectionPr)
 				{
 					emptyBands.push_back(i);
 					{
-						++NumMD[i]; //number of misdetection vs band
+						//++NumMD[i]; //number of misdetection vs band
+						++NumMD;
 						++currentMD[i];
 					}
 				}
 		}
 	}
+	FaVsSUId += NumFA / (Bands.size() - activePUTime);
+//	std::cout << FaVsSUId << " ";
+	if (activePUTime <= 0)
+		MdVsSUId = 0;
+	else
+		MdVsSUId += NumMD / activePUTime;
+	/*for (int i = 0; i < Bands.size(); i++)
+	{
+		NumFA[i] = NumFA[i] / (Bands.size() - activePUTime);
+		std::cout << NumFA[i] << " ";
+		NumMD[i] = NumMD[i] /activePUTimeMD;
+		currentFA[i] = currentFA[i] / (Bands.size() - activePUTime);
+		currentMD[i] = currentMD[i] / activePUTimeMD;
+	}*/
 }
 void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID , const std::vector<int> &loadReq)
 {
-	if (!coop)
-	{
+	
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
 			randomBand = (rand() % Bands.size());
@@ -78,11 +92,6 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 			else
 				--i;
 		}
-	}
-	else
-	{
-
-	}
 //	std::cout << std::endl;
 		lInc = 0;
 		for (auto loads : loadReq)
@@ -95,7 +104,7 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 					pick.end(), randomBand) == pick.end())
 				{
 					pick.push_back(randomBand);
-					Bands[randomBand].SUOccupantsForDiffLoads[lInc].push_back(SUID);
+					Bands[randomBand].SuOccupantsForDiffLoads[lInc].push_back(SUID);
 				}
 				else
 					--i;
@@ -134,13 +143,15 @@ void SecondaryUser::SuDeterministicSensing(std::vector<int> &PU)
 }
 void SecondaryUser::emptyFAandMD()
 {
-	std::fill(NumFA.begin(), NumFA.end(), 0);
-	std::fill(NumMD.begin(), NumMD.end(), 0);
+	//std::fill(NumFA.begin(), NumFA.end(), 0);
+	//std::fill(NumMD.begin(), NumMD.end(), 0);
+	FaVsSUId = 0;
+	MdVsSUId = 0;
 	std::fill(NumFACoop.begin(), NumFACoop.end(), 0);
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
 
-void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T, int SUID)
+void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T, int SUID)
 {
 	bool falseAlarm;
 	bool missDetection;
@@ -197,4 +208,5 @@ void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID,
 		}
 	}
 }
+
 
