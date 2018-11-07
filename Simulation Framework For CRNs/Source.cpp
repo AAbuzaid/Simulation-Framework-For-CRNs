@@ -125,7 +125,7 @@ int main()
 			result.outputMDFileCoop(FC.MdVsSUIdCoop);
 			result.outputCollisionCoop(FC.collisionVsSUCooperative);
 			result.outputUtilizationCoop(FC.utilizationVsBandCooperative);
-			result.outputThroughputCoop(FC.throughputCooparitive);
+			result.outputThroughputCoop(FC.throughputCooperative);
 			result.outputSuccSUTransCoop(FC.succSUTrans);
 			result.outputPUInterferenceCoop(FC.PUInterfereCooperative);
 			result.outputChangingLoadCoop(FC.successfulVsLoads);

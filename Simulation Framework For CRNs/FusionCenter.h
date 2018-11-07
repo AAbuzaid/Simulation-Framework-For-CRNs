@@ -43,7 +43,7 @@ public:
 	//cooperative
 	std::vector<int> utilizationVsBandCooperative;
 	std::vector<int> collisionVsSUCooperative; //this vector for su vs collision
-	std::vector<int> throughputCooparitive;
+	std::vector<int> throughputCooperative;
 	std::vector<int> PUInterfereNumCooperative;
 	std::vector<double> PUInterfereCooperative;
 

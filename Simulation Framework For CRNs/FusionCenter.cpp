@@ -12,7 +12,7 @@ FusionCenter::FusionCenter(int SUsN, int Nbands, double Pfa, double Pmd, int num
 	successfulTxForLoads(numberOfloads, std::vector<int>(SUsN,0)),
 	successfulVsLoads(numberOfloads, 0), collisionVsSUCooperative(SUsN, 0),
 	utilizationVsBandCooperative(Nbands, 0),
-	throughputCooparitive(Nbands, 0), PUInterfereNumCooperative(Nbands, 0)
+	throughputCooperative(Nbands, 0), PUInterfereNumCooperative(Nbands, 0)
 {
 	NumberOfSUs = SUsN;
 	NumberOfBands = Nbands;
@@ -85,10 +85,10 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 		{
 			if (!bandDetails[bandN].SUOccupants.empty())
 				++utilizationVsBandCooperative[bandN]; //calculate utilization VS band
-			if (bandDetails[bandN].SUOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
-				appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SUOccupants.empty())//or there is one su and pu
+			if (bandDetails[bandN].SUOccupants.size() > 1 || //this logical expr make sure that there is more than one SUN in the band
+				appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SUOccupants.empty())//or there is one SUN and pu
 			{
-				for (int i = 0; i < bandDetails[bandN].SUOccupants.size(); i++) //for scan the su that in the collision band 
+				for (int i = 0; i < bandDetails[bandN].SUOccupants.size(); i++) //for scan the SUN that in the collision band 
 				{
 					++collisionVsSUCooperative[bandDetails[bandN].SUOccupants[i]];	//finally store the number of collision is the vector
 					//std::cout << collisionVsSU[bandDetails[bandN].SUOccupants[i]] << " ";
@@ -97,7 +97,7 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 			if (!bandDetails[bandN].SUOccupants.empty() && !bandDetails[bandN].isEmpty())
 				++PUInterfereNumCooperative[bandN];
 			if (bandDetails[bandN].SUOccupants.size() == 1 && !appearsInVector(bandN, PUVsBand))
-				++throughputCooparitive[bandN];
+				++throughputCooperative[bandN];
 		}
 		
 	}
@@ -116,42 +116,39 @@ bool FusionCenter::appearsInVector(const int value, const std::vector<int> &sear
 void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUser> &SU ,std::vector<Band_Details> &Band_D)	
 //this class find what band is empty by majority rule which(num of SU who says yes > who says no)
 {
-	int counter = 0;
-	int counter1 = 0;
+	int counterFA = 0;
+	int counterMD = 0;
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)
 	{
-		for (int suN = 0; suN < NumberOfSUs; suN++)
+		for (int SUN = 0; SUN < NumberOfSUs; SUN++)
 		{
-			//std::cout << SU[suN].currentFA[bandN] << " ";
-			if (SU[suN].currentFA[bandN] > 0)
-				++counter;
+			if (SU[SUN].currentFA[bandN] > 0)
+				++counterFA;
 			else
-				--counter;
-			if(SU[suN].currentMD[bandN] > 0)
-				++counter1;
+				--counterFA;
+			if(SU[SUN].currentMD[bandN] > 0)
+				++counterMD;
 			else
-				--counter1;
-			//std::cout << counter << " " << counter1;
+				--counterMD;
 		}
-		//std::cout << std::endl;
-		if (counter > 0)
+		if (counterFA > 0)
 			falseAlarmCoopBand.push_back(bandN);
-		if (counter1 > 0)
+		if (counterMD > 0)
 			missDetectionCoopBand.push_back(bandN);
 	}
 	for (int bandC : falseAlarmCoopBand)
 	{
-		for (int su = 0; su < NumberOfSUs; su++)
-			SU[su].NumFACoop[bandC] = SU[su].NumFACoop[bandC] + SU[su].currentFA[bandC];
+		for (int SUN = 0; SUN < NumberOfSUs; SUN++)
+			SU[SUN].NumFACoop[bandC] = SU[SUN].NumFACoop[bandC] + SU[SUN].currentFA[bandC];
 	}
 	for (int bandC : missDetectionCoopBand)
 	{
-		for(int su = 0; su < NumberOfSUs; su++)
-			SU[su].NumMDCoop[bandC] = SU[su].NumMDCoop[bandC] + SU[su].currentMD[bandC];
+		for(int SUN = 0; SUN < NumberOfSUs; SUN++)
+			SU[SUN].NumMDCoop[bandC] = SU[SUN].NumMDCoop[bandC] + SU[SUN].currentMD[bandC];
 	}
 
 	//this code for majority decision for PU active in the band
-	std::vector<int> vectora(NumberOfBands , 0);	//temporary vector
+	std::vector<int> tempVector(NumberOfBands , 0);	//temporary vector
 	//std::vector<int> SUIdMajority;
 	//SUIdMajority.reserve(NumberOfBands);
 	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan all bands
@@ -159,15 +156,15 @@ void FusionCenter::majority(std::vector<int> &puInBand, std::vector<SecondaryUse
 		for (int SUN = 0; SUN < emptyBands.size(); SUN++)	//to enter the 2D vector empty class
 		{
 			if (std::find(emptyBands[SUN].begin(), emptyBands[SUN].end(), bandN) != emptyBands[SUN].end())
-			{	//inter in here if the band is says empty by SUN
-				++vectora[bandN]; //how much SU says the band is empty
+			{	//enter in here if the band is says empty by SUN
+				++tempVector[bandN]; //how many SUs say the band is empty
 				//SUIdMajority.push_back(SUN);
 			}
 			else
-				--vectora[bandN]; //how much one says it is not empty
+				--tempVector[bandN]; //how many say it is not empty
 		}
 
-		if (vectora[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
+		if (tempVector[bandN] > 0) //now if the band decision is positive (most SUs say yes) then:
 		{
 			majorityBands.push_back(bandN); //this band is empty by majority rule
 			//std::copy(SUIdMajority.begin(), SUIdMajority.end(), std::back_inserter(Band_D[bandN].SUOccupantsCooperative));
@@ -213,7 +210,7 @@ void FusionCenter::successfulVSTime(const std::vector<DeterministicBand> &bandDe
 {
 	if ((bandN > 50 || bandN < 50 && T < succVsTimeN) && !bandDetails[bandN].SUOccupants.empty()) //no PU
 	{
-		if (bandDetails[bandN].SUOccupants.size() == 1 && bandDetails[bandN].SUOccupants[0] == succVsTimeSUId) //there is one su (4)
+		if (bandDetails[bandN].SUOccupants.size() == 1 && bandDetails[bandN].SUOccupants[0] == succVsTimeSUId) //there is one SUN (4)
 			++SuccessfulVsTime[T];
 	}
 }
@@ -224,7 +221,7 @@ void FusionCenter::clearPerformanceOut()
 	std::fill(throughput.begin(), throughput.end(), 0);
 	std::fill(collisionVsSUCooperative.begin(), collisionVsSUCooperative.end(), 0);
 	std::fill(utilizationVsBandCooperative.begin(), utilizationVsBandCooperative.end(), 0);
-	std::fill(throughputCooparitive.begin(), throughputCooparitive.end(), 0);
+	std::fill(throughputCooperative.begin(), throughputCooperative.end(), 0);
 	std::vector<double>().swap(FAVsSU);
 	std::vector<double>().swap(MDVsSU);
 	std::fill(succSUTrans.begin(), succSUTrans.end(), 0);
