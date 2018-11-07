@@ -1,66 +1,65 @@
 #include "FusionCenter.h"
 
-FusionCenter::FusionCenter(int SusN, int Nbands, double Pfa, double Pmd, int numofbandforSu, int numberOfloads)
-	:emptyBands(SusN, std::vector<int>(0)),
-	bandOccupied(SusN, std::vector<int>(0)),
-	collisionVsSuN(SusN, 0),
+FusionCenter::FusionCenter(int SUsN, int Nbands, double Pfa, double Pmd, int numOfBandForSu, int numberOfloads)
+	:emptyBands(SUsN, std::vector<int>(0)),
+	bandOccupied(SUsN, std::vector<int>(0)),
+	collisionVsSU(SUsN, 0),
 	utilizationVsBand(Nbands, 0),
 	throughput(Nbands, 0),
-	succSUTrans(SusN, 0),
+	succSUTrans(SUsN, 0),
 	PUInterfereDen(Nbands, 0),
 	PUInterfereNum(Nbands, 0),
-	successfulTxForLoads(numberOfloads, std::vector<int>(SusN,0)),
-	successfulVsLoads(numberOfloads, 0), collisionVsSuNCooparitive(SusN, 0),
+	successfulTxForLoads(numberOfloads, std::vector<int>(SUsN,0)),
+	successfulVsLoads(numberOfloads, 0), collisionVsSUCooperative(SUsN, 0),
 	utilizationVsBandCooperative(Nbands, 0),
 	throughputCooparitive(Nbands, 0), PUInterfereNumCooperative(Nbands, 0)
 {
-	NumberOfSUs = SusN;
+	NumberOfSUs = SUsN;
 	NumberOfBands = Nbands;
 	PFA = Pfa;
 	PMD = Pmd;
-	NumberOfBandsReqForEachSUs = numofbandforSu;
+	NumberOfBandsReqForEachSUs = numOfBandForSu;
 	numberOfLoads = numberOfloads;
 	/*emptyBands.reserve(NumberOfSUs + 1);
-	bandOccupied.reserve(SusN + 1);
-	collisionVsSuN.reserve(NumberOfSUs + 1);
+	bandOccupied.reserve(SUsN + 1);
+	collisionVsSU.reserve(NumberOfSUs + 1);
 	utilizationVsBand.reserve(NumberOfBands + 1);
 	throughput.reserve(NumberOfBands + 1);
 	succSUTrans.reserve(NumberOfSUs + 1);
 	PUInterfereDen.reserve(NumberOfBands + 1);
 	PUInterfereNum.reserve(NumberOfBands + 1);
-	successfulTxForLoads.reserve(numberOfLoads + 1);
+	successfulTxForLoads.reserve(numberOfloads + 1);
 	successfulVsLoads.reserve(NumberOfBands+1);*/
 }
 void FusionCenter::getSUID(int ID)
 {
-	SuId = ID;
+	SUID = ID;
 	
 }
 void FusionCenter::getEmptyBands(const std::vector<int> &Bands)
 {
 	if(!Bands.empty())
-	emptyBands[SuId] = Bands;
+	emptyBands[SUID] = Bands;
 
 }
-void FusionCenter::bandsOccupiedBySU(const std::vector<int> &suBand)
+void FusionCenter::bandsOccupiedBySU(const std::vector<int> &SUBand)
 {
-	bandOccupied[SuId] = suBand;
+	bandOccupied[SUID] = SUBand;
 }
 void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::vector<Band_Details> &bandDetails,
-	const std::vector<DeterministicBand> &bandvec, int succVsTimeSUId, double &succVsTimeN
+	const std::vector<DeterministicBand> &bandVecDeterministic, int succVsTimeSUId, double &succVsTimeN
 	, int T, std::vector< int> &SuccessfulVsT , bool count, const std::vector<int> &loadsReq , bool CooperativeOrNot)
 {
-	for (int bandN = 0; bandN < NumberOfBands; bandN++)	//scan for bands in which there is more than one SU collision
+	for (int bandN = 0; bandN < NumberOfBands; bandN++)
 	{
 		if (!bandDetails[bandN].SUOccupants.empty())
 			++utilizationVsBand[bandN]; //calculate utilization VS band
-		if (bandDetails[bandN].SUOccupants.size() > 1 || //this logical expr make sure that there is more than one su in the band
-			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SUOccupants.empty())//or there is one su and pu
+		if (bandDetails[bandN].SUOccupants.size() > 1 ||										//this logical expression tests if there is more than one SU in the band
+			appearsInVector(bandN, PUVsBand) && !bandDetails[bandN].SUOccupants.empty())		//or there is one SU and PU
 		{
-			for (int i = 0; i < bandDetails[bandN].SUOccupants.size(); i++) //for scan the su that in the collision band 
+			for (int i = 0; i < bandDetails[bandN].SUOccupants.size(); i++) // scan the SU thats in the collision band 
 			{
-				++collisionVsSuN[bandDetails[bandN].SUOccupants[i]];	//finally store the number of collision is the vector
-				//std::cout << collisionVsSuN[bandDetails[bandN].SUOccupants[i]] << " ";
+				++collisionVsSU[bandDetails[bandN].SUOccupants[i]];	//finally store the number of collision in the vector
 			}
 		}
 		if (!bandDetails[bandN].isEmpty())
@@ -71,8 +70,8 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 			++throughput[bandN];
 		//successful VS time 
 		if(count)
-		successfulVSTime(bandvec, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
-		//successful Vs su for different loads
+			successfulVSTime(bandVecDeterministic, succVsTimeSUId, succVsTimeN, T, SuccessfulVsT, bandN);
+		//successful Vs SU for different loads
 		for (int i = 0; i < loadsReq.size(); i++)
 		{
 			if (bandDetails[bandN].SUOccupantsForDiffLoads[i].size() == 1 && !appearsInVector(bandN, PUVsBand))
@@ -91,8 +90,8 @@ void FusionCenter::performanceCalculation(const std::vector<int> &PUVsBand,std::
 			{
 				for (int i = 0; i < bandDetails[bandN].SUOccupants.size(); i++) //for scan the su that in the collision band 
 				{
-					++collisionVsSuNCooparitive[bandDetails[bandN].SUOccupants[i]];	//finally store the number of collision is the vector
-					//std::cout << collisionVsSuN[bandDetails[bandN].SUOccupants[i]] << " ";
+					++collisionVsSUCooperative[bandDetails[bandN].SUOccupants[i]];	//finally store the number of collision is the vector
+					//std::cout << collisionVsSU[bandDetails[bandN].SUOccupants[i]] << " ";
 				}
 			}
 			if (!bandDetails[bandN].SUOccupants.empty() && !bandDetails[bandN].isEmpty())
@@ -220,10 +219,10 @@ void FusionCenter::successfulVSTime(const std::vector<DeterministicBand> &bandDe
 }
 void FusionCenter::clearPerformanceOut()
 {
-	std::fill(collisionVsSuN.begin(), collisionVsSuN.end(), 0);
+	std::fill(collisionVsSU.begin(), collisionVsSU.end(), 0);
 	std::fill(utilizationVsBand.begin(), utilizationVsBand.end(), 0);
 	std::fill(throughput.begin(), throughput.end(), 0);
-	std::fill(collisionVsSuNCooparitive.begin(), collisionVsSuNCooparitive.end(), 0);
+	std::fill(collisionVsSUCooperative.begin(), collisionVsSUCooperative.end(), 0);
 	std::fill(utilizationVsBandCooperative.begin(), utilizationVsBandCooperative.end(), 0);
 	std::fill(throughputCooparitive.begin(), throughputCooparitive.end(), 0);
 	std::vector<double>().swap(FAVsSU);
@@ -240,7 +239,7 @@ void FusionCenter::clearPerformanceOut()
 void FusionCenter::successfulSUTrans(int timeSlot)
 {
 	for (int i = 0; i < NumberOfSUs; i++)
-		succSUTrans[i] =timeSlot * NumberOfBandsReqForEachSUs - collisionVsSuN[i];
+		succSUTrans[i] =timeSlot * NumberOfBandsReqForEachSUs - collisionVsSU[i];
 }
 void FusionCenter::changingLoad(const std::vector<int> &loadReq)
 {

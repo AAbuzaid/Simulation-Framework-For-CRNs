@@ -31,7 +31,7 @@ public:
 	std::vector<double> FaVsSUIdCoop;
 	std::vector<double> MdVsSUIdCoop;
 	std::vector<int> utilizationVsBand;
-	std::vector<int> collisionVsSuN; //this vector for su vs collision
+	std::vector<int> collisionVsSU; //this vector for su vs collision
 	std::vector<int> throughput;
 	std::vector<int> succSUTrans;
 	std::vector<int> PUInterfereDen;
@@ -42,7 +42,7 @@ public:
 	std::vector<int> majorityBands;
 	//cooperative
 	std::vector<int> utilizationVsBandCooperative;
-	std::vector<int> collisionVsSuNCooparitive; //this vector for su vs collision
+	std::vector<int> collisionVsSUCooperative; //this vector for su vs collision
 	std::vector<int> throughputCooparitive;
 	std::vector<int> PUInterfereNumCooperative;
 	std::vector<double> PUInterfereCooperative;
@@ -51,7 +51,7 @@ public:
 
 
 private:
-	int SuId;
+	int SUID;
 	int NumberOfSUs;
 	int NumberOfBands;
 	int maxSUsband;

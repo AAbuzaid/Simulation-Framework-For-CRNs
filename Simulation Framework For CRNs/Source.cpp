@@ -112,7 +112,7 @@ int main()
 		Performance result(timeSlots, ProbPU, succVsTimeSUId, NumberOfSUs);
 		result.outputFAFile(FAvsSUID); //this function outputs the file which contain PFA VS SUId
 		result.outputMDFile(MDvsSUID);
-		result.outputCollision(FC.collisionVsSuN);
+		result.outputCollision(FC.collisionVsSU);
 		result.outputUtilization(FC.utilizationVsBand);
 		result.outputThroughput(FC.throughput);
 		result.outputSuccSUTrans(FC.succSUTrans);
@@ -123,7 +123,7 @@ int main()
 		{
 			result.outputFAFileCoop(FC.FaVsSUIdCoop);
 			result.outputMDFileCoop(FC.MdVsSUIdCoop);
-			result.outputCollisionCoop(FC.collisionVsSuNCooparitive);
+			result.outputCollisionCoop(FC.collisionVsSUCooperative);
 			result.outputUtilizationCoop(FC.utilizationVsBandCooperative);
 			result.outputThroughputCoop(FC.throughputCooparitive);
 			result.outputSuccSUTransCoop(FC.succSUTrans);
