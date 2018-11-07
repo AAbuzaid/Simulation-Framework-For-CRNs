@@ -24,8 +24,8 @@ int main()
 	std::vector<int> bandOccByPus;	//bands occupied by PUs
 	FusionCenter FC(NumberOfSUs, NumberOfBands, PFA , PMD , NumberOfBandsReqForEachSUs,loadsChange.size());
 
-	std::vector<DetermanisticBand> BandVec(NumberOfBands,
-		DetermanisticBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
+	std::vector<DeterministicBand> BandVec(NumberOfBands,
+		DeterministicBand(timeVSuccessfulReq, successfulVsTimePUActiveForBandN));
 	std::vector<int> SuccessfulVsTime(timeSlots , 0); //successful VS time output vector intilization
 	bool count = true;
 	for (auto ProbPU : PPU)
