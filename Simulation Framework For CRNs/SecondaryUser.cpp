@@ -159,7 +159,7 @@ void SecondaryUser::emptyFAandMD()
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
 
-void SecondaryUser::successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T, int SUID)
+void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T, int SUID)
 {
 	bool falseAlarm;
 	bool missDetection;

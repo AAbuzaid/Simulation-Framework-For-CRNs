@@ -21,10 +21,10 @@ private:
 	double ProbON;
 	//std::vector<unsigned int> Occupants;
 };
-class DetermanisticBand : public Band_Details
+class DeterministicBand : public Band_Details
 {
 public:
-	DetermanisticBand(double, int);
+	DeterministicBand(double, int);
 	bool isEmpty(double T, int bandN) const;
 
 private:
