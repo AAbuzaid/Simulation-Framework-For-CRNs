@@ -17,13 +17,12 @@ public:
 	void SuDeterministicSensing(std::vector<int> &band);
 	void emptyAllResult();
 	void emptyFAandMD();
-	void successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T , int SUID);
-	void SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive);
+	void successfulVSTime(std::vector<DetermanisticBand> &Bands, double &succVsTimeN, double T , int SUID);
+	//void SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive);
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
 	std::vector<int> SUOccupants;		//bands occupented by SU
 	std::vector<int> SUsOccupantsCoop;		//bands occupented by SU
-	std::vector<int> changeLoads;
 	//std::vector<std::vector<int>> occupentsLoads;
 	std::vector<double> NumFACoop;
 	std::vector<double> NumMDCoop;

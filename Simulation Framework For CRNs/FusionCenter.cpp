@@ -20,6 +20,16 @@ FusionCenter::FusionCenter(int SusN, int Nbands, double Pfa, double Pmd, int num
 	PMD = Pmd;
 	NumberOfBandsReqForEachSUs = numofbandforSu;
 	numberOfLoads = numberOfloads;
+	/*emptyBands.reserve(NumberOfSUs + 1);
+	bandOccupied.reserve(SusN + 1);
+	collisionVsSuN.reserve(NumberOfSUs + 1);
+	utilizationVsBand.reserve(NumberOfBands + 1);
+	throughput.reserve(NumberOfBands + 1);
+	succSUTrans.reserve(NumberOfSUs + 1);
+	PUInterfereDen.reserve(NumberOfBands + 1);
+	PUInterfereNum.reserve(NumberOfBands + 1);
+	successfulTxForLoads.reserve(numberOfLoads + 1);
+	successfulVsLoads.reserve(NumberOfBands+1);*/
 }
 void FusionCenter::getSUID(int ID)
 {
