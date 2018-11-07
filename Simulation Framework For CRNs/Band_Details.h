@@ -9,12 +9,12 @@ public:
 	bool isEmpty() const;
 	void randomPUState();
 	bool getProbON() const;
-	std::vector<int> SuOccupants;
-	std::vector<int> SuOccupantsCooparitive;
+	std::vector<int> SUOccupants;
+	std::vector<int> SUOccupantsCooperative;
 	void setOccupants(int i);
 	~Band_Details();
 	void clearBands();
-	std::vector<std::vector<int>> SuOccupantsForDiffLoads;
+	std::vector<std::vector<int>> SUOccupantsForDiffLoads;
 
 private:
 	bool PUOFF;

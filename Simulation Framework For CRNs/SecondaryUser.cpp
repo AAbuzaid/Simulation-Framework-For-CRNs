@@ -9,7 +9,7 @@ SecondaryUser::SecondaryUser()
 	numOfBandsReqForSUs = 10;
 }
 
-SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooparitive)
+SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int SUN , bool cooperative)
 	://NumFA(NumberOfBandint, 0), NumMD(NumberOfBandint, 0),
 	NumFACoop(NumberOfBandint, 0),
 	NumMDCoop(NumberOfBandint, 0),currentFA(NumberOfBandint , 0),currentMD(NumberOfBandint , 0 )
@@ -18,10 +18,10 @@ SecondaryUser::SecondaryUser(double PF_A, double PM_D, int NumberOfBandint,int S
 	PMD = PM_D;
 	NumberOfBand = NumberOfBandint;
 	numOfBandsReqForSUs = SUN;
-	coop = cooparitive;
+	coop = cooperative;
 }
 
-void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double activePUTime , int SUID)
+void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double activePUs , int SUID)
 {
 	bool falseAlarmPr;
 	bool missDetectionPr;
@@ -37,7 +37,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 
 
 				falseAlarmPr = (rand() % 100) < (PFA * 100.0);
-			//	std::cout << falseAlarm;
+			//	std::cout << falseAlarmPr;
 				if (falseAlarmPr)
 				{					//there is false alarm
 					//++NumFA[i];		//number of false alarm vs band
@@ -45,7 +45,7 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 					++currentFA[i];
 				}
 				else
-				emptyBands.push_back(i);
+					emptyBands.push_back(i);
 		}
 		else	//H1
 		{
@@ -61,42 +61,38 @@ void SecondaryUser::scanningBands(const std::vector<Band_Details> &Bands, double
 				}
 		}
 	}
-	FaVsSUId += NumFA / (Bands.size() - activePUTime);
-//	std::cout << FaVsSUId << " ";
-	if (activePUTime <= 0)
-		MdVsSUId = 0;
+	FAVsSU += NumFA / (Bands.size() - activePUs);
+	if (activePUs <= 0)
+		MdVsSU = 0;
 	else
-		MdVsSUId += NumMD / activePUTime;
+		MdVsSU += NumMD / activePUs;
 	/*for (int i = 0; i < Bands.size(); i++)
 	{
-		NumFA[i] = NumFA[i] / (Bands.size() - activePUTime);
+		NumFA[i] = NumFA[i] / (Bands.size() - activePUs);
 		std::cout << NumFA[i] << " ";
 		NumMD[i] = NumMD[i] /activePUTimeMD;
-		currentFA[i] = currentFA[i] / (Bands.size() - activePUTime);
+		currentFA[i] = currentFA[i] / (Bands.size() - activePUs);
 		currentMD[i] = currentMD[i] / activePUTimeMD;
 	}*/
 }
 void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID , const std::vector<int> &loadReq)
 {
 	
-		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
+		for (int i = 0; i < numOfBandsReqForSUs; i++)
 		{
 			randomBand = (rand() % Bands.size());
-			if (std::find(SUsOccupants.begin(),
-				SUsOccupants.end(), randomBand) == SUsOccupants.end())
+			if (std::find(SUOccupants.begin(),
+				SUOccupants.end(), randomBand) == SUOccupants.end())
 			{
-				SUsOccupants.push_back(randomBand);						// Assigning is random
+				SUOccupants.push_back(randomBand);						// Assigning is random
 				Bands[randomBand].setOccupants(SUID);
-			//	std::cout << SUsOccupants[uu] << " ";
 			}
 			else
 				--i;
 		}
-//	std::cout << std::endl;
-		lInc = 0;
+		loadIndex = 0;
 		for (auto loads : loadReq)
 		{
-			//std::vector<int>().swap(occupentsLoads[lInc]);
 			for (int i = 0; i < loads; i++)
 			{
 				randomBand = (rand() % Bands.size());
@@ -104,13 +100,13 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 					pick.end(), randomBand) == pick.end())
 				{
 					pick.push_back(randomBand);
-					Bands[randomBand].SuOccupantsForDiffLoads[lInc].push_back(SUID);
+					Bands[randomBand].SUOccupantsForDiffLoads[loadIndex].push_back(SUID);
 				}
 				else
 					--i;
 			}
-			++lInc;
-			std::vector<int>().swap(pick);
+			++loadIndex;
+			std::vector<int>().swap(pick);			// Clear pick vector
 
 		}
 	//this code do local sensing (extra for project 2)
@@ -118,11 +114,11 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
 			randomBand = (rand() % emptyBands.size());
-			if (std::find(SUsOccupants.begin(),
-				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
+			if (std::find(SUOccupants.begin(),
+				SUOccupants.end(), emptyBands[randomBand]) == SUOccupants.end())
 			{
-				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
-				//std::cout << SUsOccupants[i] << " ";
+				SUOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
+				//std::cout << SUOccupants[i] << " ";
 				Bands[emptyBands[randomBand]].setOccupants(SUID);
 			}
 			else
@@ -134,7 +130,7 @@ void SecondaryUser::SUsTransmitting(std::vector<Band_Details> &Bands, int SUID ,
 
 void SecondaryUser::emptyAllResult() {
 	emptyBands.clear();
-	SUsOccupants.clear();
+	SUOccupants.clear();
 	
 }
 void SecondaryUser::SuDeterministicSensing(std::vector<int> &PU)
@@ -145,29 +141,29 @@ void SecondaryUser::emptyFAandMD()
 {
 	//std::fill(NumFA.begin(), NumFA.end(), 0);
 	//std::fill(NumMD.begin(), NumMD.end(), 0);
-	FaVsSUId = 0;
-	MdVsSUId = 0;
+	FAVsSU = 0;
+	MdVsSU = 0;
 	std::fill(NumFACoop.begin(), NumFACoop.end(), 0);
 	std::fill(NumMDCoop.begin(), NumMDCoop.end(), 0);
 }
 
 void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, double &succVsTimeN, double T, int SUID)
 {
-	bool falseAlarm;
-	bool missDetection;
+	bool falseAlarmPr;
+	bool missDetectionPr;
 	for (unsigned int i = 0; i < Bands.size(); i++)
 	{
 		if (Bands[i].isEmpty(T, i)) //H0
 		{
-			falseAlarm = (rand() % 100) < (PFA * 100.0);
-			//	std::cout << falseAlarm;
-			if (!falseAlarm) 				//there is false alarm
+			falseAlarmPr = (rand() % 100) < (PFA * 100.0);
+			//	std::cout << falseAlarmPr;
+			if (!falseAlarmPr) 				//there is false alarm
 				emptyBands.push_back(i);
 		}
 		else	//H1
 		{
-			missDetection = (rand() % 100) < (PMD * 100);
-			if (missDetection)
+			missDetectionPr = (rand() % 100) < (PMD * 100);
+			if (missDetectionPr)
 			{
 				emptyBands.push_back(i);
 			}
@@ -177,10 +173,10 @@ void SecondaryUser::successfulVSTime(std::vector<DeterministicBand> &Bands, doub
 		for (int i = 0; i < numOfBandsReqForSUs; i++)				// Su occupants the band
 		{
 			int randomBand = (rand() % emptyBands.size());
-			if (std::find(SUsOccupants.begin(),
-				SUsOccupants.end(), emptyBands[randomBand]) == SUsOccupants.end())
+			if (std::find(SUOccupants.begin(),
+				SUOccupants.end(), emptyBands[randomBand]) == SUOccupants.end())
 			{
-				SUsOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
+				SUOccupants.push_back(emptyBands[randomBand]);						// Assigning is random
 				Bands[emptyBands[randomBand]].setOccupants(SUID);
 			}
 			else
@@ -200,7 +196,7 @@ void SecondaryUser::SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID,
 				SUsOccupantsCoop.end(), emptyBandsCooparitive[randomBand]) == SUsOccupantsCoop.end())
 			{
 				SUsOccupantsCoop.push_back(emptyBandsCooparitive[randomBand]);						// Assigning is random
-				//std::cout << SUsOccupants[i] << " ";
+				//std::cout << SUOccupants[i] << " ";
 				Bands[emptyBandsCooparitive[randomBand]].setOccupants(SUID);
 			}
 			else

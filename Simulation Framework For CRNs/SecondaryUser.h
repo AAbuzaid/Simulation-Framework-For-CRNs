@@ -21,7 +21,7 @@ public:
 	void SUsTxCooparitive(std::vector<Band_Details> &Bands, int SUID, std::vector<int> &emptyBandsCooparitive);
 	//To output result
 	std::vector<int> emptyBands;	// empty bands after sensing
-	std::vector<int> SUsOccupants;		//bands occupented by SU
+	std::vector<int> SUOccupants;		//bands occupented by SU
 	std::vector<int> SUsOccupantsCoop;		//bands occupented by SU
 	std::vector<int> changeLoads;
 	//std::vector<std::vector<int>> occupentsLoads;
@@ -29,8 +29,8 @@ public:
 	std::vector<double> NumMDCoop;
 	std::vector<double> currentFA;
 	std::vector<double> currentMD;
-	double FaVsSUId = 0;
-	double MdVsSUId = 0;
+	double FAVsSU = 0;
+	double MdVsSU = 0;
 
 
 
@@ -42,7 +42,7 @@ private:
 	unsigned int count = 0;
 	 int numOfBandsReqForSUs; //Number of bands for SUs 5-15
 	 int randomBand;
-	 int lInc;
+	 int loadIndex;
 	 std::vector<int> pick;
 	 bool coop;
 	 double NumFA = 0;

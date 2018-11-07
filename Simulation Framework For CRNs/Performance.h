@@ -20,7 +20,7 @@ public:
 	void outputSuccSUTrans(const std::vector<int> &succSUTrans)	const;
 	void outputPUInterference(const std::vector<double> &PUInterfere) const;
 	void outputChangingLoad(const std::vector<int> &loadsVsSucc) const;
-	//cooparitive sensing result
+	//cooperative sensing result
 	void outputFAFileCoop(const std::vector<double> &PFAvsSUCoop) const;
 	void outputMDFileCoop(const std::vector<double> &MDvsSUCoop) const;
 	void outputCollisionCoop(const std::vector<int> &Collision) const;
